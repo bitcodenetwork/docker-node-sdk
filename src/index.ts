@@ -6,15 +6,21 @@ import { ContainerList } from '../interfaces/get-container';
 import { GetContainerProp } from '../interfaces/get-container-prop';
 import { ImageList } from '../interfaces/get-image';
 import { GetImageProp } from '../interfaces/get-image-prop';
+import { GetSwarmUnlockKeyResponse } from '../interfaces/get-swarm-unlock-key-response';
+import { InitializeSwarmBody } from '../interfaces/initialize-swarm-body';
+import { InspectSwarmResponse } from '../interfaces/inspect-swarm-response';
+import { JoinSwarmBody } from '../interfaces/join-swarm-body';
+import { LeaveSwarmQuery } from '../interfaces/leave-swarm-query';
 import { RemoveContainerQuery } from '../interfaces/remove-container-query';
 import { RemoveContainerResponse } from '../interfaces/remove-container-response';
-import { StartContainerQuery } from '../interfaces/start-container-query';
-import { ConnectOptions, Utils } from './utils';
-import { StartContainerResponse } from '../interfaces/start-container-response';
-import { StopContainerResponse } from '../interfaces/stop-container-response';
-import { StopContainerQuery } from '../interfaces/stop-container-query';
-import { RestartContainerResponse } from '../interfaces/restart-container-response';
 import { RestartContainerQuery } from '../interfaces/restart-container-query';
+import { RestartContainerResponse } from '../interfaces/restart-container-response';
+import { StartContainerQuery } from '../interfaces/start-container-query';
+import { StartContainerResponse } from '../interfaces/start-container-response';
+import { StopContainerQuery } from '../interfaces/stop-container-query';
+import { StopContainerResponse } from '../interfaces/stop-container-response';
+import { UpdateSwarmProp } from '../interfaces/update-swarm-prop';
+import { ConnectOptions, Utils } from './utils';
 
 export class Dockersdk {
   constructor() {
@@ -183,5 +189,121 @@ export class Dockersdk {
     };
 
     return await Utils.connect(options);
+  }
+
+  public async inspectSwarm(): Promise<InspectSwarmResponse> {
+    const options: ConnectOptions = {
+      method: 'GET',
+      socketPath: this.socketPath,
+      path: `/${this.version}/swarm`
+    };
+
+    try {
+      return await Utils.connect(options);
+    } catch (error: any) {
+      return error.message;
+    }
+  }
+
+  public async initializeSwarm(body?: InitializeSwarmBody): Promise<string> {
+    const options: ConnectOptions = {
+      method: 'POST',
+      socketPath: this.socketPath,
+      path: `/${this.version}/swarm/init`,
+      body: body
+    };
+
+    try {
+      return await Utils.connect(options);
+    } catch (error: any) {
+      return error.message;
+    }
+  }
+
+  public async joinSwarm(body?: JoinSwarmBody): Promise<string> {
+    const options: ConnectOptions = {
+      method: 'POST',
+      socketPath: this.socketPath,
+      path: `/${this.version}/swarm/join`,
+      body: body
+    };
+
+    try {
+      return await Utils.connect(options);
+    } catch (error: any) {
+      return error.message;
+    }
+  }
+
+  public async leaveSwarm(query?: LeaveSwarmQuery): Promise<string> {
+    const queryString = new URLSearchParams();
+
+    if (query) {
+      queryString.append('force', query.force ? 'true' : 'false');
+    }
+
+    const options: ConnectOptions = {
+      method: 'POST',
+      socketPath: this.socketPath,
+      path: `/${this.version}/swarm/leave?${queryString.toString()}`,
+    };
+
+    try {
+      return await Utils.connect(options);
+    } catch (error: any) {
+      return error.message;
+    }
+  }
+
+  public async updateSwarm({ body, query }: UpdateSwarmProp): Promise<string> {
+    const queryString = new URLSearchParams();
+
+    if (query) {
+      queryString.append('version', query.version.toString());
+      queryString.append('rotateWorkerToken', query.rotateWorkerToken ? 'true' : 'false');
+      queryString.append('rotateManagerToken', query.rotateManagerToken ? 'true' : 'false');
+      queryString.append('rotateManagerUnlockKey', query.rotateManagerUnlockKey ? 'true' : 'false');
+    }
+
+    const options: ConnectOptions = {
+      method: 'POST',
+      socketPath: this.socketPath,
+      path: `/${this.version}/swarm/update?${queryString.toString()}`,
+      body: body
+    };
+
+    try {
+      return await Utils.connect(options);
+    } catch (error: any) {
+      return error.message;
+    }
+  }
+
+  public async getSwarmUnlockKey(): Promise<GetSwarmUnlockKeyResponse> {
+    const options: ConnectOptions = {
+      method: 'GET',
+      socketPath: this.socketPath,
+      path: `/${this.version}/swarm/unlockkey`
+    };
+
+    try {
+      return await Utils.connect(options);
+    } catch (error: any) {
+      return error.message;
+    }
+  }
+
+  public async unlockSwarmManager(): Promise<GetSwarmUnlockKeyResponse> {
+    const options: ConnectOptions = {
+      method: 'POST',
+      socketPath: this.socketPath,
+      path: `/${this.version}/swarm/unlock`
+    };
+
+    try {
+      return await Utils.connect(options);
+    } catch (error: any) {
+      return error.message;
+    }
   }
 }
