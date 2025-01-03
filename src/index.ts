@@ -51,13 +51,13 @@ export class Dockersdk {
   private readonly socketPath: string;
   private readonly version: string = "v1.47";
 
-  private createRequestOption(param: { method: "GET" | "POST" | "DELETE"; path: string; headers?: any; params?: any; body?: any; }): ConnectOptions {
+  private createRequestOption(param: { method: "GET" | "POST" | "DELETE"; path: string; headers?: any; query?: any; body?: any; }): ConnectOptions {
     return {
       path: `/${this.version}/${param.path}`,
       method: param.method,
       socketPath: this.socketPath,
       headers: param.headers ?? {},
-      params: param.params ?? {},
+      query: param.query ?? {},
       body: param.body ?? {}
     }
   }
@@ -66,7 +66,7 @@ export class Dockersdk {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'containers/json',
-      params: params?.query
+      query: params?.query
     });
 
     return await Utils.connect(options);
@@ -76,7 +76,7 @@ export class Dockersdk {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'containers/create',
-      params: params?.query,
+      query: params?.query,
       body: params?.body
     });
 
@@ -87,7 +87,7 @@ export class Dockersdk {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'containers/' + params.id + '/start',
-      params: params?.query,
+      query: params?.query,
     });
 
     return await Utils.connect(options);
@@ -97,7 +97,7 @@ export class Dockersdk {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'containers/' + params.id + '/stop',
-      params: params?.query,
+      query: params?.query,
     });
 
     return await Utils.connect(options);
@@ -107,7 +107,7 @@ export class Dockersdk {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'containers/' + params.id + '/restart',
-      params: params?.query,
+      query: params?.query,
     });
 
     return await Utils.connect(options);
@@ -117,7 +117,7 @@ export class Dockersdk {
     const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
       path: 'containers/' + params.id,
-      params: params?.query,
+      query: params?.query,
     });
 
     return await Utils.connect(options);
@@ -131,7 +131,7 @@ export class Dockersdk {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'images/json',
-      params: params?.query
+      query: params?.query
     });
 
     return await Utils.connect(options);
@@ -142,7 +142,7 @@ export class Dockersdk {
       method: 'POST',
       path: 'build',
       headers: params?.headers,
-      params: params?.query,
+      query: params?.query,
       body: params?.body
     });
 
@@ -153,7 +153,7 @@ export class Dockersdk {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'build/prune',
-      params: params?.query,
+      query: params?.query,
     });
 
     return await Utils.connect(options);
@@ -164,7 +164,7 @@ export class Dockersdk {
       method: 'POST',
       path: 'image/create',
       headers: params?.headers,
-      params: params?.query,
+      query: params?.query,
     });
 
     return await Utils.connect(options);
@@ -207,7 +207,7 @@ export class Dockersdk {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'swarm/leave',
-      params: params?.query
+      query: params?.query
     });
 
     return await Utils.connect(options);

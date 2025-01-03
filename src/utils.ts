@@ -26,8 +26,8 @@ export class Utils {
         headers["content-length"] = Buffer.byteLength(options.body);
       }
 
-      if (options.params) {
-        const urlParams = this.urlSearchParams(options.params);
+      if (options.query) {
+        const urlParams = this.urlQuery(options.query);
         options.path = `${options.path}?${urlParams}`;
       }
 
@@ -62,7 +62,7 @@ export class Utils {
     });
   }
 
-  static urlSearchParams(params: any): string {
+  static urlQuery(params: any): string {
     return Object.entries(params ?? {}).map(([key, value]) => `${key}=${JSON.stringify(value)}`).join('&');
   }
 }
@@ -72,6 +72,6 @@ export type ConnectOptions = {
   socketPath: string;
   path: string;
   headers?: any;
-  params?: any;
+  query?: any;
   body?: any;
 };
