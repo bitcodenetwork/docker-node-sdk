@@ -1,9 +1,11 @@
 import os from 'os';
+import { BuildImageHeader } from '../interfaces/build-image-header';
+import { BuildImageQuery } from '../interfaces/build-image-query';
 import { CreateContainerBody } from '../interfaces/create-container-body';
 import { CreateContainerQuery } from '../interfaces/create-container-query';
 import { CreateContainerResponse } from '../interfaces/create-container-response';
-import { GetContainerResponse } from '../interfaces/get-container-response';
 import { GetContainerQuery } from '../interfaces/get-container-query';
+import { GetContainerResponse } from '../interfaces/get-container-response';
 import { GetImageQuery } from '../interfaces/get-image-query';
 import { GetImageResponse } from '../interfaces/get-image-response';
 import { GetSwarmUnlockKeyResponse } from '../interfaces/get-swarm-unlock-key-response';
@@ -46,39 +48,23 @@ export class Dockersdk {
   private readonly socketPath: string;
   private readonly version: string = "v1.47";
 
-  public async getContainer({ params }: { params?: GetContainerQuery }): Promise<GetContainerResponse | string> {
-    const queryString = new URLSearchParams();
-
-    if (params) {
-      queryString.append('all', params.all ? 'true' : 'false');
-      queryString.append('limit', params.limit ? params.limit.toString() : '0');
-      queryString.append('size', params.size ? 'true' : 'false');
-      queryString.append('filters', params.filters ? JSON.stringify(params.filters) : '');
+  private createRequestOption(param: { method: "GET" | "POST" | "DELETE"; path: string; headers?: any; params?: any; body?: any; }): ConnectOptions {
+    return {
+      path: `/${this.version}/${param.path}`,
+      method: param.method,
+      socketPath: this.socketPath,
+      headers: param.headers ?? {},
+      params: param.params ?? {},
+      body: param.body ?? {}
     }
+  }
 
-    const options: ConnectOptions = {
+  public async getContainer(params?: { query?: GetContainerQuery }): Promise<GetContainerResponse | string> {
+    const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
-      socketPath: this.socketPath,
-      path: `/${this.version}/containers/json?${queryString.toString()}`
-    };
-
-    return await Utils.connect(options);
-  }
-
-  public async createContainer(body?: CreateContainerBody, query?: CreateContainerQuery): Promise<CreateContainerResponse> {
-    const queryString = new URLSearchParams();
-
-    if (query) {
-      queryString.append('name', query.name);
-      queryString.append('platform', query.platform ? query.platform : '');
-    }
-
-    const options: ConnectOptions = {
-      method: 'POST',
-      socketPath: this.socketPath,
-      path: `/${this.version}/containers/create?${queryString.toString()}`,
-      body: body
-    };
+      path: 'containers/json',
+      params: params?.query
+    });
 
     try {
       return await Utils.connect(options);
@@ -87,18 +73,13 @@ export class Dockersdk {
     }
   }
 
-  public async startContainer(id: string, query?: StartContainerQuery): Promise<StartContainerResponse> {
-    const queryString = new URLSearchParams();
-
-    if (query) {
-      queryString.append('detachKeys', query.detachKeys ? query.detachKeys : '');
-    }
-
-    const options: ConnectOptions = {
+  public async createContainer(params?: { body?: CreateContainerBody, query?: CreateContainerQuery }): Promise<CreateContainerResponse> {
+    const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
-      socketPath: this.socketPath,
-      path: `/${this.version}/containers/${id}/start?${queryString.toString()}`,
-    };
+      path: 'containers/create',
+      params: params?.query,
+      body: params?.body
+    });
 
     try {
       return await Utils.connect(options);
@@ -107,19 +88,12 @@ export class Dockersdk {
     }
   }
 
-  public async stopContainer(id: string, query?: StopContainerQuery): Promise<StopContainerResponse> {
-    const queryString = new URLSearchParams();
-
-    if (query) {
-      queryString.append('signal', query.signal ? query.signal : '');
-      queryString.append('t', query.t ? query.t.toString() : '');
-    }
-
-    const options: ConnectOptions = {
+  public async startContainer(params: { id: string, query?: StartContainerQuery }): Promise<StartContainerResponse> {
+    const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
-      socketPath: this.socketPath,
-      path: `/${this.version}/containers/${id}/stop?${queryString.toString()}`,
-    };
+      path: 'containers/' + params.id + '/start',
+      params: params?.query,
+    });
 
     try {
       return await Utils.connect(options);
@@ -128,19 +102,12 @@ export class Dockersdk {
     }
   }
 
-  public async restartContainer(id: string, query?: RestartContainerQuery): Promise<RestartContainerResponse> {
-    const queryString = new URLSearchParams();
-
-    if (query) {
-      queryString.append('signal', query.signal ? query.signal : '');
-      queryString.append('t', query.t ? query.t.toString() : '');
-    }
-
-    const options: ConnectOptions = {
+  public async stopContainer(params: { id: string, query?: StopContainerQuery }): Promise<StopContainerResponse> {
+    const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
-      socketPath: this.socketPath,
-      path: `/${this.version}/containers/${id}/restart?${queryString.toString()}`,
-    };
+      path: 'containers/' + params.id + '/stop',
+      params: params?.query,
+    });
 
     try {
       return await Utils.connect(options);
@@ -149,20 +116,26 @@ export class Dockersdk {
     }
   }
 
-  public async removeContainer(id: string, query?: RemoveContainerQuery): Promise<RemoveContainerResponse> {
-    const queryString = new URLSearchParams();
+  public async restartContainer(params: { id: string, query?: RestartContainerQuery }): Promise<RestartContainerResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'containers/' + params.id + '/restart',
+      params: params?.query,
+    });
 
-    if (query) {
-      queryString.append('v', query.v ? 'true' : 'false');
-      queryString.append('force', query.force ? 'true' : 'false');
-      queryString.append('link', query.link ? 'true' : 'false');
+    try {
+      return await Utils.connect(options);
+    } catch (error: any) {
+      return error.message;
     }
+  }
 
-    const options: ConnectOptions = {
+  public async removeContainer(params: { id: string, query?: RemoveContainerQuery }): Promise<RemoveContainerResponse> {
+    const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
-      socketPath: this.socketPath,
-      path: `/${this.version}/containers/${id}?${queryString.toString()}`,
-    };
+      path: 'containers/' + params.id,
+      params: params?.query,
+    });
 
     try {
       return await Utils.connect(options);
@@ -191,12 +164,27 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
+  public async buildImage(params: { query?: BuildImageQuery, headers?: BuildImageHeader, body: File }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'build',
+      headers: params?.headers,
+      params: params?.query,
+      body: params?.body
+    });
+
+    try {
+      return await Utils.connect(options);
+    } catch (error: any) {
+      return error.message;
+    }
+  }
+
   public async inspectSwarm(): Promise<InspectSwarmResponse> {
-    const options: ConnectOptions = {
+    const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
-      socketPath: this.socketPath,
-      path: `/${this.version}/swarm`
-    };
+      path: 'swarm',
+    });
 
     try {
       return await Utils.connect(options);
@@ -205,13 +193,12 @@ export class Dockersdk {
     }
   }
 
-  public async initializeSwarm(body?: InitializeSwarmBody): Promise<string> {
-    const options: ConnectOptions = {
+  public async initializeSwarm(params?: { body?: InitializeSwarmBody }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
-      socketPath: this.socketPath,
-      path: `/${this.version}/swarm/init`,
-      body: body
-    };
+      path: 'swarm/init',
+      body: params?.body
+    });
 
     try {
       return await Utils.connect(options);
@@ -220,13 +207,12 @@ export class Dockersdk {
     }
   }
 
-  public async joinSwarm(body?: JoinSwarmBody): Promise<string> {
-    const options: ConnectOptions = {
+  public async joinSwarm(params?: { body?: JoinSwarmBody }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
-      socketPath: this.socketPath,
-      path: `/${this.version}/swarm/join`,
-      body: body
-    };
+      path: 'swarm/join',
+      body: params?.body
+    });
 
     try {
       return await Utils.connect(options);
@@ -235,18 +221,12 @@ export class Dockersdk {
     }
   }
 
-  public async leaveSwarm(query?: LeaveSwarmQuery): Promise<string> {
-    const queryString = new URLSearchParams();
-
-    if (query) {
-      queryString.append('force', query.force ? 'true' : 'false');
-    }
-
-    const options: ConnectOptions = {
+  public async leaveSwarm(params: { query?: LeaveSwarmQuery }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
-      socketPath: this.socketPath,
-      path: `/${this.version}/swarm/leave?${queryString.toString()}`,
-    };
+      path: 'swarm/leave',
+      params: params?.query
+    });
 
     try {
       return await Utils.connect(options);
@@ -255,22 +235,12 @@ export class Dockersdk {
     }
   }
 
-  public async updateSwarm({ body, query }: UpdateSwarmProp): Promise<string> {
-    const queryString = new URLSearchParams();
-
-    if (query) {
-      queryString.append('version', query.version.toString());
-      queryString.append('rotateWorkerToken', query.rotateWorkerToken ? 'true' : 'false');
-      queryString.append('rotateManagerToken', query.rotateManagerToken ? 'true' : 'false');
-      queryString.append('rotateManagerUnlockKey', query.rotateManagerUnlockKey ? 'true' : 'false');
-    }
-
-    const options: ConnectOptions = {
+  public async updateSwarm(params: UpdateSwarmProp): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
-      socketPath: this.socketPath,
-      path: `/${this.version}/swarm/update?${queryString.toString()}`,
-      body: body
-    };
+      path: 'swarm/update',
+      body: params?.body
+    });
 
     try {
       return await Utils.connect(options);
@@ -280,11 +250,10 @@ export class Dockersdk {
   }
 
   public async getSwarmUnlockKey(): Promise<GetSwarmUnlockKeyResponse> {
-    const options: ConnectOptions = {
+    const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
-      socketPath: this.socketPath,
-      path: `/${this.version}/swarm/unlockkey`
-    };
+      path: 'swarm/unlockkey',
+    });
 
     try {
       return await Utils.connect(options);
@@ -294,11 +263,10 @@ export class Dockersdk {
   }
 
   public async unlockSwarmManager(): Promise<GetSwarmUnlockKeyResponse> {
-    const options: ConnectOptions = {
+    const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
-      socketPath: this.socketPath,
-      path: `/${this.version}/swarm/unlock`
-    };
+      path: 'swarm/unlock',
+    });
 
     try {
       return await Utils.connect(options);
