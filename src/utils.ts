@@ -3,8 +3,16 @@ import { RequestOptions } from "https";
 
 export class Utils {
   static async connect(options: ConnectOptions): Promise<any> {
-    return new Promise((resolve, reject) => {
+    try {
+      const res = await this.req(options);
+      return res
+    } catch (error: any) {
+      return error.message;
+    }
+  }
 
+  private static req(options: ConnectOptions): Promise<any> {
+    return new Promise((resolve, reject) => {
       let headers: OutgoingHttpHeaders = {
         "content-type": "application/json"
       };

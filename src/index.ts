@@ -4,6 +4,7 @@ import { BuildImageQuery } from '../interfaces/build-image-query';
 import { CreateContainerBody } from '../interfaces/create-container-body';
 import { CreateContainerQuery } from '../interfaces/create-container-query';
 import { CreateContainerResponse } from '../interfaces/create-container-response';
+import { DeleteBuilderCacheQuery } from '../interfaces/delete-builder-cache-query';
 import { GetContainerQuery } from '../interfaces/get-container-query';
 import { GetContainerResponse } from '../interfaces/get-container-response';
 import { GetImageQuery } from '../interfaces/get-image-query';
@@ -66,11 +67,7 @@ export class Dockersdk {
       params: params?.query
     });
 
-    try {
-      return await Utils.connect(options);
-    } catch (error: any) {
-      return error.message;
-    }
+    return await Utils.connect(options);
   }
 
   public async createContainer(params?: { body?: CreateContainerBody, query?: CreateContainerQuery }): Promise<CreateContainerResponse> {
@@ -81,11 +78,7 @@ export class Dockersdk {
       body: params?.body
     });
 
-    try {
-      return await Utils.connect(options);
-    } catch (error: any) {
-      return error.message;
-    }
+    return await Utils.connect(options);
   }
 
   public async startContainer(params: { id: string, query?: StartContainerQuery }): Promise<StartContainerResponse> {
@@ -95,11 +88,7 @@ export class Dockersdk {
       params: params?.query,
     });
 
-    try {
-      return await Utils.connect(options);
-    } catch (error: any) {
-      return error.message;
-    }
+    return await Utils.connect(options);
   }
 
   public async stopContainer(params: { id: string, query?: StopContainerQuery }): Promise<StopContainerResponse> {
@@ -109,11 +98,7 @@ export class Dockersdk {
       params: params?.query,
     });
 
-    try {
-      return await Utils.connect(options);
-    } catch (error: any) {
-      return error.message;
-    }
+    return await Utils.connect(options);
   }
 
   public async restartContainer(params: { id: string, query?: RestartContainerQuery }): Promise<RestartContainerResponse> {
@@ -123,11 +108,7 @@ export class Dockersdk {
       params: params?.query,
     });
 
-    try {
-      return await Utils.connect(options);
-    } catch (error: any) {
-      return error.message;
-    }
+    return await Utils.connect(options);
   }
 
   public async removeContainer(params: { id: string, query?: RemoveContainerQuery }): Promise<RemoveContainerResponse> {
@@ -137,12 +118,12 @@ export class Dockersdk {
       params: params?.query,
     });
 
-    try {
-      return await Utils.connect(options);
-    } catch (error: any) {
-      return error.message;
-    }
+    return await Utils.connect(options);
   }
+
+  // ====================
+  // Docker Image Section
+  // ====================
 
   public async getImages(params?: { query?: GetImageQuery }): Promise<GetImageResponse> {
     const options: ConnectOptions = this.createRequestOption({
@@ -163,12 +144,22 @@ export class Dockersdk {
       body: params?.body
     });
 
-    try {
-      return await Utils.connect(options);
-    } catch (error: any) {
-      return error.message;
-    }
+    return await Utils.connect(options);
   }
+
+  public async DeleteBuilderCache(params: { query?: DeleteBuilderCacheQuery }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'build/prune',
+      params: params?.query,
+    });
+
+    return await Utils.connect(options);
+  }
+
+  // ====================
+  // Docker Swarm Section
+  // ====================
 
   public async inspectSwarm(): Promise<InspectSwarmResponse> {
     const options: ConnectOptions = this.createRequestOption({
@@ -176,11 +167,7 @@ export class Dockersdk {
       path: 'swarm',
     });
 
-    try {
-      return await Utils.connect(options);
-    } catch (error: any) {
-      return error.message;
-    }
+    return await Utils.connect(options);
   }
 
   public async initializeSwarm(params?: { body?: InitializeSwarmBody }): Promise<string> {
@@ -190,11 +177,7 @@ export class Dockersdk {
       body: params?.body
     });
 
-    try {
-      return await Utils.connect(options);
-    } catch (error: any) {
-      return error.message;
-    }
+    return await Utils.connect(options);
   }
 
   public async joinSwarm(params?: { body?: JoinSwarmBody }): Promise<string> {
@@ -204,11 +187,7 @@ export class Dockersdk {
       body: params?.body
     });
 
-    try {
-      return await Utils.connect(options);
-    } catch (error: any) {
-      return error.message;
-    }
+    return await Utils.connect(options);
   }
 
   public async leaveSwarm(params: { query?: LeaveSwarmQuery }): Promise<string> {
@@ -218,11 +197,7 @@ export class Dockersdk {
       params: params?.query
     });
 
-    try {
-      return await Utils.connect(options);
-    } catch (error: any) {
-      return error.message;
-    }
+    return await Utils.connect(options);
   }
 
   public async updateSwarm(params: UpdateSwarmProp): Promise<string> {
@@ -232,11 +207,7 @@ export class Dockersdk {
       body: params?.body
     });
 
-    try {
-      return await Utils.connect(options);
-    } catch (error: any) {
-      return error.message;
-    }
+    return await Utils.connect(options);
   }
 
   public async getSwarmUnlockKey(): Promise<GetSwarmUnlockKeyResponse> {
@@ -245,11 +216,7 @@ export class Dockersdk {
       path: 'swarm/unlockkey',
     });
 
-    try {
-      return await Utils.connect(options);
-    } catch (error: any) {
-      return error.message;
-    }
+    return await Utils.connect(options);
   }
 
   public async unlockSwarmManager(): Promise<GetSwarmUnlockKeyResponse> {
@@ -258,10 +225,6 @@ export class Dockersdk {
       path: 'swarm/unlock',
     });
 
-    try {
-      return await Utils.connect(options);
-    } catch (error: any) {
-      return error.message;
-    }
+    return await Utils.connect(options);
   }
 }
