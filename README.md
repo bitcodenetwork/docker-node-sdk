@@ -7,6 +7,10 @@ For the time being, you can use the reference to the docker api to define parame
 ## Container
 - [Get Container List](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/ContainerList)
 - [Create Container](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/ContainerList)
+- [Remove Container](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/ContainerDelete)
+- [Start Container](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/ContainerStart)
+- [Stop Container](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/ContainerStop)
+- [Restart Container](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/ContainerRestart)
 
 ## Image
 - [Get Image List](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/ContainerList)

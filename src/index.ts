@@ -6,7 +6,15 @@ import { ContainerList } from '../interfaces/get-container';
 import { GetContainerProp } from '../interfaces/get-container-prop';
 import { ImageList } from '../interfaces/get-image';
 import { GetImageProp } from '../interfaces/get-image-prop';
+import { RemoveContainerQuery } from '../interfaces/remove-container-query';
+import { RemoveContainerResponse } from '../interfaces/remove-container-response';
+import { StartContainerQuery } from '../interfaces/start-container-query';
 import { ConnectOptions, Utils } from './utils';
+import { StartContainerResponse } from '../interfaces/start-container-response';
+import { StopContainerResponse } from '../interfaces/stop-container-response';
+import { StopContainerQuery } from '../interfaces/stop-container-query';
+import { RestartContainerResponse } from '../interfaces/restart-container-response';
+import { RestartContainerQuery } from '../interfaces/restart-container-query';
 
 export class Dockersdk {
   constructor() {
@@ -30,6 +38,7 @@ export class Dockersdk {
   }
 
   private readonly socketPath: string;
+  private readonly version: string = "v1.47";
 
   public async getContainer(params?: GetContainerProp): Promise<ContainerList | string> {
     const queryString = new URLSearchParams();
@@ -44,7 +53,7 @@ export class Dockersdk {
     const options: ConnectOptions = {
       method: 'GET',
       socketPath: this.socketPath,
-      path: `/v1.47/containers/json?${queryString.toString()}`
+      path: `/${this.version}/containers/json?${queryString.toString()}`
     };
 
     return await Utils.connect(options);
@@ -61,8 +70,92 @@ export class Dockersdk {
     const options: ConnectOptions = {
       method: 'POST',
       socketPath: this.socketPath,
-      path: `/v1.47/containers/create?${queryString.toString()}`,
+      path: `/${this.version}/containers/create?${queryString.toString()}`,
       body: body
+    };
+
+    try {
+      return await Utils.connect(options);
+    } catch (error: any) {
+      return error.message;
+    }
+  }
+
+  public async startContainer(id: string, query?: StartContainerQuery): Promise<StartContainerResponse> {
+    const queryString = new URLSearchParams();
+
+    if (query) {
+      queryString.append('detachKeys', query.detachKeys ? query.detachKeys : '');
+    }
+
+    const options: ConnectOptions = {
+      method: 'POST',
+      socketPath: this.socketPath,
+      path: `/${this.version}/containers/${id}/start?${queryString.toString()}`,
+    };
+
+    try {
+      return await Utils.connect(options);
+    } catch (error: any) {
+      return error.message;
+    }
+  }
+
+  public async stopContainer(id: string, query?: StopContainerQuery): Promise<StopContainerResponse> {
+    const queryString = new URLSearchParams();
+
+    if (query) {
+      queryString.append('signal', query.signal ? query.signal : '');
+      queryString.append('t', query.t ? query.t.toString() : '');
+    }
+
+    const options: ConnectOptions = {
+      method: 'POST',
+      socketPath: this.socketPath,
+      path: `/${this.version}/containers/${id}/stop?${queryString.toString()}`,
+    };
+
+    try {
+      return await Utils.connect(options);
+    } catch (error: any) {
+      return error.message;
+    }
+  }
+
+  public async restartContainer(id: string, query?: RestartContainerQuery): Promise<RestartContainerResponse> {
+    const queryString = new URLSearchParams();
+
+    if (query) {
+      queryString.append('signal', query.signal ? query.signal : '');
+      queryString.append('t', query.t ? query.t.toString() : '');
+    }
+
+    const options: ConnectOptions = {
+      method: 'POST',
+      socketPath: this.socketPath,
+      path: `/${this.version}/containers/${id}/restart?${queryString.toString()}`,
+    };
+
+    try {
+      return await Utils.connect(options);
+    } catch (error: any) {
+      return error.message;
+    }
+  }
+
+  public async removeContainer(id: string, query?: RemoveContainerQuery): Promise<RemoveContainerResponse> {
+    const queryString = new URLSearchParams();
+
+    if (query) {
+      queryString.append('v', query.v ? 'true' : 'false');
+      queryString.append('force', query.force ? 'true' : 'false');
+      queryString.append('link', query.link ? 'true' : 'false');
+    }
+
+    const options: ConnectOptions = {
+      method: 'DELETE',
+      socketPath: this.socketPath,
+      path: `/${this.version}/containers/${id}?${queryString.toString()}`,
     };
 
     try {
@@ -86,7 +179,7 @@ export class Dockersdk {
     const options: ConnectOptions = {
       method: 'GET',
       socketPath: this.socketPath,
-      path: `/v1.47/images/json?${queryString.toString()}`
+      path: `/${this.version}/images/json?${queryString.toString()}`
     };
 
     return await Utils.connect(options);
