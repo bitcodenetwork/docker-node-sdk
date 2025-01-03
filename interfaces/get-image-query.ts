@@ -1,4 +1,4 @@
-export interface GetImageProp {
+export interface GetImageQuery {
   all?: boolean;
   "shared-size"?: boolean;
   digests?: boolean;

@@ -3,9 +3,9 @@ import { CreateContainerBody } from '../interfaces/create-container-body';
 import { CreateContainerQuery } from '../interfaces/create-container-query';
 import { CreateContainerResponse } from '../interfaces/create-container-response';
 import { ContainerList } from '../interfaces/get-container';
-import { GetContainerProp } from '../interfaces/get-container-prop';
+import { GetContainerQuery } from '../interfaces/get-container-query';
 import { ImageList } from '../interfaces/get-image';
-import { GetImageProp } from '../interfaces/get-image-prop';
+import { GetImageQuery } from '../interfaces/get-image-query';
 import { GetSwarmUnlockKeyResponse } from '../interfaces/get-swarm-unlock-key-response';
 import { InitializeSwarmBody } from '../interfaces/initialize-swarm-body';
 import { InspectSwarmResponse } from '../interfaces/inspect-swarm-response';
@@ -46,7 +46,7 @@ export class Dockersdk {
   private readonly socketPath: string;
   private readonly version: string = "v1.47";
 
-  public async getContainer(params?: GetContainerProp): Promise<ContainerList | string> {
+  public async getContainer({ params }: { params?: GetContainerQuery }): Promise<ContainerList | string> {
     const queryString = new URLSearchParams();
 
     if (params) {
@@ -171,7 +171,7 @@ export class Dockersdk {
     }
   }
 
-  public async getImages(params?: GetImageProp): Promise<ImageList> {
+  public async getImages(params?: GetImageQuery): Promise<ImageList> {
     const queryString = new URLSearchParams();
 
     if (params) {

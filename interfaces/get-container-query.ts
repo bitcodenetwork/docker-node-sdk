@@ -1,4 +1,4 @@
-export interface GetContainerProp {
+export interface GetContainerQuery {
   all?: boolean;
   limit?: number;
   size?: boolean;
