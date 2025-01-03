@@ -1,8 +1,8 @@
 import os from 'os';
-import { ContainerList } from '../types/get-container';
-import { GetContainerProp } from '../types/get-container-prop';
-import { ImageList } from '../types/get-image';
-import { GetImageProp } from '../types/get-image-prop';
+import { ContainerList } from '../interfaces/get-container';
+import { GetContainerProp } from '../interfaces/get-container-prop';
+import { ImageList } from '../interfaces/get-image';
+import { GetImageProp } from '../interfaces/get-image-prop';
 import { Utils } from './utils';
 
 export class Dockersdk {
