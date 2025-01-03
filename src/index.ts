@@ -144,22 +144,12 @@ export class Dockersdk {
     }
   }
 
-  public async getImages(params?: GetImageQuery): Promise<GetImageResponse> {
-    const queryString = new URLSearchParams();
-
-    if (params) {
-      queryString.append('all', params.all ? 'true' : 'false');
-      queryString.append('shared-size', params['shared-size'] ? 'true' : 'false');
-      queryString.append('digests', params.digests ? 'true' : 'false');
-      queryString.append('manifests', params.manifests ? 'true' : 'false');
-      queryString.append('filters', params.filters ? JSON.stringify(params.filters) : '');
-    }
-
-    const options: ConnectOptions = {
+  public async getImages(params?: { query?: GetImageQuery }): Promise<GetImageResponse> {
+    const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
-      socketPath: this.socketPath,
-      path: `/${this.version}/images/json?${queryString.toString()}`
-    };
+      path: 'images/json',
+      params: params?.query
+    });
 
     return await Utils.connect(options);
   }
