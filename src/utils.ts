@@ -1,9 +1,26 @@
 import { ClientRequest, request } from "http";
 
 export class Utils {
-  static async connect(options: { method: string; socketPath: string; path: string; }): Promise<any> {
+  static async connect(options: ConnectOptions): Promise<any> {
     return new Promise((resolve, reject) => {
-      const clientRequest: ClientRequest = request(options, (res) => {
+
+      if (!options.body) {
+        options.body = {};
+      }
+
+      if (options.body) {
+        options.body = JSON.stringify(options.body);
+      }
+
+      const clientRequest: ClientRequest = request({
+        method: options.method,
+        path: options.path,
+        socketPath: options.socketPath,
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': options.body ? Buffer.byteLength(options.body) : 0
+        }
+      }, (res) => {
         res.setEncoding('utf8');
 
         let rawData = '';
@@ -13,6 +30,11 @@ export class Utils {
         });
 
         res.on('end', () => {
+          if (res.statusCode !== 200) {
+            reject(new Error(rawData));
+            return;
+          }
+
           resolve(JSON.parse(rawData));
         });
       });
@@ -21,7 +43,12 @@ export class Utils {
         reject(e);
       });
 
+      // Send the POST data
+      clientRequest.write(options.body);
+
       clientRequest.end();
     });
   }
 }
+
+export type ConnectOptions = { method: string; socketPath: string; path: string; body?: any };
