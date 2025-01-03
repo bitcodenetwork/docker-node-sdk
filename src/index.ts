@@ -1,6 +1,8 @@
 import os from 'os';
 import { ContainerList } from '../types/get-container';
 import { GetContainerProp } from '../types/get-container-prop';
+import { ImageList } from '../types/get-image';
+import { GetImageProp } from '../types/get-image-prop';
 import { Utils } from './utils';
 
 export class Dockersdk {
@@ -26,19 +28,40 @@ export class Dockersdk {
 
   private readonly socketPath: string;
 
-  public async getContainer({ all, limit, size, filters }: GetContainerProp): Promise<ContainerList> {
-
+  public async getContainer(params?: GetContainerProp): Promise<ContainerList> {
     const queryString = new URLSearchParams();
 
-    queryString.append('all', all ? 'true' : 'false');
-    queryString.append('limit', limit ? limit.toString() : '0');
-    queryString.append('size', size ? 'true' : 'false');
-    queryString.append('filters', filters ? JSON.stringify(filters) : '');
+    if (params) {
+      queryString.append('all', params.all ? 'true' : 'false');
+      queryString.append('limit', params.limit ? params.limit.toString() : '0');
+      queryString.append('size', params.size ? 'true' : 'false');
+      queryString.append('filters', params.filters ? JSON.stringify(params.filters) : '');
+    }
 
     const options = {
       method: 'GET',
       socketPath: this.socketPath,
       path: `/v1.26/containers/json?${queryString.toString()}`
+    };
+
+    return await Utils.connect(options);
+  }
+
+  public async getImages(params?: GetImageProp): Promise<ImageList> {
+    const queryString = new URLSearchParams();
+
+    if (params) {
+      queryString.append('all', params.all ? 'true' : 'false');
+      queryString.append('shared-size', params['shared-size'] ? 'true' : 'false');
+      queryString.append('digests', params.digests ? 'true' : 'false');
+      queryString.append('manifests', params.manifests ? 'true' : 'false');
+      queryString.append('filters', params.filters ? JSON.stringify(params.filters) : '');
+    }
+
+    const options = {
+      method: 'GET',
+      socketPath: this.socketPath,
+      path: `/v1.26/images/json?${queryString.toString()}`
     };
 
     return await Utils.connect(options);
