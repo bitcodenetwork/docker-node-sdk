@@ -24,6 +24,8 @@ import { StopContainerQuery } from '../interfaces/stop-container-query';
 import { StopContainerResponse } from '../interfaces/stop-container-response';
 import { UpdateSwarmProp } from '../interfaces/update-swarm-prop';
 import { ConnectOptions, Utils } from './utils';
+import { CreateImageHeader } from '../interfaces/create-image-header';
+import { CreateImageQuery } from '../interfaces/create-image-query';
 
 export class Dockersdk {
   constructor() {
@@ -151,6 +153,17 @@ export class Dockersdk {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'build/prune',
+      params: params?.query,
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async CreateImage(params: { query?: CreateImageQuery, headers?: CreateImageHeader, body?: File }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'image/create',
+      headers: params?.headers,
       params: params?.query,
     });
 
