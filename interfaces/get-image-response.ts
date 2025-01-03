@@ -1,4 +1,4 @@
-export type ImageList = Image[]
+export type GetImageResponse = Image[]
 
 export interface Image {
   Id: string
