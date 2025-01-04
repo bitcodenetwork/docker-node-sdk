@@ -182,3 +182,35 @@ Configs are application configurations that can be used by services. Swarm mode 
 - [Inspect a config](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Config/operation/ConfigInspect)
 - [Delete a config](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Config/operation/ConfigDelete)
 - [Update a Config](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Config/operation/ConfigUpdate)
+
+## Plugins (upcoming)
+
+- [List plugins](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Plugin)
+- [Get plugin privileges](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Plugin/operation/GetPluginPrivileges)
+- [Install a plugin](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Plugin/operation/PluginPull)
+- [Inspect a plugin](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Plugin/operation/PluginInspect)
+- [Remove a plugin](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Plugin/operation/PluginDelete)
+- [Enable a plugin](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Plugin/operation/PluginEnable)
+- [Disable a plugin](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Plugin/operation/PluginDisable)
+- [Upgrade a plugin](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Plugin/operation/PluginUpgrade)
+- [Create a plugin](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Plugin/operation/PluginCreate)
+- [Push a plugin](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Plugin/operation/PluginPush)
+- [Configure a plugin](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Plugin/operation/PluginSet)
+
+## System (upcoming)
+
+- [Check auth configuration](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/System/operation/SystemAuth)
+- [Get system information](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/System/operation/SystemInfo)
+- [Get version](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/System/operation/SystemVersion)
+- [Ping](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/System/operation/SystemPing)
+- [Ping](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/System/operation/SystemPingHead)
+- [Monitor events](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/System/operation/SystemEvents)
+- [Get data usage information](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/System/operation/SystemDataUsage)
+
+## Distribution (upcoming)
+
+- [Get image information from the registry](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Distribution)
+
+## Session
+
+- [Initialize interactive session](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Session)
