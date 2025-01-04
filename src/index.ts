@@ -6,6 +6,8 @@ import { ConnectNetworkBody } from '../interfaces/connect-network-body';
 import { CreateContainerBody } from '../interfaces/create-container-body';
 import { CreateContainerQuery } from '../interfaces/create-container-query';
 import { CreateContainerResponse } from '../interfaces/create-container-response';
+import { CreateExecBody } from '../interfaces/create-exec-body';
+import { CreateExecResponse } from '../interfaces/create-exec-response';
 import { CreateImageFromContainerBody } from '../interfaces/create-image-from-container-body';
 import { CreateImageFromContainerQuery } from '../interfaces/create-image-from-container-query';
 import { CreateImageFromContainerResponse } from '../interfaces/create-image-from-container-response';
@@ -21,6 +23,8 @@ import { DeleteUnusedImagesQuery } from '../interfaces/delete-unused-images-quer
 import { DeleteUnusedImagesResponse } from '../interfaces/delete-unused-images-response';
 import { DeleteUnusedNetworkQuery } from '../interfaces/delete-unused-netowrk-query';
 import { DeleteUnusedNetworkResponse } from '../interfaces/delete-unused-netowrk-response';
+import { DeleteUnusedVolumeQuery } from '../interfaces/delete-unused-volume-query';
+import { DeleteUnusedVolumeResponse } from '../interfaces/delete-unused-volume-repsonse';
 import { DisconnectNetworkBody } from '../interfaces/disconnect-network-body';
 import { ExportSeveralImagesQuery } from '../interfaces/export-several-images-query';
 import { ExtractArchiveFileQuery } from '../interfaces/extract-archive-file-query';
@@ -39,10 +43,12 @@ import { ImportImageQuery } from '../interfaces/import-image-query';
 import { InitializeSwarmBody } from '../interfaces/initialize-swarm-body';
 import { InspectContainerQuery } from '../interfaces/inspect-container-query';
 import { InspectContainerResponse } from '../interfaces/inspect-container-response';
+import { InspectExecResponse } from '../interfaces/inspect-exec-response';
 import { InspectImageResponse } from '../interfaces/inspect-image-response';
 import { InspectNetworkQuery } from '../interfaces/inspect-network-query';
 import { InspectNetworkResponse } from '../interfaces/inspect-network-response';
 import { InspectSwarmResponse } from '../interfaces/inspect-swarm-response';
+import { InspectVolumeResponse } from '../interfaces/inspect-volume-response';
 import { JoinSwarmBody } from '../interfaces/join-swarm-body';
 import { KillContainerQuery } from '../interfaces/kill-container-query';
 import { LeaveSwarmQuery } from '../interfaces/leave-swarm-query';
@@ -57,29 +63,28 @@ import { PushImageQuery } from '../interfaces/push-image-query';
 import { RemoveContainerQuery } from '../interfaces/remove-container-query';
 import { RemoveContainerResponse } from '../interfaces/remove-container-response';
 import { RemoveImageQuery } from '../interfaces/remove-image-query';
+import { RemoveVolumeQuery } from '../interfaces/remove-volume-query';
 import { RenameContainerQuery } from '../interfaces/rename-container-query';
 import { ResizeContainerTtyQuery } from '../interfaces/resize-container-tty-query';
+import { ResizeExecQuery } from '../interfaces/resize-exec-query';
 import { RestartContainerQuery } from '../interfaces/restart-container-query';
 import { RestartContainerResponse } from '../interfaces/restart-container-response';
 import { SearchImageQuery } from '../interfaces/search-image-query';
 import { SearchImageResponse } from '../interfaces/search-image-response';
 import { StartContainerQuery } from '../interfaces/start-container-query';
 import { StartContainerResponse } from '../interfaces/start-container-response';
+import { StartExecBody } from '../interfaces/start-exec-body';
 import { StopContainerQuery } from '../interfaces/stop-container-query';
 import { StopContainerResponse } from '../interfaces/stop-container-response';
 import { TagImageQuery } from '../interfaces/tag-image-query';
 import { UpdateContainerBody } from '../interfaces/update-container-body';
 import { UpdateContainerResponse } from '../interfaces/update-container-response';
 import { UpdateSwarmProp } from '../interfaces/update-swarm-prop';
+import { UpdateVolumeBody } from '../interfaces/update-volume-body';
+import { UpdateVolumeQuery } from '../interfaces/update-volume-query';
 import { WaitContainerQuery } from '../interfaces/wait-container-query';
 import { WaitContainerResponse } from '../interfaces/wait-container-response';
 import { ConnectOptions, Utils } from './utils';
-import { InspectVolumeResponse } from '../interfaces/inspect-volume-response';
-import { UpdateVolumeQuery } from '../interfaces/update-volume-query';
-import { UpdateVolumeBody } from '../interfaces/update-volume-body';
-import { RemoveVolumeQuery } from '../interfaces/remove-volume-query';
-import { DeleteUnusedVolumeQuery } from '../interfaces/delete-unused-volume-query';
-import { DeleteUnusedVolumeResponse } from '../interfaces/delete-unused-volume-repsonse';
 
 export class Dockersdk {
   constructor() {
@@ -621,7 +626,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public inspectVolume(params: { id: string }): Promise<InspectVolumeResponse> {
+  public async inspectVolume(params: { id: string }): Promise<InspectVolumeResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'volumes/' + params.id
@@ -630,7 +635,7 @@ export class Dockersdk {
     return Utils.connect(options);
   }
 
-  public updateVolume(params: { id: string, query: UpdateVolumeQuery, body?: UpdateVolumeBody }): Promise<void> {
+  public async updateVolume(params: { id: string, query: UpdateVolumeQuery, body?: UpdateVolumeBody }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'volumes/' + params.id,
@@ -641,7 +646,7 @@ export class Dockersdk {
     return Utils.connect(options);
   }
 
-  public removeVolume(params: { id: string, query?: RemoveVolumeQuery }): Promise<void> {
+  public async removeVolume(params: { id: string, query?: RemoveVolumeQuery }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
       path: 'volumes/' + params.id,
@@ -651,7 +656,7 @@ export class Dockersdk {
     return Utils.connect(options);
   }
 
-  public deleteUnusedVolume(params: { query?: DeleteUnusedVolumeQuery }): Promise<DeleteUnusedVolumeResponse> {
+  public async deleteUnusedVolume(params: { query?: DeleteUnusedVolumeQuery }): Promise<DeleteUnusedVolumeResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'volumes/prune',
@@ -659,6 +664,49 @@ export class Dockersdk {
     });
 
     return Utils.connect(options);
+  }
+
+  // ===================
+  // Docker Exec Section
+  // ===================
+
+  public async createExec(params: { id: string, body?: CreateExecBody }): Promise<CreateExecResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'containers/' + params.id + '/exec',
+      body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async startExec(params: { id: string, body?: StartExecBody }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'exec/' + params.id + '/start',
+      body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async resizeExec(params: { id: string, query: ResizeExecQuery }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'exec/' + params.id + '/resize',
+      query: params.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async inspectExec(params: { id: string }): Promise<InspectExecResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'exec/' + params.id + '/json'
+    });
+
+    return await Utils.connect(options);
   }
 
   // ====================

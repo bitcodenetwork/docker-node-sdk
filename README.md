@@ -45,6 +45,10 @@ DOCKERSDK_SOCKET_PATH="socket/location/docker.sock"
 For the time being, you can use the reference to the docker api to define parameters in the SDK, you can adjust the parameters used with the parameters in the SDK.
 
 ## Container
+Returns a list of containers. For details on the format, see the [inspect endpoint](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/ContainerInspect).
+
+Note that it uses a different, smaller representation of a container than inspecting a single container. For example, the list of linked containers is not propagated.
+
 - [Get Container List](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/ContainerList)
 - [Create Container](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/ContainerList)
 - [Inspect a container](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/ContainerInspect)
@@ -72,6 +76,8 @@ For the time being, you can use the reference to the docker api to define parame
 - [Delete stopped containers](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/ContainerPrune)
 
 ## Image
+Returns a list of images on the server. Note that it uses a different, smaller representation of an image than inspecting a single image.
+
 - [Get Image List](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/ContainerList)
 - [Build an image](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImageBuild)
 - [Delete builder cache](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/BuildPrune)
@@ -89,6 +95,8 @@ For the time being, you can use the reference to the docker api to define parame
 - [Import images](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImageLoad)
 
 ## Network
+Networks are user-defined networks that containers can be attached to. See the [networking documentation](https://docs.docker.com/engine/network/) for more information.
+
 - [List networks](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Network/operation/NetworkList)
 - [Inspect a network](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Network/operation/NetworkInspect)
 - [Remove a network](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Network/operation/NetworkDelete)
@@ -98,6 +106,8 @@ For the time being, you can use the reference to the docker api to define parame
 - [Delete unused networks](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Network/operation/NetworkPrune)
 
 ## Volume
+Create and manage persistent storage that can be attached to containers.
+
 - [List volumes](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Volume/operation/VolumeList)
 - [Create a volume](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Volume/operation/VolumeCreate)
 - [Inspect a volume](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Volume/operation/VolumeInspect)
@@ -105,7 +115,18 @@ For the time being, you can use the reference to the docker api to define parame
 - [Remove a volume](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Volume/operation/VolumeDelete)
 - [Delete unused volumes](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Volume/operation/VolumePrune)
 
+## Exec
+Run new commands inside running containers. Refer to the [command-line reference](https://docs.docker.com/reference/cli/docker/container/exec/) for more information.
+To exec a command in a container, you first need to create an exec instance, then start it. These two API endpoints are wrapped up in a single command-line command, `docker exec`.
+
+- [Create an exec instance](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Exec/operation/ContainerExec)
+- [Start an exec instance](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Exec/operation/ExecStart)
+- [Resize an exec instance](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Exec/operation/ExecResize)
+- [Inspect an exec instance](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Exec/operation/ExecInspect)
+
 ## Swarm
+Engines can be clustered together in a swarm. Refer to the swarm mode documentation for more information.
+
 - [Inspect Swarm](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Swarm/operation/SwarmInspect)
 - [Initialize Swarm](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Swarm/operation/SwarmInit)
 - [Join Existing Swarm](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Swarm/operation/SwarmJoin)
