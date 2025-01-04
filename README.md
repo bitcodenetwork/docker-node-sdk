@@ -54,6 +54,20 @@ For the time being, you can use the reference to the docker api to define parame
 
 ## Image
 - [Get Image List](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/ContainerList)
+- [Build an image](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImageBuild)
+- [Delete builder cache](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/BuildPrune)
+- [Create an image](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImageCreate)
+- [Inspect an image](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImageInspect)
+- [Get the history of an image](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImageHistory)
+- [Push an image](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImagePush)
+- [Tag an image](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImageTag)
+- [Remove an image](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImageDelete)
+- [Search images](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImageSearch)
+- [Delete unused images](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImagePrune)
+- [Create a new image from a container](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImageCommit)
+- [Export an image](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImageGet)
+- [Export several images](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImageGetAll)
+- [Import images](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImageLoad)
 
 ## Swarm
 - [Inspect Swarm](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Swarm/operation/SwarmInspect)
