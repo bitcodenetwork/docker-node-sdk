@@ -3,6 +3,8 @@ import { AttachContainerQuery } from '../interfaces/attach-container-query';
 import { BuildImageHeader } from '../interfaces/build-image-header';
 import { BuildImageQuery } from '../interfaces/build-image-query';
 import { ConnectNetworkBody } from '../interfaces/connect-network-body';
+import { CreateConfigBody } from '../interfaces/create-config-body';
+import { CreateConfigResponse } from '../interfaces/create-config-response';
 import { CreateContainerBody } from '../interfaces/create-container-body';
 import { CreateContainerQuery } from '../interfaces/create-container-query';
 import { CreateContainerResponse } from '../interfaces/create-container-response';
@@ -49,6 +51,7 @@ import { GetTaskLogsQuery } from '../interfaces/get-task-logs';
 import { ImageHistoryResponse } from '../interfaces/image-history-response';
 import { ImportImageQuery } from '../interfaces/import-image-query';
 import { InitializeSwarmBody } from '../interfaces/initialize-swarm-body';
+import { InspectConfigResponse } from '../interfaces/inspect-config-response';
 import { InspectContainerQuery } from '../interfaces/inspect-container-query';
 import { InspectContainerResponse } from '../interfaces/inspect-container-response';
 import { InspectExecResponse } from '../interfaces/inspect-exec-response';
@@ -65,6 +68,8 @@ import { InspectVolumeResponse } from '../interfaces/inspect-volume-response';
 import { JoinSwarmBody } from '../interfaces/join-swarm-body';
 import { KillContainerQuery } from '../interfaces/kill-container-query';
 import { LeaveSwarmQuery } from '../interfaces/leave-swarm-query';
+import { ListConfigQuery } from '../interfaces/list-config-query';
+import { ListConfigResponse } from '../interfaces/list-config-response';
 import { ListNetworkQuery } from '../interfaces/list-network-query';
 import { ListNetworkResponse } from '../interfaces/list-network-response';
 import { ListNodeQuery } from '../interfaces/list-node-query';
@@ -114,6 +119,8 @@ import { UpdateVolumeQuery } from '../interfaces/update-volume-query';
 import { WaitContainerQuery } from '../interfaces/wait-container-query';
 import { WaitContainerResponse } from '../interfaces/wait-container-response';
 import { ConnectOptions, Utils } from './utils';
+import { UpdateConfigQuery } from '../interfaces/update-config-query';
+import { UpdateConfigBody } from '../interfaces/update-config-body';
 
 export class Dockersdk {
   constructor() {
@@ -998,6 +1005,59 @@ export class Dockersdk {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'secrets/' + params.id,
+      query: params.query,
+      body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  // ==============
+  // Config Section
+  // ==============
+
+  public async listConfig(params?: { query?: ListConfigQuery }): Promise<ListConfigResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'configs',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async createConfig(params: { body?: CreateConfigBody }): Promise<CreateConfigResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'configs/create',
+      body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async inspectConfig(params: { id: string }): Promise<InspectConfigResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'configs/' + params.id
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async deleteConfig(params: { id: string }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'DELETE',
+      path: 'configs/' + params.id
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async updateConfig(params: { id: string, query: UpdateConfigQuery, body?: UpdateConfigBody }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'configs/' + params.id,
       query: params.query,
       body: params?.body
     });
