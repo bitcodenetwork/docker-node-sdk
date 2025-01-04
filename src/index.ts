@@ -91,6 +91,18 @@ import { InspectNodeResponse } from '../interfaces/inspect-node-response';
 import { DeleteNodeQuery } from '../interfaces/delete-node-query';
 import { UpdateNodeQuery } from '../interfaces/update-node-query';
 import { UpdateNodeBody } from '../interfaces/update-node-body';
+import { ListServiceResponse } from '../interfaces/list-service-response';
+import { ListServiceQuery } from '../interfaces/list-service-query';
+import { CreateServiceHeader } from '../interfaces/create-service-header';
+import { CreateServiceBody } from '../interfaces/create-service-body';
+import { CreateServiceResponse } from '../interfaces/create-service-response';
+import { InspectServiceQuery } from '../interfaces/inspect-service-query';
+import { InspectServiceResponse } from '../interfaces/inspect-service-response';
+import { UpdateServiceHeader } from '../interfaces/update-service-header';
+import { UpdateServiceQuery } from '../interfaces/update-service-query';
+import { UpdateServiceBody } from '../interfaces/update-service-body';
+import { UpdateServiceResponse } from '../interfaces/update-service-response';
+import { GetServiceLogsQuery } from '../interfaces/get-service-log-query';
 
 export class Dockersdk {
   constructor() {
@@ -825,6 +837,72 @@ export class Dockersdk {
       path: 'nodes/' + params.id,
       query: params.query,
       body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  // ======================
+  // Docker Service Section
+  // ======================
+
+  public async listService(params?: { query?: ListServiceQuery }): Promise<ListServiceResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'services',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async createService(params: { headers?: CreateServiceHeader, body?: CreateServiceBody }): Promise<CreateServiceResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'services/create',
+      headers: params?.headers,
+      body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async inspectService(params: { id: string, query?: InspectServiceQuery }): Promise<InspectServiceResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'services/' + params.id,
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async deleteService(params: { id: string }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'DELETE',
+      path: 'services/' + params.id
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async updateService(params: { id: string, headers: UpdateServiceHeader, query?: UpdateServiceQuery, body?: UpdateServiceBody }): Promise<UpdateServiceResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'services/' + params.id,
+      headers: params?.headers,
+      query: params?.query,
+      body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async getServiceLogs(params: { id: string, query?: GetServiceLogsQuery }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'services/' + params.id + '/logs',
+      query: params?.query
     });
 
     return await Utils.connect(options);
