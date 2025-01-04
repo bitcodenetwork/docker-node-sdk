@@ -103,6 +103,10 @@ import { UpdateServiceQuery } from '../interfaces/update-service-query';
 import { UpdateServiceBody } from '../interfaces/update-service-body';
 import { UpdateServiceResponse } from '../interfaces/update-service-response';
 import { GetServiceLogsQuery } from '../interfaces/get-service-log-query';
+import { ListTaskQuery } from '../interfaces/list-task-query';
+import { ListTaskResponse } from '../interfaces/list-task-response';
+import { InspectTaskResponse } from '../interfaces/inspect-task-response';
+import { GetTaskLogsQuery } from '../interfaces/get-task-logs';
 
 export class Dockersdk {
   constructor() {
@@ -902,6 +906,39 @@ export class Dockersdk {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'services/' + params.id + '/logs',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  // ===========
+  // Docker Task
+  // ===========
+
+  public async listTask(params?: { query?: ListTaskQuery }): Promise<ListTaskResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'tasks',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async inspectTask(params: { id: string }): Promise<InspectTaskResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'tasks/' + params.id,
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async getTaskLogs(params: { id: string, query?: GetTaskLogsQuery }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'tasks/' + params.id + '/logs',
       query: params?.query
     });
 

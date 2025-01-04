@@ -152,3 +152,10 @@ Services are the definitions of tasks to run on a swarm. Swarm mode must be enab
 - [Delete a service](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Service/operation/ServiceDelete)
 - [Update a service](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Service/operation/ServiceUpdate)
 - [Get service logs](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Service/operation/ServiceLogs)
+
+## Tasks
+A task is a container running on a swarm. It is the atomic scheduling unit of swarm. Swarm mode must be enabled for these endpoints to work.
+
+- [List tasks](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Task/operation/TaskList)
+- [Inspect a task](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Task/operation/TaskInspect)
+- [Get task logs](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Task/operation/TaskLogs)
