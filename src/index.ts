@@ -1,6 +1,8 @@
 import os from 'os';
+import { AttachContainerQuery } from '../interfaces/attach-container-query';
 import { BuildImageHeader } from '../interfaces/build-image-header';
 import { BuildImageQuery } from '../interfaces/build-image-query';
+import { ConnectNetworkBody } from '../interfaces/connect-network-body';
 import { CreateContainerBody } from '../interfaces/create-container-body';
 import { CreateContainerQuery } from '../interfaces/create-container-query';
 import { CreateContainerResponse } from '../interfaces/create-container-response';
@@ -9,11 +11,21 @@ import { CreateImageFromContainerQuery } from '../interfaces/create-image-from-c
 import { CreateImageFromContainerResponse } from '../interfaces/create-image-from-container-response';
 import { CreateImageHeader } from '../interfaces/create-image-header';
 import { CreateImageQuery } from '../interfaces/create-image-query';
+import { CreateNetworkBody } from '../interfaces/create-network-body';
+import { CreateNetworkResponse } from '../interfaces/create-network-response';
+import { CreateVolumeBody } from '../interfaces/create-volume-body';
+import { CreateVolumeResponse } from '../interfaces/create-volume-response';
 import { DeleteBuilderCacheQuery } from '../interfaces/delete-builder-cache-query';
+import { DeleteStoppedContainerQuery } from '../interfaces/delete-stopped-container-query';
 import { DeleteUnusedImagesQuery } from '../interfaces/delete-unused-images-query';
 import { DeleteUnusedImagesResponse } from '../interfaces/delete-unused-images-response';
+import { DeleteUnusedNetworkQuery } from '../interfaces/delete-unused-netowrk-query';
+import { DeleteUnusedNetworkResponse } from '../interfaces/delete-unused-netowrk-response';
+import { DisconnectNetworkBody } from '../interfaces/disconnect-network-body';
 import { ExportSeveralImagesQuery } from '../interfaces/export-several-images-query';
+import { ExtractArchiveFileQuery } from '../interfaces/extract-archive-file-query';
 import { GetContainerChangesResponse } from '../interfaces/get-container-change-response';
+import { GetContainerFileInformationQuery } from '../interfaces/get-container-file-information';
 import { GetContainerLogsQuery } from '../interfaces/get-container-log-query';
 import { GetContainerQuery } from '../interfaces/get-container-query';
 import { GetContainerResponse } from '../interfaces/get-container-response';
@@ -28,16 +40,25 @@ import { InitializeSwarmBody } from '../interfaces/initialize-swarm-body';
 import { InspectContainerQuery } from '../interfaces/inspect-container-query';
 import { InspectContainerResponse } from '../interfaces/inspect-container-response';
 import { InspectImageResponse } from '../interfaces/inspect-image-response';
+import { InspectNetworkQuery } from '../interfaces/inspect-network-query';
+import { InspectNetworkResponse } from '../interfaces/inspect-network-response';
 import { InspectSwarmResponse } from '../interfaces/inspect-swarm-response';
 import { JoinSwarmBody } from '../interfaces/join-swarm-body';
+import { KillContainerQuery } from '../interfaces/kill-container-query';
 import { LeaveSwarmQuery } from '../interfaces/leave-swarm-query';
+import { ListNetworkQuery } from '../interfaces/list-network-query';
+import { ListNetworkResponse } from '../interfaces/list-network-response';
 import { ListProcessesRunningInsideContainerQuery } from '../interfaces/list-processes-running-inside-container-query';
 import { ListProcessesRunningInsideContainerResponse } from '../interfaces/list-processes-running-inside-container-response';
+import { ListVolumeQuery } from '../interfaces/list-volume-query';
+import { ListVolumeResponse } from '../interfaces/list-volume-response';
 import { PushImageHeader } from '../interfaces/push-image-header';
 import { PushImageQuery } from '../interfaces/push-image-query';
 import { RemoveContainerQuery } from '../interfaces/remove-container-query';
 import { RemoveContainerResponse } from '../interfaces/remove-container-response';
 import { RemoveImageQuery } from '../interfaces/remove-image-query';
+import { RenameContainerQuery } from '../interfaces/rename-container-query';
+import { ResizeContainerTtyQuery } from '../interfaces/resize-container-tty-query';
 import { RestartContainerQuery } from '../interfaces/restart-container-query';
 import { RestartContainerResponse } from '../interfaces/restart-container-response';
 import { SearchImageQuery } from '../interfaces/search-image-query';
@@ -47,29 +68,18 @@ import { StartContainerResponse } from '../interfaces/start-container-response';
 import { StopContainerQuery } from '../interfaces/stop-container-query';
 import { StopContainerResponse } from '../interfaces/stop-container-response';
 import { TagImageQuery } from '../interfaces/tag-image-query';
-import { UpdateSwarmProp } from '../interfaces/update-swarm-prop';
-import { ConnectOptions, Utils } from './utils';
-import { ResizeContainerTtyQuery } from '../interfaces/resize-container-tty-query';
-import { KillContainerQuery } from '../interfaces/kill-container-query';
 import { UpdateContainerBody } from '../interfaces/update-container-body';
 import { UpdateContainerResponse } from '../interfaces/update-container-response';
-import { RenameContainerQuery } from '../interfaces/rename-container-query';
-import { AttachContainerQuery } from '../interfaces/attach-container-query';
+import { UpdateSwarmProp } from '../interfaces/update-swarm-prop';
 import { WaitContainerQuery } from '../interfaces/wait-container-query';
 import { WaitContainerResponse } from '../interfaces/wait-container-response';
-import { GetContainerFileInformationQuery } from '../interfaces/get-container-file-information';
-import { ExtractArchiveFileQuery } from '../interfaces/extract-archive-file-query';
-import { DeleteStoppedContainerQuery } from '../interfaces/delete-stopped-container-query';
-import { ListNetworkQuery } from '../interfaces/list-network-query';
-import { ListNetworkResponse } from '../interfaces/list-network-response';
-import { InspectNetworkQuery } from '../interfaces/inspect-network-query';
-import { InspectNetworkResponse } from '../interfaces/inspect-network-response';
-import { CreateNetworkBody } from '../interfaces/create-network-body';
-import { CreateNetworkResponse } from '../interfaces/create-network-response';
-import { ConnectNetworkBody } from '../interfaces/connect-network-body';
-import { DisconnectNetworkBody } from '../interfaces/disconnect-network-body';
-import { DeleteUnusedNetworkQuery } from '../interfaces/delete-unused-netowrk-query';
-import { DeleteUnusedNetworkResponse } from '../interfaces/delete-unused-netowrk-response';
+import { ConnectOptions, Utils } from './utils';
+import { InspectVolumeResponse } from '../interfaces/inspect-volume-response';
+import { UpdateVolumeQuery } from '../interfaces/update-volume-query';
+import { UpdateVolumeBody } from '../interfaces/update-volume-body';
+import { RemoveVolumeQuery } from '../interfaces/remove-volume-query';
+import { DeleteUnusedVolumeQuery } from '../interfaces/delete-unused-volume-query';
+import { DeleteUnusedVolumeResponse } from '../interfaces/delete-unused-volume-repsonse';
 
 export class Dockersdk {
   constructor() {
@@ -585,6 +595,70 @@ export class Dockersdk {
     });
 
     return await Utils.connect(options);
+  }
+
+  // =====================
+  // Docker Volume Section
+  // =====================
+
+  public async listVolume(params?: { query?: ListVolumeQuery }): Promise<ListVolumeResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'volumes',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async createVolume(params: { body?: CreateVolumeBody }): Promise<CreateVolumeResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'volumes/create',
+      body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public inspectVolume(params: { id: string }): Promise<InspectVolumeResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'volumes/' + params.id
+    });
+
+    return Utils.connect(options);
+  }
+
+  public updateVolume(params: { id: string, query: UpdateVolumeQuery, body?: UpdateVolumeBody }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'volumes/' + params.id,
+      query: params.query,
+      body: params?.body
+    });
+
+    return Utils.connect(options);
+  }
+
+  public removeVolume(params: { id: string, query?: RemoveVolumeQuery }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'DELETE',
+      path: 'volumes/' + params.id,
+      query: params?.query
+    });
+
+    return Utils.connect(options);
+  }
+
+  public deleteUnusedVolume(params: { query?: DeleteUnusedVolumeQuery }): Promise<DeleteUnusedVolumeResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'volumes/prune',
+      query: params?.query
+    });
+
+    return Utils.connect(options);
   }
 
   // ====================

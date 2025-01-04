@@ -97,6 +97,14 @@ For the time being, you can use the reference to the docker api to define parame
 - [Disconnect a container from a network](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Network/operation/NetworkDisconnect)
 - [Delete unused networks](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Network/operation/NetworkPrune)
 
+## Volume
+- [List volumes](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Volume/operation/VolumeList)
+- [Create a volume](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Volume/operation/VolumeCreate)
+- [Inspect a volume](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Volume/operation/VolumeInspect)
+- [Update a volume. Valid only for Swarm cluster volumes](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Volume/operation/VolumeUpdate)
+- [Remove a volume](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Volume/operation/VolumeDelete)
+- [Delete unused volumes](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Volume/operation/VolumePrune)
+
 ## Swarm
 - [Inspect Swarm](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Swarm/operation/SwarmInspect)
 - [Initialize Swarm](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Swarm/operation/SwarmInit)
