@@ -85,6 +85,12 @@ import { UpdateVolumeQuery } from '../interfaces/update-volume-query';
 import { WaitContainerQuery } from '../interfaces/wait-container-query';
 import { WaitContainerResponse } from '../interfaces/wait-container-response';
 import { ConnectOptions, Utils } from './utils';
+import { ListNodeQuery } from '../interfaces/list-node-query';
+import { ListNodeResponse } from '../interfaces/list-node-response';
+import { InspectNodeResponse } from '../interfaces/inspect-node-response';
+import { DeleteNodeQuery } from '../interfaces/delete-node-query';
+import { UpdateNodeQuery } from '../interfaces/update-node-query';
+import { UpdateNodeBody } from '../interfaces/update-node-body';
 
 export class Dockersdk {
   constructor() {
@@ -775,6 +781,50 @@ export class Dockersdk {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'swarm/unlock',
+    });
+
+    return await Utils.connect(options);
+  }
+
+  // ===================
+  // Docker Node Section
+  // ===================
+
+  public async listNode(params?: { query?: ListNodeQuery }): Promise<ListNodeResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'nodes',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async inspectNode(params: { id: string }): Promise<InspectNodeResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'nodes/' + params.id
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async deleteNode(params: { id: string, query?: DeleteNodeQuery }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'DELETE',
+      path: 'nodes/' + params.id,
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async updateNode(params: { id: string, query: UpdateNodeQuery, body?: UpdateNodeBody }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'nodes/' + params.id,
+      query: params.query,
+      body: params?.body
     });
 
     return await Utils.connect(options);

@@ -134,3 +134,21 @@ Engines can be clustered together in a swarm. Refer to the swarm mode documentat
 - [Update Swarm](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Swarm/operation/SwarmUpdate)
 - [Get Unlock Key](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Swarm/operation/SwarmUnlockkey)
 - [Unlock a Locked Manager](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Swarm/operation/SwarmUnlock)
+
+## Nodes
+Nodes are instances of the Engine participating in a swarm. Swarm mode must be enabled for these endpoints to work.
+
+- [List nodes](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Node/operation/NodeList)
+- [Inspect a node](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Node/operation/NodeInspect)
+- [Delete a node](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Node/operation/NodeDelete)
+- [Update a node](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Node/operation/NodeUpdate)
+
+## Services
+Services are the definitions of tasks to run on a swarm. Swarm mode must be enabled for these endpoints to work.
+
+- [List services](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Service/operation/ServiceList)
+- [Create a service](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Service/operation/ServiceCreate)
+- [Inspect a service](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Service/operation/ServiceInspect)
+- [Delete a service](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Service/operation/ServiceDelete)
+- [Update a service](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Service/operation/ServiceUpdate)
+- [Get service logs](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Service/operation/ServiceLogs)
