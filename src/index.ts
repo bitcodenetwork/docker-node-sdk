@@ -4,28 +4,43 @@ import { BuildImageQuery } from '../interfaces/build-image-query';
 import { CreateContainerBody } from '../interfaces/create-container-body';
 import { CreateContainerQuery } from '../interfaces/create-container-query';
 import { CreateContainerResponse } from '../interfaces/create-container-response';
+import { CreateImageFromContainerBody } from '../interfaces/create-image-from-container-body';
+import { CreateImageFromContainerQuery } from '../interfaces/create-image-from-container-query';
+import { CreateImageFromContainerResponse } from '../interfaces/create-image-from-container-response';
+import { CreateImageHeader } from '../interfaces/create-image-header';
+import { CreateImageQuery } from '../interfaces/create-image-query';
 import { DeleteBuilderCacheQuery } from '../interfaces/delete-builder-cache-query';
+import { DeleteUnusedImagesQuery } from '../interfaces/delete-unused-images-query';
+import { DeleteUnusedImagesResponse } from '../interfaces/delete-unused-images-response';
+import { ExportSeveralImagesQuery } from '../interfaces/export-several-images-query';
 import { GetContainerQuery } from '../interfaces/get-container-query';
 import { GetContainerResponse } from '../interfaces/get-container-response';
 import { GetImageQuery } from '../interfaces/get-image-query';
 import { GetImageResponse } from '../interfaces/get-image-response';
 import { GetSwarmUnlockKeyResponse } from '../interfaces/get-swarm-unlock-key-response';
+import { ImageHistoryResponse } from '../interfaces/image-history-response';
+import { ImportImageQuery } from '../interfaces/import-image-query';
 import { InitializeSwarmBody } from '../interfaces/initialize-swarm-body';
+import { InspectImageResponse } from '../interfaces/inspect-image-response';
 import { InspectSwarmResponse } from '../interfaces/inspect-swarm-response';
 import { JoinSwarmBody } from '../interfaces/join-swarm-body';
 import { LeaveSwarmQuery } from '../interfaces/leave-swarm-query';
+import { PushImageHeader } from '../interfaces/push-image-header';
+import { PushImageQuery } from '../interfaces/push-image-query';
 import { RemoveContainerQuery } from '../interfaces/remove-container-query';
 import { RemoveContainerResponse } from '../interfaces/remove-container-response';
+import { RemoveImageQuery } from '../interfaces/remove-image-query';
 import { RestartContainerQuery } from '../interfaces/restart-container-query';
 import { RestartContainerResponse } from '../interfaces/restart-container-response';
+import { SearchImageQuery } from '../interfaces/search-image-query';
+import { SearchImageResponse } from '../interfaces/search-image-response';
 import { StartContainerQuery } from '../interfaces/start-container-query';
 import { StartContainerResponse } from '../interfaces/start-container-response';
 import { StopContainerQuery } from '../interfaces/stop-container-query';
 import { StopContainerResponse } from '../interfaces/stop-container-response';
+import { TagImageQuery } from '../interfaces/tag-image-query';
 import { UpdateSwarmProp } from '../interfaces/update-swarm-prop';
 import { ConnectOptions, Utils } from './utils';
-import { CreateImageHeader } from '../interfaces/create-image-header';
-import { CreateImageQuery } from '../interfaces/create-image-query';
 
 export class Dockersdk {
   constructor() {
@@ -149,7 +164,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async DeleteBuilderCache(params: { query?: DeleteBuilderCacheQuery }): Promise<string> {
+  public async deleteBuilderCache(params: { query?: DeleteBuilderCacheQuery }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'build/prune',
@@ -159,12 +174,121 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async CreateImage(params: { query?: CreateImageQuery, headers?: CreateImageHeader, body?: File }): Promise<string> {
+  public async createImage(params: { query?: CreateImageQuery, headers?: CreateImageHeader, body?: File }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'image/create',
       headers: params?.headers,
       query: params?.query,
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async inspectImage(params: { name: string }): Promise<InspectImageResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'images/' + params.name + '/json',
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async imageHistory(params: { name: string }): Promise<ImageHistoryResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'images/' + params.name + '/history',
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async pushImage(params: { name: string; query?: PushImageQuery; headers?: PushImageHeader }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'images/' + params.name + '/push',
+      headers: params?.headers,
+      query: params?.query,
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async tagImage(params: { name: string; query?: TagImageQuery }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'images/' + params.name + '/tag',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async removeImage(params: { name: string; query?: RemoveImageQuery }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'DELETE',
+      path: 'images/' + params.name,
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async searchImage(params: { query?: SearchImageQuery }): Promise<SearchImageResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'DELETE',
+      path: 'images/search',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async deleteUnusedImages(params: { query?: DeleteUnusedImagesQuery }): Promise<DeleteUnusedImagesResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'images/prune',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async createImageFromContainer(params: { query?: CreateImageFromContainerQuery, body?: CreateImageFromContainerBody }): Promise<CreateImageFromContainerResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'commit',
+      query: params?.query,
+      body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async exportImage(params: { name: string; }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'images/' + params.name + '/get',
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async exportSeveralImages(params: { query?: ExportSeveralImagesQuery }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'images/get',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async importImage(params: { body?: ImportImageQuery }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'images/load',
+      body: params?.body
     });
 
     return await Utils.connect(options);
