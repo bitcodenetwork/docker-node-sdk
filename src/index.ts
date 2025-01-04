@@ -60,6 +60,16 @@ import { WaitContainerResponse } from '../interfaces/wait-container-response';
 import { GetContainerFileInformationQuery } from '../interfaces/get-container-file-information';
 import { ExtractArchiveFileQuery } from '../interfaces/extract-archive-file-query';
 import { DeleteStoppedContainerQuery } from '../interfaces/delete-stopped-container-query';
+import { ListNetworkQuery } from '../interfaces/list-network-query';
+import { ListNetworkResponse } from '../interfaces/list-network-response';
+import { InspectNetworkQuery } from '../interfaces/inspect-network-query';
+import { InspectNetworkResponse } from '../interfaces/inspect-network-response';
+import { CreateNetworkBody } from '../interfaces/create-network-body';
+import { CreateNetworkResponse } from '../interfaces/create-network-response';
+import { ConnectNetworkBody } from '../interfaces/connect-network-body';
+import { DisconnectNetworkBody } from '../interfaces/disconnect-network-body';
+import { DeleteUnusedNetworkQuery } from '../interfaces/delete-unused-netowrk-query';
+import { DeleteUnusedNetworkResponse } from '../interfaces/delete-unused-netowrk-response';
 
 export class Dockersdk {
   constructor() {
@@ -499,6 +509,79 @@ export class Dockersdk {
       method: 'POST',
       path: 'images/load',
       body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  // ======================
+  // Docker Network Section
+  // ======================
+
+  public async listNetwork(params?: { query?: ListNetworkQuery }): Promise<ListNetworkResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'networks',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async inspectNetwork(params: { id: string, query?: InspectNetworkQuery }): Promise<InspectNetworkResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'networks/' + params.id,
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async removeNetwork(params: { id: string }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'DELETE',
+      path: 'networks/' + params.id,
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async createNetwork(params: { body?: CreateNetworkBody }): Promise<CreateNetworkResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'networks/create',
+      body: params?.body,
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async connectNetwork(params: { id: string, body?: ConnectNetworkBody }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'networks/' + params.id + '/connect',
+      body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async disconnectNetwork(params: { id: string, body?: DisconnectNetworkBody }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'networks/' + params.id + '/disconnect',
+      body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async deleteUnusedNetwork(params: { query?: DeleteUnusedNetworkQuery }): Promise<DeleteUnusedNetworkResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'networks/prune',
+      query: params?.query
     });
 
     return await Utils.connect(options);

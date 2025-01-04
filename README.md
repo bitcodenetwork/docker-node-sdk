@@ -88,6 +88,15 @@ For the time being, you can use the reference to the docker api to define parame
 - [Export several images](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImageGetAll)
 - [Import images](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImageLoad)
 
+## Network
+- [List networks](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Network/operation/NetworkList)
+- [Inspect a network](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Network/operation/NetworkInspect)
+- [Remove a network](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Network/operation/NetworkDelete)
+- [Create a network](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Network/operation/NetworkCreate)
+- [Connect a container to a network](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Network/operation/NetworkConnect)
+- [Disconnect a container from a network](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Network/operation/NetworkDisconnect)
+- [Delete unused networks](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Network/operation/NetworkPrune)
+
 ## Swarm
 - [Inspect Swarm](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Swarm/operation/SwarmInspect)
 - [Initialize Swarm](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Swarm/operation/SwarmInit)
