@@ -15,9 +15,15 @@ import { CreateImageHeader } from '../interfaces/create-image-header';
 import { CreateImageQuery } from '../interfaces/create-image-query';
 import { CreateNetworkBody } from '../interfaces/create-network-body';
 import { CreateNetworkResponse } from '../interfaces/create-network-response';
+import { CreateSecretBody } from '../interfaces/create-secret-body';
+import { CreateSecretResponse } from '../interfaces/create-secret-response';
+import { CreateServiceBody } from '../interfaces/create-service-body';
+import { CreateServiceHeader } from '../interfaces/create-service-header';
+import { CreateServiceResponse } from '../interfaces/create-service-response';
 import { CreateVolumeBody } from '../interfaces/create-volume-body';
 import { CreateVolumeResponse } from '../interfaces/create-volume-response';
 import { DeleteBuilderCacheQuery } from '../interfaces/delete-builder-cache-query';
+import { DeleteNodeQuery } from '../interfaces/delete-node-query';
 import { DeleteStoppedContainerQuery } from '../interfaces/delete-stopped-container-query';
 import { DeleteUnusedImagesQuery } from '../interfaces/delete-unused-images-query';
 import { DeleteUnusedImagesResponse } from '../interfaces/delete-unused-images-response';
@@ -37,7 +43,9 @@ import { GetContainerStatsQuery } from '../interfaces/get-container-stat-query';
 import { GetContainerStatsResponse } from '../interfaces/get-container-stat-response';
 import { GetImageQuery } from '../interfaces/get-image-query';
 import { GetImageResponse } from '../interfaces/get-image-response';
+import { GetServiceLogsQuery } from '../interfaces/get-service-log-query';
 import { GetSwarmUnlockKeyResponse } from '../interfaces/get-swarm-unlock-key-response';
+import { GetTaskLogsQuery } from '../interfaces/get-task-logs';
 import { ImageHistoryResponse } from '../interfaces/image-history-response';
 import { ImportImageQuery } from '../interfaces/import-image-query';
 import { InitializeSwarmBody } from '../interfaces/initialize-swarm-body';
@@ -47,15 +55,28 @@ import { InspectExecResponse } from '../interfaces/inspect-exec-response';
 import { InspectImageResponse } from '../interfaces/inspect-image-response';
 import { InspectNetworkQuery } from '../interfaces/inspect-network-query';
 import { InspectNetworkResponse } from '../interfaces/inspect-network-response';
+import { InspectNodeResponse } from '../interfaces/inspect-node-response';
+import { InspectSecretResponse } from '../interfaces/inspect-secret-response';
+import { InspectServiceQuery } from '../interfaces/inspect-service-query';
+import { InspectServiceResponse } from '../interfaces/inspect-service-response';
 import { InspectSwarmResponse } from '../interfaces/inspect-swarm-response';
+import { InspectTaskResponse } from '../interfaces/inspect-task-response';
 import { InspectVolumeResponse } from '../interfaces/inspect-volume-response';
 import { JoinSwarmBody } from '../interfaces/join-swarm-body';
 import { KillContainerQuery } from '../interfaces/kill-container-query';
 import { LeaveSwarmQuery } from '../interfaces/leave-swarm-query';
 import { ListNetworkQuery } from '../interfaces/list-network-query';
 import { ListNetworkResponse } from '../interfaces/list-network-response';
+import { ListNodeQuery } from '../interfaces/list-node-query';
+import { ListNodeResponse } from '../interfaces/list-node-response';
 import { ListProcessesRunningInsideContainerQuery } from '../interfaces/list-processes-running-inside-container-query';
 import { ListProcessesRunningInsideContainerResponse } from '../interfaces/list-processes-running-inside-container-response';
+import { ListSecretQuery } from '../interfaces/list-secret-query';
+import { ListSecretResponse } from '../interfaces/list-secret-response';
+import { ListServiceQuery } from '../interfaces/list-service-query';
+import { ListServiceResponse } from '../interfaces/list-service-response';
+import { ListTaskQuery } from '../interfaces/list-task-query';
+import { ListTaskResponse } from '../interfaces/list-task-response';
 import { ListVolumeQuery } from '../interfaces/list-volume-query';
 import { ListVolumeResponse } from '../interfaces/list-volume-response';
 import { PushImageHeader } from '../interfaces/push-image-header';
@@ -79,34 +100,20 @@ import { StopContainerResponse } from '../interfaces/stop-container-response';
 import { TagImageQuery } from '../interfaces/tag-image-query';
 import { UpdateContainerBody } from '../interfaces/update-container-body';
 import { UpdateContainerResponse } from '../interfaces/update-container-response';
+import { UpdateNodeBody } from '../interfaces/update-node-body';
+import { UpdateNodeQuery } from '../interfaces/update-node-query';
+import { UpdateSecretBody } from '../interfaces/update-secret-body';
+import { UpdateSecretQuery } from '../interfaces/update-secret-query';
+import { UpdateServiceBody } from '../interfaces/update-service-body';
+import { UpdateServiceHeader } from '../interfaces/update-service-header';
+import { UpdateServiceQuery } from '../interfaces/update-service-query';
+import { UpdateServiceResponse } from '../interfaces/update-service-response';
 import { UpdateSwarmProp } from '../interfaces/update-swarm-prop';
 import { UpdateVolumeBody } from '../interfaces/update-volume-body';
 import { UpdateVolumeQuery } from '../interfaces/update-volume-query';
 import { WaitContainerQuery } from '../interfaces/wait-container-query';
 import { WaitContainerResponse } from '../interfaces/wait-container-response';
 import { ConnectOptions, Utils } from './utils';
-import { ListNodeQuery } from '../interfaces/list-node-query';
-import { ListNodeResponse } from '../interfaces/list-node-response';
-import { InspectNodeResponse } from '../interfaces/inspect-node-response';
-import { DeleteNodeQuery } from '../interfaces/delete-node-query';
-import { UpdateNodeQuery } from '../interfaces/update-node-query';
-import { UpdateNodeBody } from '../interfaces/update-node-body';
-import { ListServiceResponse } from '../interfaces/list-service-response';
-import { ListServiceQuery } from '../interfaces/list-service-query';
-import { CreateServiceHeader } from '../interfaces/create-service-header';
-import { CreateServiceBody } from '../interfaces/create-service-body';
-import { CreateServiceResponse } from '../interfaces/create-service-response';
-import { InspectServiceQuery } from '../interfaces/inspect-service-query';
-import { InspectServiceResponse } from '../interfaces/inspect-service-response';
-import { UpdateServiceHeader } from '../interfaces/update-service-header';
-import { UpdateServiceQuery } from '../interfaces/update-service-query';
-import { UpdateServiceBody } from '../interfaces/update-service-body';
-import { UpdateServiceResponse } from '../interfaces/update-service-response';
-import { GetServiceLogsQuery } from '../interfaces/get-service-log-query';
-import { ListTaskQuery } from '../interfaces/list-task-query';
-import { ListTaskResponse } from '../interfaces/list-task-response';
-import { InspectTaskResponse } from '../interfaces/inspect-task-response';
-import { GetTaskLogsQuery } from '../interfaces/get-task-logs';
 
 export class Dockersdk {
   constructor() {
@@ -940,6 +947,59 @@ export class Dockersdk {
       method: 'GET',
       path: 'tasks/' + params.id + '/logs',
       query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  // ==============
+  // Secret Section
+  // ==============
+
+  public async listSecret(params?: { query?: ListSecretQuery }): Promise<ListSecretResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'secrets',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async createSecret(params: { body?: CreateSecretBody }): Promise<CreateSecretResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'secrets/create',
+      body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async inspectSecret(params: { id: string }): Promise<InspectSecretResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'secrets/' + params.id
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async deleteSecret(params: { id: string }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'DELETE',
+      path: 'secrets/' + params.id
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async updateSecret(params: { id: string, query: UpdateSecretQuery, body?: UpdateSecretBody }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'secrets/' + params.id,
+      query: params.query,
+      body: params?.body
     });
 
     return await Utils.connect(options);
