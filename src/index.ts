@@ -121,6 +121,15 @@ import { WaitContainerResponse } from '../interfaces/wait-container-response';
 import { ConnectOptions, Utils } from './utils';
 import { UpdateConfigQuery } from '../interfaces/update-config-query';
 import { UpdateConfigBody } from '../interfaces/update-config-body';
+import { AuthConfigBody } from '../interfaces/auth-config-body';
+import { AuthConfigResponse } from '../interfaces/auth-config-response';
+import { InfoResponse } from '../interfaces/info-response';
+import { VersionResponse } from '../interfaces/version-response';
+import { PingResponse } from '../interfaces/ping-response';
+import { EventResponse } from '../interfaces/event-response';
+import { EventQuery } from '../interfaces/event-query';
+import { SystemDfQuery } from '../interfaces/system-df-query';
+import { SystemDfResponse } from '../interfaces/system-df-response';
 
 export class Dockersdk {
   constructor() {
@@ -144,11 +153,11 @@ export class Dockersdk {
   }
 
   private readonly socketPath: string;
-  private readonly version: string = "v1.47";
+  private readonly sdkVersion: string = "v1.47";
 
   private createRequestOption(param: { method: "GET" | "POST" | "DELETE" | "HEAD"; path: string; headers?: any; query?: any; body?: any; }): ConnectOptions {
     return {
-      path: `/${this.version}/${param.path}`,
+      path: `/${this.sdkVersion}/${param.path}`,
       method: param.method,
       socketPath: this.socketPath,
       headers: param.headers ?? {},
@@ -1060,6 +1069,76 @@ export class Dockersdk {
       path: 'configs/' + params.id,
       query: params.query,
       body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  // ==============
+  // System Section
+  // ==============
+
+  public async authConfig(params?: { body?: AuthConfigBody }): Promise<AuthConfigResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'auth/config',
+      body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async info(): Promise<InfoResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'info'
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async version(): Promise<VersionResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'version'
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async ping(): Promise<PingResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'ping'
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async pingHead(): Promise<PingResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'HEAD',
+      path: 'ping'
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async event(params?: { query?: EventQuery }): Promise<EventResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'events',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async systemDf(params?: { query?: SystemDfQuery }): Promise<SystemDfResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'system/df',
+      query: params?.query
     });
 
     return await Utils.connect(options);
