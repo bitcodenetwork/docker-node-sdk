@@ -1,12 +1,16 @@
 # DockerSDK
+
 Docker SDK for Node.js
+
+> [!IMPORTANT]\
+> **Development Mode!**\
+> This package is still under development, and is not ready and not recommended for use in production mode!
 
 ---
 
-# Introduction
-Docker SDK adalah alat untuk terhubung dengan Docker engine melalui Node.js. You can use this package on linux or windows operating system.
-
 # Getting started
+
+Docker SDK adalah alat untuk terhubung dengan Docker engine melalui Node.js. You can use this package on linux or windows operating system.
 
 ## Package Installation
 
@@ -168,3 +172,13 @@ Secrets are sensitive data that can be used by services. Swarm mode must be enab
 - [Inspect a secret](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Secret/operation/SecretInspect)
 - [Delete a secret](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Secret/operation/SecretDelete)
 - [Update a Secret](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Secret/operation/SecretUpdate)
+
+## Configs (upcoming)
+
+Configs are application configurations that can be used by services. Swarm mode must be enabled for these endpoints to work.
+
+- [List configs](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Config/operation/ConfigList)
+- [Create a config](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Config/operation/ConfigCreate)
+- [Inspect a config](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Config/operation/ConfigInspect)
+- [Delete a config](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Config/operation/ConfigDelete)
+- [Update a Config](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Config/operation/ConfigUpdate)
