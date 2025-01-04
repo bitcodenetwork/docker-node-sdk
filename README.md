@@ -159,3 +159,12 @@ A task is a container running on a swarm. It is the atomic scheduling unit of sw
 - [List tasks](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Task/operation/TaskList)
 - [Inspect a task](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Task/operation/TaskInspect)
 - [Get task logs](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Task/operation/TaskLogs)
+
+## Secrets
+Secrets are sensitive data that can be used by services. Swarm mode must be enabled for these endpoints to work.
+
+- [List secrets](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Secret)
+- [Create a secret](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Secret/operation/SecretCreate)
+- [Inspect a secret](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Secret/operation/SecretInspect)
+- [Delete a secret](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Secret/operation/SecretDelete)
+- [Update a Secret](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Secret/operation/SecretUpdate)
