@@ -13,18 +13,26 @@ import { DeleteBuilderCacheQuery } from '../interfaces/delete-builder-cache-quer
 import { DeleteUnusedImagesQuery } from '../interfaces/delete-unused-images-query';
 import { DeleteUnusedImagesResponse } from '../interfaces/delete-unused-images-response';
 import { ExportSeveralImagesQuery } from '../interfaces/export-several-images-query';
+import { GetContainerChangesResponse } from '../interfaces/get-container-change-response';
+import { GetContainerLogsQuery } from '../interfaces/get-container-log-query';
 import { GetContainerQuery } from '../interfaces/get-container-query';
 import { GetContainerResponse } from '../interfaces/get-container-response';
+import { GetContainerStatsQuery } from '../interfaces/get-container-stat-query';
+import { GetContainerStatsResponse } from '../interfaces/get-container-stat-response';
 import { GetImageQuery } from '../interfaces/get-image-query';
 import { GetImageResponse } from '../interfaces/get-image-response';
 import { GetSwarmUnlockKeyResponse } from '../interfaces/get-swarm-unlock-key-response';
 import { ImageHistoryResponse } from '../interfaces/image-history-response';
 import { ImportImageQuery } from '../interfaces/import-image-query';
 import { InitializeSwarmBody } from '../interfaces/initialize-swarm-body';
+import { InspectContainerQuery } from '../interfaces/inspect-container-query';
+import { InspectContainerResponse } from '../interfaces/inspect-container-response';
 import { InspectImageResponse } from '../interfaces/inspect-image-response';
 import { InspectSwarmResponse } from '../interfaces/inspect-swarm-response';
 import { JoinSwarmBody } from '../interfaces/join-swarm-body';
 import { LeaveSwarmQuery } from '../interfaces/leave-swarm-query';
+import { ListProcessesRunningInsideContainerQuery } from '../interfaces/list-processes-running-inside-container-query';
+import { ListProcessesRunningInsideContainerResponse } from '../interfaces/list-processes-running-inside-container-response';
 import { PushImageHeader } from '../interfaces/push-image-header';
 import { PushImageQuery } from '../interfaces/push-image-query';
 import { RemoveContainerQuery } from '../interfaces/remove-container-query';
@@ -41,6 +49,17 @@ import { StopContainerResponse } from '../interfaces/stop-container-response';
 import { TagImageQuery } from '../interfaces/tag-image-query';
 import { UpdateSwarmProp } from '../interfaces/update-swarm-prop';
 import { ConnectOptions, Utils } from './utils';
+import { ResizeContainerTtyQuery } from '../interfaces/resize-container-tty-query';
+import { KillContainerQuery } from '../interfaces/kill-container-query';
+import { UpdateContainerBody } from '../interfaces/update-container-body';
+import { UpdateContainerResponse } from '../interfaces/update-container-response';
+import { RenameContainerQuery } from '../interfaces/rename-container-query';
+import { AttachContainerQuery } from '../interfaces/attach-container-query';
+import { WaitContainerQuery } from '../interfaces/wait-container-query';
+import { WaitContainerResponse } from '../interfaces/wait-container-response';
+import { GetContainerFileInformationQuery } from '../interfaces/get-container-file-information';
+import { ExtractArchiveFileQuery } from '../interfaces/extract-archive-file-query';
+import { DeleteStoppedContainerQuery } from '../interfaces/delete-stopped-container-query';
 
 export class Dockersdk {
   constructor() {
@@ -66,7 +85,7 @@ export class Dockersdk {
   private readonly socketPath: string;
   private readonly version: string = "v1.47";
 
-  private createRequestOption(param: { method: "GET" | "POST" | "DELETE"; path: string; headers?: any; query?: any; body?: any; }): ConnectOptions {
+  private createRequestOption(param: { method: "GET" | "POST" | "DELETE" | "HEAD"; path: string; headers?: any; query?: any; body?: any; }): ConnectOptions {
     return {
       path: `/${this.version}/${param.path}`,
       method: param.method,
@@ -76,6 +95,10 @@ export class Dockersdk {
       body: param.body ?? {}
     }
   }
+
+  // ====================
+  // Docker Container Section
+  // ====================
 
   public async getContainer(params?: { query?: GetContainerQuery }): Promise<GetContainerResponse | string> {
     const options: ConnectOptions = this.createRequestOption({
@@ -93,6 +116,74 @@ export class Dockersdk {
       path: 'containers/create',
       query: params?.query,
       body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async inspectContainer(params: { id: string, query?: InspectContainerQuery }): Promise<InspectContainerResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'containers/' + params.id + '/json',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async listProcessesRunningInsideContainer(params: { id: string, query?: ListProcessesRunningInsideContainerQuery }): Promise<ListProcessesRunningInsideContainerResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'containers/' + params.id + '/top',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async getContainerLogs(params: { id: string, query?: GetContainerLogsQuery }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'containers/' + params.id + '/logs',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async getContainerChanges(params: { id: string }): Promise<GetContainerChangesResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'containers/' + params.id + '/changes',
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async exportContainer(params: { id: string }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'containers/' + params.id + '/export',
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async getContainerStats(params: { id: string, query?: GetContainerStatsQuery }): Promise<GetContainerStatsResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'containers/' + params.id + '/stats',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async resizeContainerTty(params: { id: string, query: ResizeContainerTtyQuery }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'containers/' + params.id + '/resize',
+      query: params.query
     });
 
     return await Utils.connect(options);
@@ -128,11 +219,130 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
+  public async killContainer(params: { id: string, query?: KillContainerQuery }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'containers/' + params.id + '/kill',
+      query: params?.query,
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async updateContainer(params: { id: string, body: UpdateContainerBody }): Promise<UpdateContainerResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'containers/' + params.id + '/update',
+      body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async renameContainer(params: { id: string, query: RenameContainerQuery }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'containers/' + params.id + '/rename',
+      query: params.query,
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async pauseContainer(params: { id: string }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'containers/' + params.id + '/pause',
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async unpauseContainer(params: { id: string }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'containers/' + params.id + '/unpause',
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async attachContainer(params: { id: string, query?: AttachContainerQuery }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'containers/' + params.id + '/attach',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async attachContainerViaWebsocket(params: { id: string, query?: AttachContainerQuery }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'containers/' + params.id + '/attach/ws',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async waitContainer(params: { id: string, query?: WaitContainerQuery }): Promise<WaitContainerResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'containers/' + params.id + '/wait',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
   public async removeContainer(params: { id: string, query?: RemoveContainerQuery }): Promise<RemoveContainerResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
       path: 'containers/' + params.id,
       query: params?.query,
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async getContainerFileInformation(params: { id: string, path: GetContainerFileInformationQuery }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'HEAD',
+      path: 'containers/' + params.id + '/archive',
+      query: params?.path
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async getContainerArchiveFile(params: { id: string, path: GetContainerFileInformationQuery }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'containers/' + params.id + '/archive',
+      query: params?.path
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async extractArchiveFile(params: { id: string, path: ExtractArchiveFileQuery, body: File }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'containers/' + params.id + '/extract',
+      query: params.path,
+      body: params.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async deleteStoppedContainer(params?: { query?: DeleteStoppedContainerQuery }): Promise<string> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'containers/prune',
+      query: params?.query
     });
 
     return await Utils.connect(options);
