@@ -1,4 +1,4 @@
-export interface AttachContainerQuery {
+export interface ContainerAttachQuery {
   detachKeys?: string;
   logs?: boolean;
   stream?: boolean;

@@ -1,4 +1,4 @@
-export interface WaitContainerResponse {
+export interface ContainerWaitResponse {
   StatusCode: number
   Error: Error
 }

@@ -1,4 +1,4 @@
-export interface UpdateContainerBody {
+export interface ContainerUpdateBody {
   BlkioWeight?: number
   CpuShares?: number
   CpuPeriod?: number

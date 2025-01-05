@@ -1,4 +1,4 @@
-export interface InspectContainerResponse {
+export interface ContainerInspectResponse {
   AppArmorProfile: string
   Args: string[]
   Config: Config

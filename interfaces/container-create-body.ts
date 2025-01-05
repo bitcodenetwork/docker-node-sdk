@@ -1,4 +1,4 @@
-export interface CreateContainerBody {
+export interface ContainerCreateBody {
   Hostname?: string
   Domainname?: string
   User?: string

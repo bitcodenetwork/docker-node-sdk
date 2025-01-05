@@ -5,9 +5,10 @@ export class Utils {
   static async connect(options: ConnectOptions): Promise<any> {
     try {
       const res = await this.req(options);
-      return res
+
+      return res;
     } catch (error: any) {
-      return error.message;
+      throw error.message;
     }
   }
 
@@ -35,7 +36,8 @@ export class Utils {
         method: options.method,
         path: options.path,
         socketPath: options.socketPath,
-        headers: headers
+        headers: headers,
+        timeout: 60000
       } as RequestOptions, (res) => {
         let rawData = '';
         res.setEncoding('utf8');

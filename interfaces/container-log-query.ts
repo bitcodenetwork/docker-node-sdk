@@ -1,4 +1,4 @@
-export interface GetContainerLogsQuery {
+export interface ContainerLogQuery {
   follow?: boolean;
   stdout?: boolean;
   stderr?: boolean;

@@ -1,4 +1,4 @@
-export interface GetContainerStatsResponse {
+export interface ContainerStatResponse {
   read: string
   pids_stats: PidsStats
   networks: Networks

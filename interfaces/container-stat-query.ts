@@ -1,4 +1,4 @@
-export interface GetContainerStatsQuery {
+export interface ContainerStatQuery {
   stream?: boolean;
   "one-shot"?: boolean;
 }

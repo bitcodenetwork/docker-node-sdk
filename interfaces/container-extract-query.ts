@@ -1,4 +1,4 @@
-export interface ExtractArchiveFileQuery {
+export interface ContainerExtractQuery {
   path: string;
   noOverwriteDirNonDir?: string;
   copyUIDGID?: string;
