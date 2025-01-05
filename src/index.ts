@@ -130,6 +130,23 @@ import { EventResponse } from '../interfaces/event-response';
 import { EventQuery } from '../interfaces/event-query';
 import { SystemDfQuery } from '../interfaces/system-df-query';
 import { SystemDfResponse } from '../interfaces/system-df-response';
+import { DistributionResponse } from '../interfaces/distribution-response';
+import { PluginQuery } from '../interfaces/plugin-query';
+import { PluginResponse } from '../interfaces/plugin-response';
+import { PluginPrivilegeQuery } from '../interfaces/plugin-privilege-query';
+import { PluginPrivilegeResponse } from '../interfaces/plugin-privilege-response';
+import { PluginPullBody } from '../interfaces/plugin-pull-body';
+import { PluginPullHeader } from '../interfaces/plugin-pull-header';
+import { PluginPullQuery } from '../interfaces/plugin-pull-query';
+import { PluginInspectResponse } from '../interfaces/plugin-inspect-response';
+import { PluginRemoveResponse } from '../interfaces/plugin-remove-response';
+import { PluginRemoveQuery } from '../interfaces/plugin-remove-query';
+import { PluginEnableQuery } from '../interfaces/plugin-enable-query';
+import { PluginDisableQuery } from '../interfaces/plugin-disable-query';
+import { PluginUpgradeQuery } from '../interfaces/plugins-upgrade-query';
+import { PluginUpgradeHeader } from '../interfaces/plugins-upgrade-header';
+import { PluginUpgradeBody } from '../interfaces/plugins-upgrade-body';
+import { PluginCreateQuery } from '../interfaces/plugins-create-query';
 
 export class Dockersdk {
   constructor() {
@@ -1075,6 +1092,123 @@ export class Dockersdk {
   }
 
   // ==============
+  // Plugin Section
+  // ==============
+
+  public async plugins(params?: { query?: PluginQuery }): Promise<PluginResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'plugins',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async pluginPrivileges(params?: { query?: PluginPrivilegeQuery }): Promise<PluginPrivilegeResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'plugins/privileges',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async pluginsPull(params: { query: PluginPullQuery, headers?: PluginPullHeader, body?: PluginPullBody[] }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'plugins/pull',
+      headers: params?.headers,
+      query: params.query,
+      body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async pluginsInspect(params: { name: string }): Promise<PluginInspectResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'plugins/' + params.name + '/json',
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async pluginsRemove(params: { name: string, query?: PluginRemoveQuery }): Promise<PluginRemoveResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'DELETE',
+      path: 'plugins/' + params.name,
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async pluginsEnable(params: { name: string, query?: PluginEnableQuery }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'plugins/' + params.name + '/enable',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async pluginsDisable(params: { name: string, query?: PluginDisableQuery }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'plugins/' + params.name + '/disable',
+      query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async pluginsUpgrade(params: { name: string, query: PluginUpgradeQuery, headers?: PluginUpgradeHeader, body?: PluginUpgradeBody[] }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'plugins/' + params.name + '/upgrade',
+      headers: params.headers,
+      query: params?.query,
+      body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async pluginsCreate(params: { query: PluginCreateQuery, body?: string }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'plugins/create',
+      query: params?.query,
+      body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async pluginsPush(params: { name: string }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'plugins/' + params.name + '/push'
+    });
+
+    return await Utils.connect(options);
+  }
+
+  public async pluginsSet(params: { name: string, body?: string[] }): Promise<void> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'POST',
+      path: 'plugins/' + params.name + '/set',
+      body: params?.body
+    });
+
+    return await Utils.connect(options);
+  }
+
+  // ==============
   // System Section
   // ==============
 
@@ -1139,6 +1273,19 @@ export class Dockersdk {
       method: 'GET',
       path: 'system/df',
       query: params?.query
+    });
+
+    return await Utils.connect(options);
+  }
+
+  // ====================
+  // Distribution Section
+  // ====================
+
+  public async distribution(params: { id: string }): Promise<DistributionResponse> {
+    const options: ConnectOptions = this.createRequestOption({
+      method: 'GET',
+      path: 'distribution/' + params.id + '/json',
     });
 
     return await Utils.connect(options);

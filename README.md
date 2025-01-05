@@ -2,8 +2,7 @@
 
 Docker SDK for Node.js
 
-> [!IMPORTANT]\
-> **Development Mode!**\
+> 📣 **Important, we are under development!**\
 > This package is still under development, and is not ready and not recommended for use in production mode!
 
 ---
@@ -12,21 +11,21 @@ Docker SDK for Node.js
 
 Docker SDK adalah alat untuk terhubung dengan Docker engine melalui Node.js. You can use this package on linux or windows operating system.
 
-## Package Installation
+**Package Installation**
 
 Installation using NPM
 
 ``` bash
-npm i dockersdk
+npm i node-docker-sdk
 ```
 
 Installation using Yarn
 
 ``` bash
-npm add dockersdk
+npm add node-docker-sdk
 ```
 
-## Create Object
+**Create Object**
 
 ``` typescript
 const dockersdk = new Dockersdk();
@@ -35,7 +34,7 @@ const dockersdk = new Dockersdk();
 const container = dockersdk.getContainerList();
 ```
 
-## Setting Socket
+**Setting Socket**
 
 Dockersdk has automatically determined the location of your docker socket according to your operating system, but if you have a docker socket location that does not match the default settings, you can determine it using an environment variable, as in the example below.
 
@@ -43,12 +42,11 @@ Dockersdk has automatically determined the location of your docker socket accord
 DOCKERSDK_SOCKET_PATH="socket/location/docker.sock"
 ```
 
----
-
-# Reference
+## Reference
 For the time being, you can use the reference to the docker api to define parameters in the SDK, you can adjust the parameters used with the parameters in the SDK.
 
-## Container
+### Container
+
 Returns a list of containers. For details on the format, see the [inspect endpoint](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/ContainerInspect).
 
 Note that it uses a different, smaller representation of a container than inspecting a single container. For example, the list of linked containers is not propagated.
@@ -79,7 +77,7 @@ Note that it uses a different, smaller representation of a container than inspec
 - [Extract an archive of files or folders to a directory in a container](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/PutContainerArchive)
 - [Delete stopped containers](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/ContainerPrune)
 
-## Image
+### Image
 Returns a list of images on the server. Note that it uses a different, smaller representation of an image than inspecting a single image.
 
 - [Get Image List](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Container/operation/ContainerList)
@@ -98,7 +96,7 @@ Returns a list of images on the server. Note that it uses a different, smaller r
 - [Export several images](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImageGetAll)
 - [Import images](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Image/operation/ImageLoad)
 
-## Network
+### Network
 Networks are user-defined networks that containers can be attached to. See the [networking documentation](https://docs.docker.com/engine/network/) for more information.
 
 - [List networks](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Network/operation/NetworkList)
@@ -109,7 +107,7 @@ Networks are user-defined networks that containers can be attached to. See the [
 - [Disconnect a container from a network](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Network/operation/NetworkDisconnect)
 - [Delete unused networks](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Network/operation/NetworkPrune)
 
-## Volume
+### Volume
 Create and manage persistent storage that can be attached to containers.
 
 - [List volumes](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Volume/operation/VolumeList)
@@ -119,7 +117,7 @@ Create and manage persistent storage that can be attached to containers.
 - [Remove a volume](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Volume/operation/VolumeDelete)
 - [Delete unused volumes](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Volume/operation/VolumePrune)
 
-## Exec
+### Exec
 Run new commands inside running containers. Refer to the [command-line reference](https://docs.docker.com/reference/cli/docker/container/exec/) for more information.
 To exec a command in a container, you first need to create an exec instance, then start it. These two API endpoints are wrapped up in a single command-line command, `docker exec`.
 
@@ -128,7 +126,7 @@ To exec a command in a container, you first need to create an exec instance, the
 - [Resize an exec instance](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Exec/operation/ExecResize)
 - [Inspect an exec instance](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Exec/operation/ExecInspect)
 
-## Swarm
+### Swarm
 Engines can be clustered together in a swarm. Refer to the swarm mode documentation for more information.
 
 - [Inspect Swarm](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Swarm/operation/SwarmInspect)
@@ -139,7 +137,7 @@ Engines can be clustered together in a swarm. Refer to the swarm mode documentat
 - [Get Unlock Key](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Swarm/operation/SwarmUnlockkey)
 - [Unlock a Locked Manager](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Swarm/operation/SwarmUnlock)
 
-## Nodes
+### Nodes
 Nodes are instances of the Engine participating in a swarm. Swarm mode must be enabled for these endpoints to work.
 
 - [List nodes](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Node/operation/NodeList)
@@ -147,7 +145,7 @@ Nodes are instances of the Engine participating in a swarm. Swarm mode must be e
 - [Delete a node](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Node/operation/NodeDelete)
 - [Update a node](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Node/operation/NodeUpdate)
 
-## Services
+### Services
 Services are the definitions of tasks to run on a swarm. Swarm mode must be enabled for these endpoints to work.
 
 - [List services](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Service/operation/ServiceList)
@@ -157,14 +155,14 @@ Services are the definitions of tasks to run on a swarm. Swarm mode must be enab
 - [Update a service](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Service/operation/ServiceUpdate)
 - [Get service logs](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Service/operation/ServiceLogs)
 
-## Tasks
+### Tasks
 A task is a container running on a swarm. It is the atomic scheduling unit of swarm. Swarm mode must be enabled for these endpoints to work.
 
 - [List tasks](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Task/operation/TaskList)
 - [Inspect a task](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Task/operation/TaskInspect)
 - [Get task logs](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Task/operation/TaskLogs)
 
-## Secrets
+### Secrets
 Secrets are sensitive data that can be used by services. Swarm mode must be enabled for these endpoints to work.
 
 - [List secrets](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Secret)
@@ -173,7 +171,7 @@ Secrets are sensitive data that can be used by services. Swarm mode must be enab
 - [Delete a secret](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Secret/operation/SecretDelete)
 - [Update a Secret](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Secret/operation/SecretUpdate)
 
-## Configs (upcoming)
+### Configs
 
 Configs are application configurations that can be used by services. Swarm mode must be enabled for these endpoints to work.
 
@@ -183,7 +181,7 @@ Configs are application configurations that can be used by services. Swarm mode 
 - [Delete a config](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Config/operation/ConfigDelete)
 - [Update a Config](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Config/operation/ConfigUpdate)
 
-## Plugins (upcoming)
+### Plugins
 
 - [List plugins](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Plugin)
 - [Get plugin privileges](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Plugin/operation/GetPluginPrivileges)
@@ -197,7 +195,7 @@ Configs are application configurations that can be used by services. Swarm mode 
 - [Push a plugin](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Plugin/operation/PluginPush)
 - [Configure a plugin](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Plugin/operation/PluginSet)
 
-## System (upcoming)
+### System
 
 - [Check auth configuration](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/System/operation/SystemAuth)
 - [Get system information](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/System/operation/SystemInfo)
@@ -207,10 +205,10 @@ Configs are application configurations that can be used by services. Swarm mode 
 - [Monitor events](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/System/operation/SystemEvents)
 - [Get data usage information](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/System/operation/SystemDataUsage)
 
-## Distribution (upcoming)
+### Distribution
 
 - [Get image information from the registry](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Distribution)
 
-## Session
+### Session
 
 - [Initialize interactive session](https://docs.docker.com/reference/api/engine/version/v1.47/#tag/Session)
