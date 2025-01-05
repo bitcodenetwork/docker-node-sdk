@@ -1,11 +1,11 @@
-export interface GetContainerQuery {
+export interface ContainerQuery {
   all?: boolean;
   limit?: number;
   size?: boolean;
-  filters?: GetContainerFilters;
+  filters?: ContainerFilters;
 }
 
-export interface GetContainerFilters {
+export interface ContainerFilters {
   ancestor?: string[];
   before?: string[];
   expose?: string[];

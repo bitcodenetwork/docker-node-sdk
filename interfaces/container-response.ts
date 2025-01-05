@@ -1,4 +1,4 @@
-export type GetContainerResponse = Container[]
+export type ContainerResponse = Container[]
 
 export interface Container {
   Id: string

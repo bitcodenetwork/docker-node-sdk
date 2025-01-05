@@ -1,8 +1,12 @@
 import os from 'os';
 import { AttachContainerQuery } from '../interfaces/attach-container-query';
+import { AuthConfigBody } from '../interfaces/auth-config-body';
+import { AuthConfigResponse } from '../interfaces/auth-config-response';
 import { BuildImageHeader } from '../interfaces/build-image-header';
 import { BuildImageQuery } from '../interfaces/build-image-query';
 import { ConnectNetworkBody } from '../interfaces/connect-network-body';
+import { ContainerQuery } from '../interfaces/container-query';
+import { ContainerResponse } from '../interfaces/container-response';
 import { CreateConfigBody } from '../interfaces/create-config-body';
 import { CreateConfigResponse } from '../interfaces/create-config-response';
 import { CreateContainerBody } from '../interfaces/create-container-body';
@@ -34,13 +38,14 @@ import { DeleteUnusedNetworkResponse } from '../interfaces/delete-unused-netowrk
 import { DeleteUnusedVolumeQuery } from '../interfaces/delete-unused-volume-query';
 import { DeleteUnusedVolumeResponse } from '../interfaces/delete-unused-volume-repsonse';
 import { DisconnectNetworkBody } from '../interfaces/disconnect-network-body';
+import { DistributionResponse } from '../interfaces/distribution-response';
+import { EventQuery } from '../interfaces/event-query';
+import { EventResponse } from '../interfaces/event-response';
 import { ExportSeveralImagesQuery } from '../interfaces/export-several-images-query';
 import { ExtractArchiveFileQuery } from '../interfaces/extract-archive-file-query';
 import { GetContainerChangesResponse } from '../interfaces/get-container-change-response';
 import { GetContainerFileInformationQuery } from '../interfaces/get-container-file-information';
 import { GetContainerLogsQuery } from '../interfaces/get-container-log-query';
-import { GetContainerQuery } from '../interfaces/get-container-query';
-import { GetContainerResponse } from '../interfaces/get-container-response';
 import { GetContainerStatsQuery } from '../interfaces/get-container-stat-query';
 import { GetContainerStatsResponse } from '../interfaces/get-container-stat-response';
 import { GetImageQuery } from '../interfaces/get-image-query';
@@ -50,6 +55,7 @@ import { GetSwarmUnlockKeyResponse } from '../interfaces/get-swarm-unlock-key-re
 import { GetTaskLogsQuery } from '../interfaces/get-task-logs';
 import { ImageHistoryResponse } from '../interfaces/image-history-response';
 import { ImportImageQuery } from '../interfaces/import-image-query';
+import { InfoResponse } from '../interfaces/info-response';
 import { InitializeSwarmBody } from '../interfaces/initialize-swarm-body';
 import { InspectConfigResponse } from '../interfaces/inspect-config-response';
 import { InspectContainerQuery } from '../interfaces/inspect-container-query';
@@ -84,6 +90,23 @@ import { ListTaskQuery } from '../interfaces/list-task-query';
 import { ListTaskResponse } from '../interfaces/list-task-response';
 import { ListVolumeQuery } from '../interfaces/list-volume-query';
 import { ListVolumeResponse } from '../interfaces/list-volume-response';
+import { PingResponse } from '../interfaces/ping-response';
+import { PluginDisableQuery } from '../interfaces/plugin-disable-query';
+import { PluginEnableQuery } from '../interfaces/plugin-enable-query';
+import { PluginInspectResponse } from '../interfaces/plugin-inspect-response';
+import { PluginPrivilegeQuery } from '../interfaces/plugin-privilege-query';
+import { PluginPrivilegeResponse } from '../interfaces/plugin-privilege-response';
+import { PluginPullBody } from '../interfaces/plugin-pull-body';
+import { PluginPullHeader } from '../interfaces/plugin-pull-header';
+import { PluginPullQuery } from '../interfaces/plugin-pull-query';
+import { PluginQuery } from '../interfaces/plugin-query';
+import { PluginRemoveQuery } from '../interfaces/plugin-remove-query';
+import { PluginRemoveResponse } from '../interfaces/plugin-remove-response';
+import { PluginResponse } from '../interfaces/plugin-response';
+import { PluginCreateQuery } from '../interfaces/plugins-create-query';
+import { PluginUpgradeBody } from '../interfaces/plugins-upgrade-body';
+import { PluginUpgradeHeader } from '../interfaces/plugins-upgrade-header';
+import { PluginUpgradeQuery } from '../interfaces/plugins-upgrade-query';
 import { PushImageHeader } from '../interfaces/push-image-header';
 import { PushImageQuery } from '../interfaces/push-image-query';
 import { RemoveContainerQuery } from '../interfaces/remove-container-query';
@@ -102,7 +125,11 @@ import { StartContainerResponse } from '../interfaces/start-container-response';
 import { StartExecBody } from '../interfaces/start-exec-body';
 import { StopContainerQuery } from '../interfaces/stop-container-query';
 import { StopContainerResponse } from '../interfaces/stop-container-response';
+import { SystemDfQuery } from '../interfaces/system-df-query';
+import { SystemDfResponse } from '../interfaces/system-df-response';
 import { TagImageQuery } from '../interfaces/tag-image-query';
+import { UpdateConfigBody } from '../interfaces/update-config-body';
+import { UpdateConfigQuery } from '../interfaces/update-config-query';
 import { UpdateContainerBody } from '../interfaces/update-container-body';
 import { UpdateContainerResponse } from '../interfaces/update-container-response';
 import { UpdateNodeBody } from '../interfaces/update-node-body';
@@ -116,37 +143,10 @@ import { UpdateServiceResponse } from '../interfaces/update-service-response';
 import { UpdateSwarmProp } from '../interfaces/update-swarm-prop';
 import { UpdateVolumeBody } from '../interfaces/update-volume-body';
 import { UpdateVolumeQuery } from '../interfaces/update-volume-query';
+import { VersionResponse } from '../interfaces/version-response';
 import { WaitContainerQuery } from '../interfaces/wait-container-query';
 import { WaitContainerResponse } from '../interfaces/wait-container-response';
 import { ConnectOptions, Utils } from './utils';
-import { UpdateConfigQuery } from '../interfaces/update-config-query';
-import { UpdateConfigBody } from '../interfaces/update-config-body';
-import { AuthConfigBody } from '../interfaces/auth-config-body';
-import { AuthConfigResponse } from '../interfaces/auth-config-response';
-import { InfoResponse } from '../interfaces/info-response';
-import { VersionResponse } from '../interfaces/version-response';
-import { PingResponse } from '../interfaces/ping-response';
-import { EventResponse } from '../interfaces/event-response';
-import { EventQuery } from '../interfaces/event-query';
-import { SystemDfQuery } from '../interfaces/system-df-query';
-import { SystemDfResponse } from '../interfaces/system-df-response';
-import { DistributionResponse } from '../interfaces/distribution-response';
-import { PluginQuery } from '../interfaces/plugin-query';
-import { PluginResponse } from '../interfaces/plugin-response';
-import { PluginPrivilegeQuery } from '../interfaces/plugin-privilege-query';
-import { PluginPrivilegeResponse } from '../interfaces/plugin-privilege-response';
-import { PluginPullBody } from '../interfaces/plugin-pull-body';
-import { PluginPullHeader } from '../interfaces/plugin-pull-header';
-import { PluginPullQuery } from '../interfaces/plugin-pull-query';
-import { PluginInspectResponse } from '../interfaces/plugin-inspect-response';
-import { PluginRemoveResponse } from '../interfaces/plugin-remove-response';
-import { PluginRemoveQuery } from '../interfaces/plugin-remove-query';
-import { PluginEnableQuery } from '../interfaces/plugin-enable-query';
-import { PluginDisableQuery } from '../interfaces/plugin-disable-query';
-import { PluginUpgradeQuery } from '../interfaces/plugins-upgrade-query';
-import { PluginUpgradeHeader } from '../interfaces/plugins-upgrade-header';
-import { PluginUpgradeBody } from '../interfaces/plugins-upgrade-body';
-import { PluginCreateQuery } from '../interfaces/plugins-create-query';
 
 export class Dockersdk {
   constructor() {
@@ -187,7 +187,7 @@ export class Dockersdk {
   // Docker Container Section
   // ====================
 
-  public async getContainer(params?: { query?: GetContainerQuery }): Promise<GetContainerResponse | string> {
+  public async containers(params?: { query?: ContainerQuery }): Promise<ContainerResponse | string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'containers/json',
