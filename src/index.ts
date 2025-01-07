@@ -149,7 +149,7 @@ import { VolumeUpdateBody } from '../interfaces/volume-update-body';
 import { VolumeUpdateQuery } from '../interfaces/volume-update-query';
 import { ConnectOptions, Utils } from './utils';
 
-export class Dockersdk {
+export class Docker {
   constructor() {
     // Get the socket path from the environment
     if (process.env.DOCKER_HOST) {
