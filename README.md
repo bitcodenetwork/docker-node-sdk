@@ -1,6 +1,6 @@
 # DockerSDK
 
-Docker SDK for Node.js
+Node.js Docker SDK **BETA**
 
 > 📣 **Important, we are under development!**\
 > This package is still under development, and is not ready and not recommended for use in production mode!

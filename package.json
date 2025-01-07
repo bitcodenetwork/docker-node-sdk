@@ -1,5 +1,5 @@
 {
-  "name": "docker-node-sdk",
+  "name": "node-docker-sdk",
   "version": "0.0.1",
   "description": "Docker SDK to connect with Docker engine",
   "main": "./dist/index.js",
