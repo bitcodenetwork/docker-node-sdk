@@ -1,9 +1,13 @@
 import os from 'os';
 import { AuthConfigBody } from '../interfaces/auth-config-body';
 import { AuthConfigResponse } from '../interfaces/auth-config-response';
-import { BuildImageHeader } from '../interfaces/build-image-header';
-import { BuildImageQuery } from '../interfaces/build-image-query';
-import { ConnectNetworkBody } from '../interfaces/connect-network-body';
+import { ConfigCreateBody } from '../interfaces/config-create-body';
+import { ConfigCreateResponse } from '../interfaces/config-create-response';
+import { ConfigInspectResponse } from '../interfaces/config-inspect-response';
+import { ConfigQuery } from '../interfaces/config-query';
+import { ConfigResponse } from '../interfaces/config-response';
+import { ConfigUpdateBody } from '../interfaces/config-update-body';
+import { ConfigUpdateQuery } from '../interfaces/config-update-query';
 import { ContainerArchiveQuery } from '../interfaces/container-archive-query';
 import { ContainerAttachQuery } from '../interfaces/container-attach-query';
 import { ContainerChangeResponse } from '../interfaces/container-change-response';
@@ -36,74 +40,53 @@ import { ContainerUpdateBody } from '../interfaces/container-update-body';
 import { ContainerUpdateResponse } from '../interfaces/container-update-response';
 import { ContainerWaitQuery } from '../interfaces/container-wait-query';
 import { ContainerWaitResponse } from '../interfaces/container-wait-response';
-import { CreateConfigBody } from '../interfaces/create-config-body';
-import { CreateConfigResponse } from '../interfaces/create-config-response';
-import { CreateExecBody } from '../interfaces/create-exec-body';
-import { CreateExecResponse } from '../interfaces/create-exec-response';
-import { CreateImageFromContainerBody } from '../interfaces/create-image-from-container-body';
-import { CreateImageFromContainerQuery } from '../interfaces/create-image-from-container-query';
-import { CreateImageFromContainerResponse } from '../interfaces/create-image-from-container-response';
-import { CreateImageHeader } from '../interfaces/create-image-header';
-import { CreateImageQuery } from '../interfaces/create-image-query';
-import { CreateNetworkBody } from '../interfaces/create-network-body';
-import { CreateNetworkResponse } from '../interfaces/create-network-response';
-import { CreateSecretBody } from '../interfaces/create-secret-body';
-import { CreateSecretResponse } from '../interfaces/create-secret-response';
-import { CreateServiceBody } from '../interfaces/create-service-body';
-import { CreateServiceHeader } from '../interfaces/create-service-header';
-import { CreateServiceResponse } from '../interfaces/create-service-response';
-import { CreateVolumeBody } from '../interfaces/create-volume-body';
-import { CreateVolumeResponse } from '../interfaces/create-volume-response';
-import { DeleteBuilderCacheQuery } from '../interfaces/delete-builder-cache-query';
-import { DeleteNodeQuery } from '../interfaces/delete-node-query';
-import { DeleteUnusedImagesQuery } from '../interfaces/delete-unused-images-query';
-import { DeleteUnusedImagesResponse } from '../interfaces/delete-unused-images-response';
-import { DeleteUnusedNetworkQuery } from '../interfaces/delete-unused-netowrk-query';
-import { DeleteUnusedNetworkResponse } from '../interfaces/delete-unused-netowrk-response';
-import { DeleteUnusedVolumeQuery } from '../interfaces/delete-unused-volume-query';
-import { DeleteUnusedVolumeResponse } from '../interfaces/delete-unused-volume-repsonse';
-import { DisconnectNetworkBody } from '../interfaces/disconnect-network-body';
 import { DistributionResponse } from '../interfaces/distribution-response';
 import { EventQuery } from '../interfaces/event-query';
 import { EventResponse } from '../interfaces/event-response';
-import { ExportSeveralImagesQuery } from '../interfaces/export-several-images-query';
-import { GetImageQuery } from '../interfaces/get-image-query';
-import { GetImageResponse } from '../interfaces/get-image-response';
-import { GetServiceLogsQuery } from '../interfaces/get-service-log-query';
-import { GetSwarmUnlockKeyResponse } from '../interfaces/get-swarm-unlock-key-response';
-import { GetTaskLogsQuery } from '../interfaces/get-task-logs';
+import { ExecBody } from '../interfaces/exec-create-body';
+import { ExecResponse } from '../interfaces/exec-create-response';
+import { ExecInspectResponse } from '../interfaces/exec-inspect-response';
+import { ExecResizeQuery } from '../interfaces/exec-resize-query';
+import { ExecStartBody } from '../interfaces/exec-start-body';
+import { ImageBuildHeader } from '../interfaces/image-build-header';
+import { ImageBuildPruneQuery } from '../interfaces/image-build-prune-query';
+import { ImageBuildQuery } from '../interfaces/image-build-query';
+import { ImageCommitBody } from '../interfaces/image-commit-body';
+import { ImageCommitQuery } from '../interfaces/image-commit-query';
+import { ImageCommitResponse } from '../interfaces/image-commit-response';
+import { ImageCreateHeader } from '../interfaces/image-create-header';
+import { ImageCreateQuery } from '../interfaces/image-create-query';
+import { ImageGetSeveralQuery } from '../interfaces/image-get-several-query';
 import { ImageHistoryResponse } from '../interfaces/image-history-response';
-import { ImportImageQuery } from '../interfaces/import-image-query';
+import { ImageInspectResponse } from '../interfaces/image-inspect-response';
+import { ImageLoadQuery } from '../interfaces/image-load-query';
+import { ImagePushHeader } from '../interfaces/image-push-header';
+import { ImagePushQuery } from '../interfaces/image-push-query';
+import { ImageQuery } from '../interfaces/image-query';
+import { ImageRemoveQuery } from '../interfaces/image-remove-query';
+import { ImageResponse } from '../interfaces/image-response';
+import { ImageSearchQuery } from '../interfaces/image-search-query';
+import { ImageSearchResponse } from '../interfaces/image-search-response';
+import { ImageTagQuery } from '../interfaces/image-tag-query';
+import { ImagesPruneQuery } from '../interfaces/images-prune-query';
+import { ImagesPruneResponse } from '../interfaces/images-prune-response';
 import { InfoResponse } from '../interfaces/info-response';
-import { InitializeSwarmBody } from '../interfaces/initialize-swarm-body';
-import { InspectConfigResponse } from '../interfaces/inspect-config-response';
-import { InspectExecResponse } from '../interfaces/inspect-exec-response';
-import { InspectImageResponse } from '../interfaces/inspect-image-response';
-import { InspectNetworkQuery } from '../interfaces/inspect-network-query';
-import { InspectNetworkResponse } from '../interfaces/inspect-network-response';
-import { InspectNodeResponse } from '../interfaces/inspect-node-response';
-import { InspectSecretResponse } from '../interfaces/inspect-secret-response';
-import { InspectServiceQuery } from '../interfaces/inspect-service-query';
-import { InspectServiceResponse } from '../interfaces/inspect-service-response';
-import { InspectSwarmResponse } from '../interfaces/inspect-swarm-response';
-import { InspectTaskResponse } from '../interfaces/inspect-task-response';
-import { InspectVolumeResponse } from '../interfaces/inspect-volume-response';
-import { JoinSwarmBody } from '../interfaces/join-swarm-body';
-import { LeaveSwarmQuery } from '../interfaces/leave-swarm-query';
-import { ListConfigQuery } from '../interfaces/list-config-query';
-import { ListConfigResponse } from '../interfaces/list-config-response';
-import { ListNetworkQuery } from '../interfaces/list-network-query';
-import { ListNetworkResponse } from '../interfaces/list-network-response';
-import { ListNodeQuery } from '../interfaces/list-node-query';
-import { ListNodeResponse } from '../interfaces/list-node-response';
-import { ListSecretQuery } from '../interfaces/list-secret-query';
-import { ListSecretResponse } from '../interfaces/list-secret-response';
-import { ListServiceQuery } from '../interfaces/list-service-query';
-import { ListServiceResponse } from '../interfaces/list-service-response';
-import { ListTaskQuery } from '../interfaces/list-task-query';
-import { ListTaskResponse } from '../interfaces/list-task-response';
-import { ListVolumeQuery } from '../interfaces/list-volume-query';
-import { ListVolumeResponse } from '../interfaces/list-volume-response';
+import { NetworkConnectBody } from '../interfaces/network-connect-body';
+import { NetworkCreateBody } from '../interfaces/network-create-body';
+import { NetworkCreateResponse } from '../interfaces/network-create-response';
+import { NetworkDisconnectBody } from '../interfaces/network-disconnect-body';
+import { NetworkInspectQuery } from '../interfaces/network-inspect-query';
+import { NetworkInspectResponse } from '../interfaces/network-inspect-response';
+import { NetworkPruneQuery } from '../interfaces/network-prune-query';
+import { NetworkPruneResponse } from '../interfaces/network-prune-response';
+import { NetworkQuery } from '../interfaces/network-query';
+import { NetworkResponse } from '../interfaces/network-response';
+import { NodeDeleteQuery } from '../interfaces/node-delete-query';
+import { NodeInspectResponse } from '../interfaces/node-inspect-response';
+import { NodeQuery } from '../interfaces/node-query';
+import { NodeResponse } from '../interfaces/node-response';
+import { NodeUpdateBody } from '../interfaces/node-update-body';
+import { NodeUpdateQuery } from '../interfaces/node-update-query';
 import { PingResponse } from '../interfaces/ping-response';
 import { PluginDisableQuery } from '../interfaces/plugin-disable-query';
 import { PluginEnableQuery } from '../interfaces/plugin-enable-query';
@@ -121,31 +104,49 @@ import { PluginCreateQuery } from '../interfaces/plugins-create-query';
 import { PluginUpgradeBody } from '../interfaces/plugins-upgrade-body';
 import { PluginUpgradeHeader } from '../interfaces/plugins-upgrade-header';
 import { PluginUpgradeQuery } from '../interfaces/plugins-upgrade-query';
-import { PushImageHeader } from '../interfaces/push-image-header';
-import { PushImageQuery } from '../interfaces/push-image-query';
-import { RemoveImageQuery } from '../interfaces/remove-image-query';
-import { RemoveVolumeQuery } from '../interfaces/remove-volume-query';
-import { ResizeExecQuery } from '../interfaces/resize-exec-query';
-import { SearchImageQuery } from '../interfaces/search-image-query';
-import { SearchImageResponse } from '../interfaces/search-image-response';
-import { StartExecBody } from '../interfaces/start-exec-body';
+import { SecretCreateBody } from '../interfaces/secret-create-body';
+import { SecretCreateResponse } from '../interfaces/secret-create-response';
+import { SecretInspectResponse } from '../interfaces/secret-inspect-response';
+import { SecretQuery } from '../interfaces/secret-query';
+import { SecretResponse } from '../interfaces/secret-response';
+import { SecretUpdateBody } from '../interfaces/secret-update-body';
+import { SecretUpdateQuery } from '../interfaces/secret-update-query';
+import { ServiceCreateBody } from '../interfaces/service-create-body';
+import { ServiceCreateHeader } from '../interfaces/service-create-header';
+import { ServiceCreateResponse } from '../interfaces/service-create-response';
+import { ServiceInspectQuery } from '../interfaces/service-inspect-query';
+import { ServiceInspectResponse } from '../interfaces/service-inspect-response';
+import { ServiceLogQuery } from '../interfaces/service-log-query';
+import { ServiceQuery } from '../interfaces/service-query';
+import { ServiceResponse } from '../interfaces/service-response';
+import { ServiceUpdateBody } from '../interfaces/service-update-body';
+import { ServiceUpdateHeader } from '../interfaces/service-update-header';
+import { ServiceUpdateQuery } from '../interfaces/service-update-query';
+import { ServiceUpdateResponse } from '../interfaces/service-update-response';
+import { SwarmInitBody } from '../interfaces/swarm-init-body';
+import { SwarmJoinBody } from '../interfaces/swarm-join-body';
+import { SwarmLeaveQuery } from '../interfaces/swarm-leave-query';
+import { SwarmResponse } from '../interfaces/swarm-response';
+import { SwarmUnlockKeyResponse } from '../interfaces/swarm-unlock-key-response';
+import { SwarmUpdateBody } from '../interfaces/swarm-update-body';
+import { SwarmUpdateQuery } from '../interfaces/swarm-update-query';
 import { SystemDfQuery } from '../interfaces/system-df-query';
 import { SystemDfResponse } from '../interfaces/system-df-response';
-import { TagImageQuery } from '../interfaces/tag-image-query';
-import { UpdateConfigBody } from '../interfaces/update-config-body';
-import { UpdateConfigQuery } from '../interfaces/update-config-query';
-import { UpdateNodeBody } from '../interfaces/update-node-body';
-import { UpdateNodeQuery } from '../interfaces/update-node-query';
-import { UpdateSecretBody } from '../interfaces/update-secret-body';
-import { UpdateSecretQuery } from '../interfaces/update-secret-query';
-import { UpdateServiceBody } from '../interfaces/update-service-body';
-import { UpdateServiceHeader } from '../interfaces/update-service-header';
-import { UpdateServiceQuery } from '../interfaces/update-service-query';
-import { UpdateServiceResponse } from '../interfaces/update-service-response';
-import { UpdateSwarmProp } from '../interfaces/update-swarm-prop';
-import { UpdateVolumeBody } from '../interfaces/update-volume-body';
-import { UpdateVolumeQuery } from '../interfaces/update-volume-query';
+import { TaskInspectResponse } from '../interfaces/task-inspect-response';
+import { TaskLogQuery } from '../interfaces/task-logs';
+import { TaskQuery } from '../interfaces/task-query';
+import { TaskResponse } from '../interfaces/task-response';
 import { VersionResponse } from '../interfaces/version-response';
+import { VolumeCreateBody } from '../interfaces/volume-create-body';
+import { VolumeCreateResponse } from '../interfaces/volume-create-response';
+import { VolumeInspectResponse } from '../interfaces/volume-inspect-response';
+import { VolumeListQuery } from '../interfaces/volume-list-query';
+import { VolumeListResponse } from '../interfaces/volume-list-response';
+import { VolumePruneQuery } from '../interfaces/volume-prune-query';
+import { volumePruneResponse } from '../interfaces/volume-prune-response';
+import { VolumeRemoveQuery } from '../interfaces/volume-remove-query';
+import { VolumeUpdateBody } from '../interfaces/volume-update-body';
+import { VolumeUpdateQuery } from '../interfaces/volume-update-query';
 import { ConnectOptions, Utils } from './utils';
 
 export class Dockersdk {
@@ -439,7 +440,7 @@ export class Dockersdk {
   // Docker Image Section
   // ====================
 
-  public async getImages(params?: { query?: GetImageQuery }): Promise<GetImageResponse> {
+  public async image(params?: { query?: ImageQuery }): Promise<ImageResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'images/json',
@@ -449,7 +450,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async buildImage(params: { query?: BuildImageQuery, headers?: BuildImageHeader, body: File }): Promise<string> {
+  public async imageBuild(params: { query?: ImageBuildQuery, headers?: ImageBuildHeader, body: File }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'build',
@@ -461,7 +462,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async deleteBuilderCache(params: { query?: DeleteBuilderCacheQuery }): Promise<string> {
+  public async imageBuildPrune(params: { query?: ImageBuildPruneQuery }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'build/prune',
@@ -471,7 +472,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async createImage(params: { query?: CreateImageQuery, headers?: CreateImageHeader, body?: File }): Promise<string> {
+  public async imageCreate(params: { query?: ImageCreateQuery, headers?: ImageCreateHeader, body?: File }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'image/create',
@@ -482,7 +483,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async inspectImage(params: { name: string }): Promise<InspectImageResponse> {
+  public async imageInspect(params: { name: string }): Promise<ImageInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'images/' + params.name + '/json',
@@ -500,7 +501,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async pushImage(params: { name: string; query?: PushImageQuery; headers?: PushImageHeader }): Promise<string> {
+  public async imagePush(params: { name: string; query?: ImagePushQuery; headers?: ImagePushHeader }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'images/' + params.name + '/push',
@@ -511,7 +512,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async tagImage(params: { name: string; query?: TagImageQuery }): Promise<string> {
+  public async imageTag(params: { name: string; query?: ImageTagQuery }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'images/' + params.name + '/tag',
@@ -521,7 +522,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async removeImage(params: { name: string; query?: RemoveImageQuery }): Promise<string> {
+  public async imageRemove(params: { name: string; query?: ImageRemoveQuery }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
       path: 'images/' + params.name,
@@ -531,7 +532,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async searchImage(params: { query?: SearchImageQuery }): Promise<SearchImageResponse> {
+  public async imageSearch(params: { query?: ImageSearchQuery }): Promise<ImageSearchResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
       path: 'images/search',
@@ -541,7 +542,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async deleteUnusedImages(params: { query?: DeleteUnusedImagesQuery }): Promise<DeleteUnusedImagesResponse> {
+  public async imagePrune(params: { query?: ImagesPruneQuery }): Promise<ImagesPruneResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'images/prune',
@@ -551,7 +552,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async createImageFromContainer(params: { query?: CreateImageFromContainerQuery, body?: CreateImageFromContainerBody }): Promise<CreateImageFromContainerResponse> {
+  public async imageCommit(params: { query?: ImageCommitQuery, body?: ImageCommitBody }): Promise<ImageCommitResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'commit',
@@ -562,7 +563,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async exportImage(params: { name: string; }): Promise<string> {
+  public async imageGet(params: { name: string; }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'images/' + params.name + '/get',
@@ -571,7 +572,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async exportSeveralImages(params: { query?: ExportSeveralImagesQuery }): Promise<string> {
+  public async imageGetSeveral(params: { query?: ImageGetSeveralQuery }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'images/get',
@@ -581,7 +582,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async importImage(params: { body?: ImportImageQuery }): Promise<string> {
+  public async imageLoad(params: { body?: ImageLoadQuery }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'images/load',
@@ -595,7 +596,7 @@ export class Dockersdk {
   // Docker Network Section
   // ======================
 
-  public async listNetwork(params?: { query?: ListNetworkQuery }): Promise<ListNetworkResponse> {
+  public async network(params?: { query?: NetworkQuery }): Promise<NetworkResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'networks',
@@ -605,7 +606,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async inspectNetwork(params: { id: string, query?: InspectNetworkQuery }): Promise<InspectNetworkResponse> {
+  public async networkInspect(params: { id: string, query?: NetworkInspectQuery }): Promise<NetworkInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'networks/' + params.id,
@@ -615,7 +616,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async removeNetwork(params: { id: string }): Promise<void> {
+  public async networkRemove(params: { id: string }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
       path: 'networks/' + params.id,
@@ -624,7 +625,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async createNetwork(params: { body?: CreateNetworkBody }): Promise<CreateNetworkResponse> {
+  public async networkCreate(params: { body?: NetworkCreateBody }): Promise<NetworkCreateResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'networks/create',
@@ -634,7 +635,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async connectNetwork(params: { id: string, body?: ConnectNetworkBody }): Promise<void> {
+  public async networkConnect(params: { id: string, body?: NetworkConnectBody }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'networks/' + params.id + '/connect',
@@ -644,7 +645,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async disconnectNetwork(params: { id: string, body?: DisconnectNetworkBody }): Promise<void> {
+  public async networkDisconnect(params: { id: string, body?: NetworkDisconnectBody }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'networks/' + params.id + '/disconnect',
@@ -654,7 +655,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async deleteUnusedNetwork(params: { query?: DeleteUnusedNetworkQuery }): Promise<DeleteUnusedNetworkResponse> {
+  public async networkPrune(params: { query?: NetworkPruneQuery }): Promise<NetworkPruneResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'networks/prune',
@@ -668,7 +669,7 @@ export class Dockersdk {
   // Docker Volume Section
   // =====================
 
-  public async listVolume(params?: { query?: ListVolumeQuery }): Promise<ListVolumeResponse> {
+  public async volume(params?: { query?: VolumeListQuery }): Promise<VolumeListResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'volumes',
@@ -678,7 +679,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async createVolume(params: { body?: CreateVolumeBody }): Promise<CreateVolumeResponse> {
+  public async volumeCreate(params: { body?: VolumeCreateBody }): Promise<VolumeCreateResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'volumes/create',
@@ -688,7 +689,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async inspectVolume(params: { id: string }): Promise<InspectVolumeResponse> {
+  public async volumeInspect(params: { id: string }): Promise<VolumeInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'volumes/' + params.id
@@ -697,7 +698,7 @@ export class Dockersdk {
     return Utils.connect(options);
   }
 
-  public async updateVolume(params: { id: string, query: UpdateVolumeQuery, body?: UpdateVolumeBody }): Promise<void> {
+  public async volumeUpdate(params: { id: string, query: VolumeUpdateQuery, body?: VolumeUpdateBody }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'volumes/' + params.id,
@@ -708,7 +709,7 @@ export class Dockersdk {
     return Utils.connect(options);
   }
 
-  public async removeVolume(params: { id: string, query?: RemoveVolumeQuery }): Promise<void> {
+  public async volumeRemove(params: { id: string, query?: VolumeRemoveQuery }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
       path: 'volumes/' + params.id,
@@ -718,7 +719,7 @@ export class Dockersdk {
     return Utils.connect(options);
   }
 
-  public async deleteUnusedVolume(params: { query?: DeleteUnusedVolumeQuery }): Promise<DeleteUnusedVolumeResponse> {
+  public async volumePrune(params: { query?: VolumePruneQuery }): Promise<volumePruneResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'volumes/prune',
@@ -732,7 +733,7 @@ export class Dockersdk {
   // Docker Exec Section
   // ===================
 
-  public async createExec(params: { id: string, body?: CreateExecBody }): Promise<CreateExecResponse> {
+  public async exec(params: { id: string, body?: ExecBody }): Promise<ExecResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'containers/' + params.id + '/exec',
@@ -742,7 +743,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async startExec(params: { id: string, body?: StartExecBody }): Promise<void> {
+  public async execStart(params: { id: string, body?: ExecStartBody }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'exec/' + params.id + '/start',
@@ -752,7 +753,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async resizeExec(params: { id: string, query: ResizeExecQuery }): Promise<void> {
+  public async execResize(params: { id: string, query: ExecResizeQuery }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'exec/' + params.id + '/resize',
@@ -762,7 +763,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async inspectExec(params: { id: string }): Promise<InspectExecResponse> {
+  public async execInspect(params: { id: string }): Promise<ExecInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'exec/' + params.id + '/json'
@@ -775,7 +776,7 @@ export class Dockersdk {
   // Docker Swarm Section
   // ====================
 
-  public async inspectSwarm(): Promise<InspectSwarmResponse> {
+  public async swarm(): Promise<SwarmResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'swarm',
@@ -784,7 +785,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async initializeSwarm(params?: { body?: InitializeSwarmBody }): Promise<string> {
+  public async swarmInit(params?: { body?: SwarmInitBody }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'swarm/init',
@@ -794,7 +795,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async joinSwarm(params?: { body?: JoinSwarmBody }): Promise<string> {
+  public async swarmJoin(params?: { body?: SwarmJoinBody }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'swarm/join',
@@ -804,7 +805,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async leaveSwarm(params: { query?: LeaveSwarmQuery }): Promise<string> {
+  public async swarmLeave(params: { query?: SwarmLeaveQuery }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'swarm/leave',
@@ -814,7 +815,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async updateSwarm(params: UpdateSwarmProp): Promise<string> {
+  public async swarmUpdate(params: { query?: SwarmUpdateQuery, body?: SwarmUpdateBody }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'swarm/update',
@@ -824,7 +825,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async getSwarmUnlockKey(): Promise<GetSwarmUnlockKeyResponse> {
+  public async swarmUnlockKey(): Promise<SwarmUnlockKeyResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'swarm/unlockkey',
@@ -833,7 +834,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async unlockSwarmManager(): Promise<GetSwarmUnlockKeyResponse> {
+  public async swarmUnlock(): Promise<SwarmUnlockKeyResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'swarm/unlock',
@@ -846,7 +847,7 @@ export class Dockersdk {
   // Docker Node Section
   // ===================
 
-  public async listNode(params?: { query?: ListNodeQuery }): Promise<ListNodeResponse> {
+  public async node(params?: { query?: NodeQuery }): Promise<NodeResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'nodes',
@@ -856,7 +857,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async inspectNode(params: { id: string }): Promise<InspectNodeResponse> {
+  public async nodeInspect(params: { id: string }): Promise<NodeInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'nodes/' + params.id
@@ -865,7 +866,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async deleteNode(params: { id: string, query?: DeleteNodeQuery }): Promise<void> {
+  public async nodeDelete(params: { id: string, query?: NodeDeleteQuery }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
       path: 'nodes/' + params.id,
@@ -875,7 +876,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async updateNode(params: { id: string, query: UpdateNodeQuery, body?: UpdateNodeBody }): Promise<void> {
+  public async nodeUpdate(params: { id: string, query: NodeUpdateQuery, body?: NodeUpdateBody }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'nodes/' + params.id,
@@ -890,7 +891,7 @@ export class Dockersdk {
   // Docker Service Section
   // ======================
 
-  public async listService(params?: { query?: ListServiceQuery }): Promise<ListServiceResponse> {
+  public async service(params?: { query?: ServiceQuery }): Promise<ServiceResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'services',
@@ -900,7 +901,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async createService(params: { headers?: CreateServiceHeader, body?: CreateServiceBody }): Promise<CreateServiceResponse> {
+  public async serviceCreate(params: { headers?: ServiceCreateHeader, body?: ServiceCreateBody }): Promise<ServiceCreateResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'services/create',
@@ -911,7 +912,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async inspectService(params: { id: string, query?: InspectServiceQuery }): Promise<InspectServiceResponse> {
+  public async serviceInspect(params: { id: string, query?: ServiceInspectQuery }): Promise<ServiceInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'services/' + params.id,
@@ -921,7 +922,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async deleteService(params: { id: string }): Promise<void> {
+  public async serviceDelete(params: { id: string }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
       path: 'services/' + params.id
@@ -930,7 +931,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async updateService(params: { id: string, headers: UpdateServiceHeader, query?: UpdateServiceQuery, body?: UpdateServiceBody }): Promise<UpdateServiceResponse> {
+  public async serviceUpdate(params: { id: string, headers: ServiceUpdateHeader, query?: ServiceUpdateQuery, body?: ServiceUpdateBody }): Promise<ServiceUpdateResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'services/' + params.id,
@@ -942,7 +943,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async getServiceLogs(params: { id: string, query?: GetServiceLogsQuery }): Promise<string> {
+  public async serviceLog(params: { id: string, query?: ServiceLogQuery }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'services/' + params.id + '/logs',
@@ -956,7 +957,7 @@ export class Dockersdk {
   // Docker Task
   // ===========
 
-  public async listTask(params?: { query?: ListTaskQuery }): Promise<ListTaskResponse> {
+  public async task(params?: { query?: TaskQuery }): Promise<TaskResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'tasks',
@@ -966,7 +967,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async inspectTask(params: { id: string }): Promise<InspectTaskResponse> {
+  public async taskInspect(params: { id: string }): Promise<TaskInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'tasks/' + params.id,
@@ -975,7 +976,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async getTaskLogs(params: { id: string, query?: GetTaskLogsQuery }): Promise<string> {
+  public async getTaskLogs(params: { id: string, query?: TaskLogQuery }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'tasks/' + params.id + '/logs',
@@ -989,7 +990,7 @@ export class Dockersdk {
   // Secret Section
   // ==============
 
-  public async listSecret(params?: { query?: ListSecretQuery }): Promise<ListSecretResponse> {
+  public async secret(params?: { query?: SecretQuery }): Promise<SecretResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'secrets',
@@ -999,7 +1000,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async createSecret(params: { body?: CreateSecretBody }): Promise<CreateSecretResponse> {
+  public async secretCreate(params: { body?: SecretCreateBody }): Promise<SecretCreateResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'secrets/create',
@@ -1009,7 +1010,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async inspectSecret(params: { id: string }): Promise<InspectSecretResponse> {
+  public async secretInspect(params: { id: string }): Promise<SecretInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'secrets/' + params.id
@@ -1018,7 +1019,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async deleteSecret(params: { id: string }): Promise<void> {
+  public async secretDelete(params: { id: string }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
       path: 'secrets/' + params.id
@@ -1027,7 +1028,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async updateSecret(params: { id: string, query: UpdateSecretQuery, body?: UpdateSecretBody }): Promise<void> {
+  public async secretUpdate(params: { id: string, query: SecretUpdateQuery, body?: SecretUpdateBody }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'secrets/' + params.id,
@@ -1042,7 +1043,7 @@ export class Dockersdk {
   // Config Section
   // ==============
 
-  public async listConfig(params?: { query?: ListConfigQuery }): Promise<ListConfigResponse> {
+  public async config(params?: { query?: ConfigQuery }): Promise<ConfigResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'configs',
@@ -1052,7 +1053,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async createConfig(params: { body?: CreateConfigBody }): Promise<CreateConfigResponse> {
+  public async configCreate(params: { body?: ConfigCreateBody }): Promise<ConfigCreateResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'configs/create',
@@ -1062,7 +1063,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async inspectConfig(params: { id: string }): Promise<InspectConfigResponse> {
+  public async configInspect(params: { id: string }): Promise<ConfigInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'configs/' + params.id
@@ -1071,7 +1072,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async deleteConfig(params: { id: string }): Promise<void> {
+  public async configDelete(params: { id: string }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
       path: 'configs/' + params.id
@@ -1080,7 +1081,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async updateConfig(params: { id: string, query: UpdateConfigQuery, body?: UpdateConfigBody }): Promise<void> {
+  public async configUpdate(params: { id: string, query: ConfigUpdateQuery, body?: ConfigUpdateBody }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'configs/' + params.id,
@@ -1095,7 +1096,7 @@ export class Dockersdk {
   // Plugin Section
   // ==============
 
-  public async plugins(params?: { query?: PluginQuery }): Promise<PluginResponse> {
+  public async plugin(params?: { query?: PluginQuery }): Promise<PluginResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'plugins',
@@ -1105,7 +1106,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async pluginPrivileges(params?: { query?: PluginPrivilegeQuery }): Promise<PluginPrivilegeResponse> {
+  public async pluginPrivilege(params?: { query?: PluginPrivilegeQuery }): Promise<PluginPrivilegeResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'plugins/privileges',
@@ -1115,7 +1116,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async pluginsPull(params: { query: PluginPullQuery, headers?: PluginPullHeader, body?: PluginPullBody[] }): Promise<void> {
+  public async pluginPull(params: { query: PluginPullQuery, headers?: PluginPullHeader, body?: PluginPullBody[] }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'plugins/pull',
@@ -1127,7 +1128,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async pluginsInspect(params: { name: string }): Promise<PluginInspectResponse> {
+  public async pluginInspect(params: { name: string }): Promise<PluginInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'plugins/' + params.name + '/json',
@@ -1136,7 +1137,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async pluginsRemove(params: { name: string, query?: PluginRemoveQuery }): Promise<PluginRemoveResponse> {
+  public async pluginRemove(params: { name: string, query?: PluginRemoveQuery }): Promise<PluginRemoveResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
       path: 'plugins/' + params.name,
@@ -1146,7 +1147,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async pluginsEnable(params: { name: string, query?: PluginEnableQuery }): Promise<void> {
+  public async pluginEnable(params: { name: string, query?: PluginEnableQuery }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'plugins/' + params.name + '/enable',
@@ -1156,7 +1157,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async pluginsDisable(params: { name: string, query?: PluginDisableQuery }): Promise<void> {
+  public async pluginDisable(params: { name: string, query?: PluginDisableQuery }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'plugins/' + params.name + '/disable',
@@ -1166,7 +1167,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async pluginsUpgrade(params: { name: string, query: PluginUpgradeQuery, headers?: PluginUpgradeHeader, body?: PluginUpgradeBody[] }): Promise<void> {
+  public async pluginUpgrade(params: { name: string, query: PluginUpgradeQuery, headers?: PluginUpgradeHeader, body?: PluginUpgradeBody[] }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'plugins/' + params.name + '/upgrade',
@@ -1178,7 +1179,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async pluginsCreate(params: { query: PluginCreateQuery, body?: string }): Promise<void> {
+  public async pluginCreate(params: { query: PluginCreateQuery, body?: string }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'plugins/create',
@@ -1189,7 +1190,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async pluginsPush(params: { name: string }): Promise<void> {
+  public async pluginPush(params: { name: string }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'plugins/' + params.name + '/push'
@@ -1198,7 +1199,7 @@ export class Dockersdk {
     return await Utils.connect(options);
   }
 
-  public async pluginsSet(params: { name: string, body?: string[] }): Promise<void> {
+  public async pluginSet(params: { name: string, body?: string[] }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'plugins/' + params.name + '/set',
