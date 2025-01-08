@@ -1,4 +1,8 @@
-export interface ContainerAttachQuery {
+/**
+ * Docker Container Attach Query
+ */
+
+type DockerContainerAttachQuery = {
   detachKeys?: string;
   logs?: boolean;
   stream?: boolean;
