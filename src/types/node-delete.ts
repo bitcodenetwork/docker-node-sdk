@@ -1,0 +1,3 @@
+type DockerNodeDeleteQuery = {
+  force?: boolean;
+}

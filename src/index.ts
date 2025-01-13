@@ -292,7 +292,7 @@ export class Docker {
   // Docker Image Section
   // ====================
 
-  public async image(params?: { query?: ImageQuery }): Promise<ImageResponse> {
+  public async image(params?: { query?: DockerImageQuery }): Promise<DockerImageResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'images/json',
@@ -302,7 +302,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async imageBuild(params: { query?: ImageBuildQuery, headers?: ImageBuildHeader, body: File }): Promise<string> {
+  public async imageBuild(params: { query?: DockerImageBuildQuery, headers?: DockerImageBuildHeader, body: File }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'build',
@@ -314,7 +314,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async imageBuildPrune(params: { query?: ImageBuildPruneQuery }): Promise<string> {
+  public async imageBuildPrune(params: { query?: DockerImageBuildPruneQuery }): Promise<DockerImageBuildPruneResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'build/prune',
@@ -324,7 +324,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async imageCreate(params: { query?: ImageCreateQuery, headers?: ImageCreateHeader, body?: File }): Promise<string> {
+  public async imageCreate(params: { query?: DockerImageCreateQuery, headers?: DockerImageCreateHeader, body?: string }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'image/create',
@@ -335,7 +335,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async imageInspect(params: { name: string }): Promise<ImageInspectResponse> {
+  public async imageInspect(params: { name: string }): Promise<DockerImageInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'images/' + params.name + '/json',
@@ -344,7 +344,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async imageHistory(params: { name: string }): Promise<ImageHistoryResponse> {
+  public async imageHistory(params: { name: string }): Promise<DockerImageHistoryResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'images/' + params.name + '/history',
@@ -353,7 +353,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async imagePush(params: { name: string; query?: ImagePushQuery; headers?: ImagePushHeader }): Promise<string> {
+  public async imagePush(params: { name: string; query?: DockerImagePushQuery; headers?: DockerImagePushHeader }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'images/' + params.name + '/push',
@@ -364,7 +364,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async imageTag(params: { name: string; query?: ImageTagQuery }): Promise<string> {
+  public async imageTag(params: { name: string; query?: DockerImageTagQuery }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'images/' + params.name + '/tag',
@@ -374,7 +374,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async imageRemove(params: { name: string; query?: ImageRemoveQuery }): Promise<string> {
+  public async imageRemove(params: { name: string; query?: DockerImageRemoveQuery }): Promise<DockerImageRemoveResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
       path: 'images/' + params.name,
@@ -384,7 +384,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async imageSearch(params: { query?: ImageSearchQuery }): Promise<ImageSearchResponse> {
+  public async imageSearch(params: { query?: DockerImageSearchQuery }): Promise<DockerImageSearchResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
       path: 'images/search',
@@ -394,7 +394,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async imagePrune(params: { query?: ImagesPruneQuery }): Promise<ImagesPruneResponse> {
+  public async imagePrune(params: { query?: DockerImagesPruneQuery }): Promise<DockerImagesPruneResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'images/prune',
@@ -404,7 +404,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async imageCommit(params: { query?: ImageCommitQuery, body?: ImageCommitBody }): Promise<ImageCommitResponse> {
+  public async imageCommit(params: { query?: DockerImageCommitQuery, body?: DockerImageCommitBody }): Promise<DockerImageCommitResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'commit',
@@ -424,7 +424,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async imageGetSeveral(params: { query?: ImageGetSeveralQuery }): Promise<string> {
+  public async imageGetSeveral(params: { query?: DockerImageGetSeveralQuery }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'images/get',
@@ -434,10 +434,11 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async imageLoad(params: { body?: ImageLoadQuery }): Promise<string> {
+  public async imageLoad(params: { query?: DockerImageLoadQuery, body?: string }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'images/load',
+      query: params?.query,
       body: params?.body
     });
 
@@ -448,7 +449,7 @@ export class Docker {
   // Docker Network Section
   // ======================
 
-  public async network(params?: { query?: NetworkQuery }): Promise<NetworkResponse> {
+  public async network(params?: { query?: DockerNetworkQuery }): Promise<DockerNetworkResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'networks',
@@ -458,7 +459,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async networkInspect(params: { id: string, query?: NetworkInspectQuery }): Promise<NetworkInspectResponse> {
+  public async networkInspect(params: { id: string, query?: DockerNetworkInspectQuery }): Promise<DockerNetworkInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'networks/' + params.id,
@@ -477,7 +478,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async networkCreate(params: { body?: NetworkCreateBody }): Promise<NetworkCreateResponse> {
+  public async networkCreate(params: { body?: DockerNetworkCreateBody }): Promise<DockerNetworkCreateResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'networks/create',
@@ -487,7 +488,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async networkConnect(params: { id: string, body?: NetworkConnectBody }): Promise<void> {
+  public async networkConnect(params: { id: string, body?: DockerNetworkConnectBody }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'networks/' + params.id + '/connect',
@@ -497,7 +498,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async networkDisconnect(params: { id: string, body?: NetworkDisconnectBody }): Promise<void> {
+  public async networkDisconnect(params: { id: string, body?: DockerNetworkDisconnectBody }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'networks/' + params.id + '/disconnect',
@@ -507,7 +508,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async networkPrune(params: { query?: NetworkPruneQuery }): Promise<NetworkPruneResponse> {
+  public async networkPrune(params: { query?: DockerNetworkPruneQuery }): Promise<DockerNetworkPruneResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'networks/prune',
@@ -521,7 +522,7 @@ export class Docker {
   // Docker Volume Section
   // =====================
 
-  public async volume(params?: { query?: VolumeListQuery }): Promise<VolumeListResponse> {
+  public async volume(params?: { query?: DockerVolumeListQuery }): Promise<DockerVolumeListResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'volumes',
@@ -531,7 +532,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async volumeCreate(params: { body?: VolumeCreateBody }): Promise<VolumeCreateResponse> {
+  public async volumeCreate(params: { body?: DockerVolumeCreateBody }): Promise<DockerVolumeCreateResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'volumes/create',
@@ -541,7 +542,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async volumeInspect(params: { id: string }): Promise<VolumeInspectResponse> {
+  public async volumeInspect(params: { id: string }): Promise<DockerVolumeInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'volumes/' + params.id
@@ -550,7 +551,7 @@ export class Docker {
     return Utils.connect(options);
   }
 
-  public async volumeUpdate(params: { id: string, query: VolumeUpdateQuery, body?: VolumeUpdateBody }): Promise<void> {
+  public async volumeUpdate(params: { id: string, query: DockerVolumeUpdateQuery, body?: DockerVolumeUpdateBody }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'volumes/' + params.id,
@@ -561,7 +562,7 @@ export class Docker {
     return Utils.connect(options);
   }
 
-  public async volumeRemove(params: { id: string, query?: VolumeRemoveQuery }): Promise<void> {
+  public async volumeRemove(params: { id: string, query?: DockerVolumeRemoveQuery }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
       path: 'volumes/' + params.id,
@@ -571,7 +572,7 @@ export class Docker {
     return Utils.connect(options);
   }
 
-  public async volumePrune(params: { query?: VolumePruneQuery }): Promise<volumePruneResponse> {
+  public async volumePrune(params: { query?: DockerVolumePruneQuery }): Promise<DockerVolumePruneResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'volumes/prune',
@@ -585,7 +586,7 @@ export class Docker {
   // Docker Exec Section
   // ===================
 
-  public async exec(params: { id: string, body?: ExecBody }): Promise<ExecResponse> {
+  public async exec(params: { id: string, body?: DockerExecBody }): Promise<DockerExecResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'containers/' + params.id + '/exec',
@@ -595,7 +596,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async execStart(params: { id: string, body?: ExecStartBody }): Promise<void> {
+  public async execStart(params: { id: string, body?: DockerExecStartBody }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'exec/' + params.id + '/start',
@@ -605,7 +606,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async execResize(params: { id: string, query: ExecResizeQuery }): Promise<void> {
+  public async execResize(params: { id: string, query: DockerExecResizeQuery }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'exec/' + params.id + '/resize',
@@ -615,7 +616,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async execInspect(params: { id: string }): Promise<ExecInspectResponse> {
+  public async execInspect(params: { id: string }): Promise<DockerExecInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'exec/' + params.id + '/json'
@@ -628,7 +629,7 @@ export class Docker {
   // Docker Swarm Section
   // ====================
 
-  public async swarm(): Promise<SwarmResponse> {
+  public async swarm(): Promise<DockerSwarmResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'swarm',
@@ -637,7 +638,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async swarmInit(params?: { body?: SwarmInitBody }): Promise<string> {
+  public async swarmInit(params?: { body?: DockerSwarmInitBody }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'swarm/init',
@@ -647,7 +648,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async swarmJoin(params?: { body?: SwarmJoinBody }): Promise<string> {
+  public async swarmJoin(params?: { body?: DockerSwarmJoinBody }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'swarm/join',
@@ -657,7 +658,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async swarmLeave(params: { query?: SwarmLeaveQuery }): Promise<string> {
+  public async swarmLeave(params: { query?: DockerSwarmLeaveQuery }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'swarm/leave',
@@ -667,7 +668,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async swarmUpdate(params: { query?: SwarmUpdateQuery, body?: SwarmUpdateBody }): Promise<string> {
+  public async swarmUpdate(params: { query?: DockerSwarmUpdateQuery, body?: DockerSwarmUpdateBody }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'swarm/update',
@@ -677,7 +678,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async swarmUnlockKey(): Promise<SwarmUnlockKeyResponse> {
+  public async swarmUnlockKey(): Promise<DockerSwarmUnlockKeyResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'swarm/unlockkey',
@@ -686,10 +687,11 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async swarmUnlock(): Promise<SwarmUnlockKeyResponse> {
+  public async swarmUnlock(params: { query: DockerSwarmUnlockKeyQuery }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'swarm/unlock',
+      query: params?.query
     });
 
     return await Utils.connect(options);
@@ -699,7 +701,7 @@ export class Docker {
   // Docker Node Section
   // ===================
 
-  public async node(params?: { query?: NodeQuery }): Promise<NodeResponse> {
+  public async node(params?: { query?: DockerNodeQuery }): Promise<DockerNodeResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'nodes',
@@ -709,7 +711,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async nodeInspect(params: { id: string }): Promise<NodeInspectResponse> {
+  public async nodeInspect(params: { id: string }): Promise<DockerNodeInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'nodes/' + params.id
@@ -718,7 +720,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async nodeDelete(params: { id: string, query?: NodeDeleteQuery }): Promise<void> {
+  public async nodeDelete(params: { id: string, query?: DockerNodeDeleteQuery }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
       path: 'nodes/' + params.id,
@@ -728,7 +730,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async nodeUpdate(params: { id: string, query: NodeUpdateQuery, body?: NodeUpdateBody }): Promise<void> {
+  public async nodeUpdate(params: { id: string, query: DockerNodeUpdateQuery, body?: DockerNodeUpdateBody }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'nodes/' + params.id,
@@ -743,7 +745,7 @@ export class Docker {
   // Docker Service Section
   // ======================
 
-  public async service(params?: { query?: ServiceQuery }): Promise<ServiceResponse> {
+  public async service(params?: { query?: DockerServiceQuery }): Promise<DockerServiceResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'services',
@@ -753,7 +755,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async serviceCreate(params: { headers?: ServiceCreateHeader, body?: ServiceCreateBody }): Promise<ServiceCreateResponse> {
+  public async serviceCreate(params: { headers?: DockerServiceCreateHeader, body?: DockerServiceCreateBody }): Promise<DockerServiceCreateResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'services/create',
@@ -764,7 +766,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async serviceInspect(params: { id: string, query?: ServiceInspectQuery }): Promise<ServiceInspectResponse> {
+  public async serviceInspect(params: { id: string, query?: DockerServiceInspectQuery }): Promise<DockerServiceInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'services/' + params.id,
@@ -783,7 +785,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async serviceUpdate(params: { id: string, headers: ServiceUpdateHeader, query?: ServiceUpdateQuery, body?: ServiceUpdateBody }): Promise<ServiceUpdateResponse> {
+  public async serviceUpdate(params: { id: string, headers: DockerServiceUpdateHeader, query?: DockerServiceUpdateQuery, body?: DockerServiceUpdateBody }): Promise<DockerServiceUpdateResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'services/' + params.id,
@@ -795,7 +797,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async serviceLog(params: { id: string, query?: ServiceLogQuery }): Promise<string> {
+  public async serviceLog(params: { id: string, query?: DockerServiceLogQuery }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'services/' + params.id + '/logs',
@@ -809,7 +811,7 @@ export class Docker {
   // Docker Task
   // ===========
 
-  public async task(params?: { query?: TaskQuery }): Promise<TaskResponse> {
+  public async task(params?: { query?: DockerTaskQuery }): Promise<DockerTaskResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'tasks',
@@ -819,7 +821,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async taskInspect(params: { id: string }): Promise<TaskInspectResponse> {
+  public async taskInspect(params: { id: string }): Promise<DockerTaskInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'tasks/' + params.id,
@@ -828,7 +830,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async getTaskLogs(params: { id: string, query?: TaskLogQuery }): Promise<string> {
+  public async getTaskLogs(params: { id: string, query?: DockerTaskLogQuery }): Promise<string> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'tasks/' + params.id + '/logs',
@@ -842,7 +844,7 @@ export class Docker {
   // Secret Section
   // ==============
 
-  public async secret(params?: { query?: SecretQuery }): Promise<SecretResponse> {
+  public async secret(params?: { query?: DockerSecretQuery }): Promise<DockerSecretResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'secrets',
@@ -852,7 +854,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async secretCreate(params: { body?: SecretCreateBody }): Promise<SecretCreateResponse> {
+  public async secretCreate(params: { body?: DockerSecretCreateBody }): Promise<DockerSecretCreateResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'secrets/create',
@@ -862,7 +864,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async secretInspect(params: { id: string }): Promise<SecretInspectResponse> {
+  public async secretInspect(params: { id: string }): Promise<DockerSecretInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'secrets/' + params.id
@@ -880,7 +882,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async secretUpdate(params: { id: string, query: SecretUpdateQuery, body?: SecretUpdateBody }): Promise<void> {
+  public async secretUpdate(params: { id: string, query: DockerSecretUpdateQuery, body?: DockerSecretUpdateBody }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'secrets/' + params.id,
@@ -895,7 +897,7 @@ export class Docker {
   // Config Section
   // ==============
 
-  public async config(params?: { query?: ConfigQuery }): Promise<ConfigResponse> {
+  public async config(params?: { query?: DockerConfigQuery }): Promise<DockerConfigResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'configs',
@@ -905,7 +907,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async configCreate(params: DockerConfigCreateProp): Promise<ConfigCreateResponse> {
+  public async configCreate(params: DockerConfigCreateProp): Promise<DockerConfigCreateResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'configs/create',
@@ -915,7 +917,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async configInspect(params: { id: string }): Promise<ConfigInspectResponse> {
+  public async configInspect(params: { id: string }): Promise<DockerConfigInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'configs/' + params.id
@@ -933,7 +935,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async configUpdate(params: { id: string, query: ConfigUpdateQuery, body?: ConfigUpdateBody }): Promise<void> {
+  public async configUpdate(params: { id: string, query: DockerConfigUpdateQuery, body?: DockerConfigUpdateBody }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'configs/' + params.id,

@@ -1,0 +1,3 @@
+type DockerVolumeRemoveQuery = {
+  force?: boolean;
+}

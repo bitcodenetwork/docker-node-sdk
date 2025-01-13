@@ -12,25 +12,16 @@ type DockerConfigCreateProp = {
 
 type DockerConfigCreateBody = {
   Name: string
-  Labels: DockerConfigCreateBodyLabels
+  Labels: {
+    [key: string]: string
+  }
   Data: string
-  Templating: DockerConfigCreateBodyTemplating
-}
-
-type DockerConfigCreateBodyLabels = {
-  property1: string
-  property2: string
-  foo: string
-}
-
-type DockerConfigCreateBodyTemplating = {
-  Name: string
-  Options: DockerConfigCreateBodyTemplatingOptions
-}
-
-type DockerConfigCreateBodyTemplatingOptions = {
-  OptionA: string
-  OptionB: string
+  Templating: {
+    Name: string
+    Options: {
+      [key: string]: string
+    }
+  }
 }
 
 /**

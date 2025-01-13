@@ -1,0 +1,3 @@
+type DockerSwarmUnlockKeyResponse = {
+  UnlockKey: string
+}

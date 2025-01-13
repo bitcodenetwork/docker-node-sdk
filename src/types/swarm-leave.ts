@@ -1,0 +1,3 @@
+type DockerSwarmLeaveQuery = {
+  force?: boolean;
+}
