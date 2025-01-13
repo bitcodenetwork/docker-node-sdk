@@ -1,4 +1,4 @@
-type DockerSecretCreateBody = {
+export type DockerSecretCreateBody = {
   Name: string
   Labels: {
     [key: string]: string
@@ -18,6 +18,6 @@ type DockerSecretCreateBody = {
   }
 }
 
-type DockerSecretCreateResponse = {
+export type DockerSecretCreateResponse = {
   Id: string
 }

@@ -2,7 +2,7 @@
  * Docker container stat query
  */
 
-type DockerContainerStatQuery = {
+export type DockerContainerStatQuery = {
   stream?: boolean;
   "one-shot"?: boolean;
 }
@@ -11,7 +11,7 @@ type DockerContainerStatQuery = {
  * Docker container stat response
  */
 
-type DockerContainerStatResponse = {
+export type DockerContainerStatResponse = {
   read: string
   pids_stats: {
     current: number;

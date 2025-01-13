@@ -2,7 +2,7 @@
  * Docker Container Stop Query
  */
 
-type DockerContainerStopQuery = {
+export type DockerContainerStopQuery = {
   signal?: string;
   t?: number;
 }

@@ -1,3 +1,3 @@
-type DockerPluginDisableQuery = {
+export type DockerPluginDisableQuery = {
   force?: boolean;
 }

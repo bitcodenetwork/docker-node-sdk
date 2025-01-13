@@ -1,4 +1,4 @@
-type DockerPluginInspectResponse = {
+export type DockerPluginInspectResponse = {
   Id: string
   Name: string
   Enabled: boolean

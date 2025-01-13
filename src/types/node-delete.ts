@@ -1,3 +1,3 @@
-type DockerNodeDeleteQuery = {
+export type DockerNodeDeleteQuery = {
   force?: boolean;
 }

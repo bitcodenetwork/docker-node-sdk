@@ -1,8 +1,8 @@
-type DockerContainerWaitQuery = {
+export type DockerContainerWaitQuery = {
   condition?: "not-running" | "next-exit" | "removed";
 }
 
-type DockerContainerWaitResponse = {
+export type DockerContainerWaitResponse = {
   StatusCode: number
   Error: {
     Message: string

@@ -1,10 +1,10 @@
-type DockerPluginPrivilegeQuery = {
+export type DockerPluginPrivilegeQuery = {
   remote: string;
 }
 
-type DockerPluginPrivilegeResponse = DockerPluginPrivilege[]
+export type DockerPluginPrivilegeResponse = DockerPluginPrivilege[]
 
-type DockerPluginPrivilege = {
+export type DockerPluginPrivilege = {
   Name: string
   Description: string
   Value: string[]

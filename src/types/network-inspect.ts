@@ -2,7 +2,7 @@
  * Docker Network Inspect Query
  */
 
-type DockerNetworkInspectQuery = {
+export type DockerNetworkInspectQuery = {
   verbose?: boolean;
   scope?: "swarm" | "global" | "local";
 }
@@ -11,7 +11,7 @@ type DockerNetworkInspectQuery = {
  * Docker Network Inspect Response
  */
 
-type DockerNetworkInspectResponse = {
+export type DockerNetworkInspectResponse = {
   Name: string
   Id: string
   Created: string

@@ -1,8 +1,8 @@
-type DockerNodeUpdateQuery = {
+export type DockerNodeUpdateQuery = {
   version: number;
 }
 
-type DockerNodeUpdateBody = {
+export type DockerNodeUpdateBody = {
   Availability: string;
   Name: string;
   Role: string;

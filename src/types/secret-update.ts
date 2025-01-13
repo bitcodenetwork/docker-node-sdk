@@ -1,8 +1,8 @@
-type DockerSecretUpdateQuery = {
+export type DockerSecretUpdateQuery = {
   version: string;
 }
 
-type DockerSecretUpdateBody = {
+export type DockerSecretUpdateBody = {
   Name: string
   Labels: {
     [key: string]: string

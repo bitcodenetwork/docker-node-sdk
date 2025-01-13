@@ -1,4 +1,4 @@
-type DockerSwarmInitBody = {
+export type DockerSwarmInitBody = {
   ListenAddr: string
   AdvertiseAddr: string
   DatePathAddr: string

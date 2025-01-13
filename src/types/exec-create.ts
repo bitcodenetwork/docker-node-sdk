@@ -1,4 +1,4 @@
-type DockerExecBody = {
+export type DockerExecBody = {
   AttachStdin?: boolean;
   AttachStdout?: boolean;
   AttachStderr?: boolean;
@@ -12,6 +12,6 @@ type DockerExecBody = {
   WorkingDir?: string;
 }
 
-type DockerExecResponse = {
+export type DockerExecResponse = {
   Id: string
 }

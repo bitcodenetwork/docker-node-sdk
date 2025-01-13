@@ -1,13 +1,13 @@
-type DockerPluginQuery = {
+export type DockerPluginQuery = {
   filters?: {
     capability?: string[];
     enable?: string[];
   };
 }
 
-type DockerPluginResponse = DockerPlugin[]
+export type DockerPluginResponse = DockerPlugin[]
 
-type DockerPlugin = {
+export type DockerPlugin = {
   Id: string
   Name: string
   Enabled: boolean

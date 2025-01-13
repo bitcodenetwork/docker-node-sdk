@@ -1,8 +1,7 @@
 /**
  * Docker Image Search Query
  */
-
-type DockerImageSearchQuery = {
+export type DockerImageSearchQuery = {
   term: string;
   limit?: number;
   filters?: number;
@@ -12,9 +11,9 @@ type DockerImageSearchQuery = {
  * Docker Image Search Response
  */
 
-type DockerImageSearchResponse = DockerSearchImage[];
+export type DockerImageSearchResponse = DockerSearchImage[];
 
-type DockerSearchImage = {
+export type DockerSearchImage = {
   description: string;
   is_official: boolean;
   is_automated: boolean;

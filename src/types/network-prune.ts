@@ -2,7 +2,7 @@
  * Docker Network Prune Query
  */
 
-type DockerNetworkPruneQuery = {
+export type DockerNetworkPruneQuery = {
   filters?: {
     until?: string;
     label?: string[];
@@ -13,6 +13,6 @@ type DockerNetworkPruneQuery = {
  * Docker Network Prune Response
  */
 
-type DockerNetworkPruneResponse = {
+export type DockerNetworkPruneResponse = {
   NetworksDeleted: string[]
 }

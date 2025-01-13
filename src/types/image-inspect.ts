@@ -2,7 +2,7 @@
  * Docker Image Inspect Response
  */
 
-type DockerImageInspectResponse = {
+export type DockerImageInspectResponse = {
   Id: string
   RepoTags: string[]
   RepoDigests: string[]

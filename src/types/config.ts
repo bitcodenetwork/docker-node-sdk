@@ -1,4 +1,4 @@
-type DockerConfigQuery = {
+export type DockerConfigQuery = {
   filters?: {
     id?: string[];
     label?: string[];
@@ -7,9 +7,9 @@ type DockerConfigQuery = {
   };
 }
 
-type DockerConfigResponse = DockerConfig[]
+export type DockerConfigResponse = DockerConfig[]
 
-type DockerConfig = {
+export type DockerConfig = {
   ID: string
   Version: {
     Index: number

@@ -1,14 +1,14 @@
-type DockerServiceUpdateHeader = {
+export type DockerServiceUpdateHeader = {
   "X-Registry-Auth": string;
 }
 
-type DockerServiceUpdateQuery = {
+export type DockerServiceUpdateQuery = {
   version: number;
   registryAuthFrom?: "spec" | "previous-spec";
   rollback?: any;
 }
 
-type DockerServiceUpdateBody = {
+export type DockerServiceUpdateBody = {
   Name: string
   Labels: {
     [key: string]: string
@@ -249,6 +249,6 @@ type DockerServiceUpdateBody = {
   }
 }
 
-type DockerServiceUpdateResponse = {
+export type DockerServiceUpdateResponse = {
   Warnings: string[]
 }

@@ -2,7 +2,7 @@
  * Docker container inspect prop
  */
 
-type DockerContainerInspectProp = {
+export type DockerContainerInspectProp = {
   id: string
   query?: DockerContainerInspectQuery
 }
@@ -11,7 +11,7 @@ type DockerContainerInspectProp = {
  * Docker container inspect query
  */
 
-type DockerContainerInspectQuery = {
+export type DockerContainerInspectQuery = {
   size?: boolean
 }
 
@@ -19,7 +19,7 @@ type DockerContainerInspectQuery = {
  * Docker container inspect response
  */
 
-type ContainerInspectResponse = {
+export type ContainerInspectResponse = {
   Id: string;
   Created: string;
   Path: string;

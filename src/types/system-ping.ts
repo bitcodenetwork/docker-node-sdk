@@ -1,4 +1,4 @@
-type DockerSystemPingResponse = {
+export type DockerSystemPingResponse = {
   "API-Version": string;
   "Builder-Version": string;
   "Docker-Experimental": boolean;

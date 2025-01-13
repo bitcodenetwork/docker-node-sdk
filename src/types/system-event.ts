@@ -1,4 +1,4 @@
-type DockerSystemEventQuery = {
+export type DockerSystemEventQuery = {
   since?: string;
   until?: string;
   filters?: {
@@ -19,7 +19,7 @@ type DockerSystemEventQuery = {
   };
 }
 
-type DockerSystemEventResponse = {
+export type DockerSystemEventResponse = {
   Type: string
   Action: string
   Actor: {

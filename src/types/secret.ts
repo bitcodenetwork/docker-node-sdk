@@ -1,4 +1,4 @@
-type DockerSecretQuery = {
+export type DockerSecretQuery = {
   filters?: {
     id?: string[];
     labels?: string[];
@@ -7,9 +7,9 @@ type DockerSecretQuery = {
   };
 }
 
-type DockerSecretResponse = DockerListSecret[]
+export type DockerSecretResponse = DockerListSecret[]
 
-type DockerListSecret = {
+export type DockerListSecret = {
   ID: string
   Version: {
     Index: number

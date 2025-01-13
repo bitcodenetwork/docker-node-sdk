@@ -1,4 +1,4 @@
-type DockerSystemInfoResponse = {
+export type DockerSystemInfoResponse = {
   ID: string
   Containers: number
   ContainersRunning: number

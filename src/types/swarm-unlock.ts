@@ -1,3 +1,3 @@
-type DockerSwarmUnlockKeyQuery = {
+export type DockerSwarmUnlockKeyQuery = {
   UnlockKey: string
 }

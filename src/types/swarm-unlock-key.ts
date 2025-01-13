@@ -1,3 +1,3 @@
-type DockerSwarmUnlockKeyResponse = {
+export type DockerSwarmUnlockKeyResponse = {
   UnlockKey: string
 }

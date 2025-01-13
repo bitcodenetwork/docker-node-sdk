@@ -2,7 +2,7 @@
  * Docker Image Commit Query
  */
 
-type DockerImageCommitQuery = {
+export type DockerImageCommitQuery = {
   container?: string;
   repo?: string;
   tag?: string;
@@ -16,7 +16,7 @@ type DockerImageCommitQuery = {
  * Docker Image Commit Body
  */
 
-type DockerImageCommitBody = {
+export type DockerImageCommitBody = {
   Hostname?: string;
   Domainname?: string;
   User?: string;
@@ -61,6 +61,6 @@ type DockerImageCommitBody = {
  * Docker Image Commit Response
  */
 
-type DockerImageCommitResponse = {
+export type DockerImageCommitResponse = {
   Id: string;
 }

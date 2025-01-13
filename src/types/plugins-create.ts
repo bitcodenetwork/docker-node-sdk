@@ -1,3 +1,3 @@
-type DockerPluginCreateQuery = {
+export type DockerPluginCreateQuery = {
   name: string;
 }

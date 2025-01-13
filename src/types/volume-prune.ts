@@ -1,11 +1,11 @@
-type DockerVolumePruneQuery = {
+export type DockerVolumePruneQuery = {
   filters?: {
     label?: string[];
     all?: boolean;
   }
 }
 
-type DockerVolumePruneResponse = {
+export type DockerVolumePruneResponse = {
   VolumesDeleted: string[]
   SpaceReclaimed: number
 }

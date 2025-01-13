@@ -2,7 +2,7 @@
  * Docker config create prop
  */
 
-type DockerConfigCreateProp = {
+export type DockerConfigCreateProp = {
   body: DockerConfigCreateBody
 }
 
@@ -10,7 +10,7 @@ type DockerConfigCreateProp = {
  * Docker config create body
  */
 
-type DockerConfigCreateBody = {
+export type DockerConfigCreateBody = {
   Name: string
   Labels: {
     [key: string]: string
@@ -28,6 +28,6 @@ type DockerConfigCreateBody = {
  * Docker config create response
  */
 
-type DockerConfigCreateResponse = {
+export type DockerConfigCreateResponse = {
   Id: string
 }

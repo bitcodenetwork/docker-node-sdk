@@ -1,4 +1,4 @@
-type DockerTaskQuery = {
+export type DockerTaskQuery = {
   filters?: {
     "desired-state"?: "running"[] | "shutdown"[] | "accepted"[];
     id?: string[];
@@ -9,9 +9,9 @@ type DockerTaskQuery = {
   };
 }
 
-type DockerTaskResponse = DockerTask[]
+export type DockerTaskResponse = DockerTask[]
 
-type DockerTask = {
+export type DockerTask = {
   ID: string
   Version: {
     Index: number

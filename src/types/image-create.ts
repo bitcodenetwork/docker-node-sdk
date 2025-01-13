@@ -2,7 +2,7 @@
  * Docker Image Create Query
  */
 
-type DockerImageCreateQuery = {
+export type DockerImageCreateQuery = {
   fromImage?: string;
   fromSrc?: string;
   repo?: string;
@@ -16,6 +16,6 @@ type DockerImageCreateQuery = {
  * Docker Image Create Header
  */
 
-type DockerImageCreateHeader = {
+export type DockerImageCreateHeader = {
   "X-Registry-Auth"?: string;
 }

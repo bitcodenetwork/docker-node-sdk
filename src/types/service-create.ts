@@ -1,8 +1,8 @@
-type DockerServiceCreateHeader = {
+export type DockerServiceCreateHeader = {
   "X-Registry-Auth": string;
 }
 
-type DockerServiceCreateBody = {
+export type DockerServiceCreateBody = {
   Name: string
   Labels: {
     [key: string]: string
@@ -243,7 +243,7 @@ type DockerServiceCreateBody = {
   }
 }
 
-type DockerServiceCreateResponse = {
+export type DockerServiceCreateResponse = {
   ID: string
   Warnings: string[]
 }

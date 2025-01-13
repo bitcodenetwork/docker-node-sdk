@@ -2,7 +2,7 @@
  * Docker container prop
  */
 
-type DockerContainerProp = {
+export type DockerContainerProp = {
   query?: DockerContainerQuery;
 }
 
@@ -10,7 +10,7 @@ type DockerContainerProp = {
  * Docker container query
  */
 
-type DockerContainerQuery = {
+export type DockerContainerQuery = {
   all?: boolean;
   limit?: number;
   size?: boolean;
@@ -37,9 +37,9 @@ type DockerContainerQuery = {
  * Docker container response
  */
 
-type DockerContainerResponse = DockerContainer[];
+export type DockerContainerResponse = DockerContainer[];
 
-type DockerContainer = {
+export type DockerContainer = {
   Id: string;
   Names: string[];
   Image: string;

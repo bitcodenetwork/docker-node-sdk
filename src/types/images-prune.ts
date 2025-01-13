@@ -2,7 +2,7 @@
  * Docker Image Prune Query
  */
 
-type DockerImagesPruneQuery = {
+export type DockerImagesPruneQuery = {
   filters?: string;
 }
 
@@ -10,7 +10,7 @@ type DockerImagesPruneQuery = {
  * Docker Image Prune Response
  */
 
-type DockerImagesPruneResponse = {
+export type DockerImagesPruneResponse = {
   ImagesDeleted: {
     Untagged: string;
     Deleted: string;

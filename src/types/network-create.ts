@@ -2,7 +2,7 @@
  * Docker Network Create Body
  */
 
-type DockerNetworkCreateBody = {
+export type DockerNetworkCreateBody = {
   Name: string;
   Driver?: string;
   Scope?: string;
@@ -41,7 +41,7 @@ type DockerNetworkCreateBody = {
  * Docker Network Create Response
  */
 
-type DockerNetworkCreateResponse = {
+export type DockerNetworkCreateResponse = {
   Id: string;
   Warning: string;
 }

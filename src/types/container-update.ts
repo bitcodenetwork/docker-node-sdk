@@ -2,7 +2,7 @@
  * Docker Container Update Body
  */
 
-type DockerContainerUpdateBody = {
+export type DockerContainerUpdateBody = {
   CpuShares: number;
   Memory: number;
   CgroupParent: string;
@@ -75,6 +75,6 @@ type DockerContainerUpdateBody = {
  * Container Update Response
  */
 
-type DockerContainerUpdateResponse = {
+export type DockerContainerUpdateResponse = {
   Warnings: string[]
 }

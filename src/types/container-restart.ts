@@ -2,7 +2,7 @@
  * Docker Container Restart Query
  */
 
-type DockerContainerRestartQuery = {
+export type DockerContainerRestartQuery = {
   signal?: string;
   t?: number;
 }

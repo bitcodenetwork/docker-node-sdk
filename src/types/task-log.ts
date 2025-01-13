@@ -1,4 +1,4 @@
-type DockerTaskLogQuery = {
+export type DockerTaskLogQuery = {
   details?: boolean;
   follow?: boolean;
   stdout?: boolean;

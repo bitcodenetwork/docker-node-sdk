@@ -2,6 +2,6 @@
  * Docker Container start query
  */
 
-type DockerContainerStartQuery = {
+export type DockerContainerStartQuery = {
   detachKeys?: string;
 }

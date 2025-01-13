@@ -2,7 +2,7 @@
  * Docker Image Build Query
  */
 
-type DockerImageBuildQuery = {
+export type DockerImageBuildQuery = {
   dockerfile?: string;
   t?: string;
   extrahosts?: string;
@@ -34,7 +34,7 @@ type DockerImageBuildQuery = {
  * Docker Image Build Header
  */
 
-type DockerImageBuildHeader = {
+export type DockerImageBuildHeader = {
   "Content-type"?: string;
   "X-Registry-Config"?: string;
 }

@@ -1,4 +1,4 @@
-type DockerSystemVersionResponse = {
+export type DockerSystemVersionResponse = {
   Platform: {
     Name: string
   }

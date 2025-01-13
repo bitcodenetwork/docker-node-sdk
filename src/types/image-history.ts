@@ -2,9 +2,9 @@
  * Docker Image History Response
  */
 
-type DockerImageHistoryResponse = DockerImageHistory[];
+export type DockerImageHistoryResponse = DockerImageHistory[];
 
-type DockerImageHistory = {
+export type DockerImageHistory = {
   Id: string;
   Created: number;
   CreatedBy: string;

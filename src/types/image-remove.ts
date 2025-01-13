@@ -2,7 +2,7 @@
  * Docker Image Remove Query
  */
 
-type DockerImageRemoveQuery = {
+export type DockerImageRemoveQuery = {
   force?: boolean;
   noprune?: boolean;
 }
@@ -11,7 +11,7 @@ type DockerImageRemoveQuery = {
  * Docker Image Remove Response
  */
 
-type DockerImageRemoveResponse = {
+export type DockerImageRemoveResponse = {
   Untagged?: string[];
   Deleted?: string[];
 }

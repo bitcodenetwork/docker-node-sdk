@@ -1,8 +1,8 @@
-type DockerSystemDfQuery = {
+export type DockerSystemDfQuery = {
   type?: "containers" | "image" | "volume" | "build-cache";
 }
 
-type DockerSystemDfResponse = {
+export type DockerSystemDfResponse = {
   LayersSize: number
   Images: {
     Id: string

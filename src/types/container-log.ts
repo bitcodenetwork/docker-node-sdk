@@ -2,7 +2,7 @@
  * Docker container log prop
  */
 
-type DockerContainerLogProp = {
+export type DockerContainerLogProp = {
   id: string;
   query?: DockerContainerLogQuery
 }
@@ -11,7 +11,7 @@ type DockerContainerLogProp = {
  * Docker container log query
  */
 
-type DockerContainerLogQuery = {
+export type DockerContainerLogQuery = {
   follow?: boolean;
   stdout?: boolean;
   stderr?: boolean;

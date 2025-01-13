@@ -2,7 +2,7 @@
  * Auth config body
  */
 
-type DockerSystemAuthBody = {
+export type DockerSystemAuthBody = {
   username: string;
   password: string;
   email: string;
@@ -13,7 +13,7 @@ type DockerSystemAuthBody = {
  * Auth config response
  */
 
-type DockerSystemAuthResponse = {
+export type DockerSystemAuthResponse = {
   Status: string
   IdentityToken: string
 }

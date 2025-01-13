@@ -1,3 +1,3 @@
-type DockerVolumeRemoveQuery = {
+export type DockerVolumeRemoveQuery = {
   force?: boolean;
 }

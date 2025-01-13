@@ -2,7 +2,7 @@
  * Docker Network Query
  */
 
-type DockerNetworkQuery = {
+export type DockerNetworkQuery = {
   filters?: {
     dangling?: boolean[];
     driver?: string[];
@@ -18,9 +18,9 @@ type DockerNetworkQuery = {
  * Docker Network Response
  */
 
-type DockerNetworkResponse = DockerNetwork[]
+export type DockerNetworkResponse = DockerNetwork[]
 
-type DockerNetwork = {
+export type DockerNetwork = {
   Name: string
   Id: string
   Created: string

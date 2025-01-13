@@ -1,4 +1,4 @@
-type DockerNodeQuery = {
+export type DockerNodeQuery = {
   filters?: {
     id?: string;
     label?: string;
@@ -9,9 +9,9 @@ type DockerNodeQuery = {
   };
 }
 
-type DockerNodeResponse = DockerNode[]
+export type DockerNodeResponse = DockerNode[]
 
-type DockerNode = {
+export type DockerNode = {
   ID: string
   Version: {
     Index: number

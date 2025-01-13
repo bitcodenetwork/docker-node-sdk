@@ -1,4 +1,4 @@
-type DockerTaskInspectResponse = {
+export type DockerTaskInspectResponse = {
   ID: string
   Version: {
     Index: number

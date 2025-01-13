@@ -1,8 +1,8 @@
-type DockerConfigUpdateQuery = {
+export type DockerConfigUpdateQuery = {
   version: string;
 }
 
-type DockerConfigUpdateBody = {
+export type DockerConfigUpdateBody = {
   Name: string
   Labels: {
     [key: string]: string

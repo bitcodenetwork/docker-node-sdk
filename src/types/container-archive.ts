@@ -2,6 +2,6 @@
  * Docker Container Archive Query
  */
 
-type DockerContainerArchiveQuery = {
+export type DockerContainerArchiveQuery = {
   path: string;
 }

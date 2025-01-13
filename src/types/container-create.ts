@@ -2,7 +2,7 @@
  * Docker container create prop
  */
 
-type DockerContainerCreateProp = {
+export type DockerContainerCreateProp = {
   query: DockerContainerCreateQuery;
   body: DockerContainerCreateBody;
 }
@@ -11,7 +11,7 @@ type DockerContainerCreateProp = {
  * Docker container create query
  */
 
-type DockerContainerCreateQuery = {
+export type DockerContainerCreateQuery = {
   name: string;
   platform?: string;
 }
@@ -20,7 +20,7 @@ type DockerContainerCreateQuery = {
  * Docker container create body
  */
 
-type DockerContainerCreateBody = {
+export type DockerContainerCreateBody = {
   Hostname?: string;
   Domainname?: string;
   User?: string;
@@ -236,7 +236,7 @@ type DockerContainerCreateBody = {
  * Docker container create response
  */
 
-type DockerContainerCreateResponse = {
+export type DockerContainerCreateResponse = {
   Id: string
   Warnings: any[]
 }

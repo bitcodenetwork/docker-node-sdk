@@ -1,3 +1,3 @@
-type DockerPluginEnableQuery = {
+export type DockerPluginEnableQuery = {
   timeout?: number;
 }

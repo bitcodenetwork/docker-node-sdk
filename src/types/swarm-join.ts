@@ -1,4 +1,4 @@
-type DockerSwarmJoinBody = {
+export type DockerSwarmJoinBody = {
   ListenAddr: string;
   AdvertiseAddr: string;
   DataPathAddr: string;

@@ -2,6 +2,6 @@
  * Docker Container Kill Query
  */
 
-type DockerContainerKillQuery = {
+export type DockerContainerKillQuery = {
   signal?: string;
 }

@@ -2,7 +2,7 @@
  * Docker Volume Update Query
  */
 
-type DockerVolumeUpdateQuery = {
+export type DockerVolumeUpdateQuery = {
   version: number;
 }
 
@@ -10,7 +10,7 @@ type DockerVolumeUpdateQuery = {
  * Docker Volume Update Body
  */
 
-type DockerVolumeUpdateBody = {
+export type DockerVolumeUpdateBody = {
   Spec: {
     Group: string
     AccessMode: {

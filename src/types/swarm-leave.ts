@@ -1,3 +1,3 @@
-type DockerSwarmLeaveQuery = {
+export type DockerSwarmLeaveQuery = {
   force?: boolean;
 }

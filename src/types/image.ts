@@ -2,7 +2,7 @@
  * Docker Image Query
  */
 
-type DockerImageQuery = {
+export type DockerImageQuery = {
   all?: boolean;
   filters?: {
     before?: string[];
@@ -21,9 +21,9 @@ type DockerImageQuery = {
  * Docker Image Response
  */
 
-type DockerImageResponse = DockerImage[]
+export type DockerImageResponse = DockerImage[]
 
-type DockerImage = {
+export type DockerImage = {
   Id: string
   ParentId: string
   RepoTags: string[]

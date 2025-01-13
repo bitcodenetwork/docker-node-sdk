@@ -2,6 +2,6 @@
  * Docker Image Load Query
  */
 
-type DockerImageLoadQuery = {
+export type DockerImageLoadQuery = {
   quiet?: boolean;
 }

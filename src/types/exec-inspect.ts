@@ -1,4 +1,4 @@
-type DockerExecInspectResponse = {
+export type DockerExecInspectResponse = {
   CanRemove: boolean;
   DetachKeys: string;
   ID: string;

@@ -1,11 +1,11 @@
-type DockerContainerPruneQuery = {
+export type DockerContainerPruneQuery = {
   filters?: {
     until?: string;
     label?: string[];
   };
 }
 
-type DockerContainerPruneResponse = {
+export type DockerContainerPruneResponse = {
   ContainersDeleted: string[];
   SpaceReclaimed: number;
 }

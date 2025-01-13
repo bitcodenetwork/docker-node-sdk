@@ -2,7 +2,7 @@
  * Docker Container Extract Query
  */
 
-type DockerContainerExtractQuery = {
+export type DockerContainerExtractQuery = {
   path: string;
   noOverwriteDirNonDir?: string;
   copyUIDGID?: string;

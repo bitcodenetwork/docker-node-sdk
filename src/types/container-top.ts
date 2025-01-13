@@ -2,7 +2,7 @@
  * Container top prop
  */
 
-type DockerContainerTopProp = {
+export type DockerContainerTopProp = {
   id: string;
   query?: DockerContainersTopQuery;
 }
@@ -11,7 +11,7 @@ type DockerContainerTopProp = {
  * Container top query
  */
 
-type DockerContainersTopQuery = {
+export type DockerContainersTopQuery = {
   ps_args?: string;
 }
 
@@ -19,7 +19,7 @@ type DockerContainersTopQuery = {
  * Container top response
  */
 
-type DockerContainerTopResponse = {
+export type DockerContainerTopResponse = {
   Titles?: string[];
   Processes?: string[][];
 }

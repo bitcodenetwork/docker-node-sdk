@@ -2,7 +2,7 @@
  * Docker Image Build Prune Query
  */
 
-type DockerImageBuildPruneQuery = {
+export type DockerImageBuildPruneQuery = {
   "keep-storage": number;
   all: boolean;
   filters: {
@@ -21,7 +21,7 @@ type DockerImageBuildPruneQuery = {
  * Docker Image Build Prune Response
  */
 
-type DockerImageBuildPruneResponse = {
+export type DockerImageBuildPruneResponse = {
   CachesDeleted: string[];
   SpaceReclaimed: number;
 }

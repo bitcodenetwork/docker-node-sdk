@@ -1,11 +1,11 @@
-type DockerSwarmUpdateQuery = {
+export type DockerSwarmUpdateQuery = {
   version: number;
   rotateWorkerToken?: boolean;
   rotateManagerToken?: boolean;
   rotateManagerUnlockKey?: boolean;
 }
 
-type DockerSwarmUpdateBody = {
+export type DockerSwarmUpdateBody = {
   Name: string
   Labels: {
     [key: string]: string;

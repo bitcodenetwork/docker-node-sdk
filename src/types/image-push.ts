@@ -2,7 +2,7 @@
  * Docker Image Push Query
  */
 
-type DockerImagePushQuery = {
+export type DockerImagePushQuery = {
   tag?: string;
   platform?: string;
 }
@@ -11,6 +11,6 @@ type DockerImagePushQuery = {
  * Docker Image Push Header
  */
 
-type DockerImagePushHeader = {
+export type DockerImagePushHeader = {
   "X-Registry-Auth": string;
 }

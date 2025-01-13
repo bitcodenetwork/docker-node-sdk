@@ -2,7 +2,7 @@
  * Docker Volume Inspect Response
  */
 
-type DockerVolumeInspectResponse = {
+export type DockerVolumeInspectResponse = {
   Name: string
   Driver: string
   Mountpoint: string

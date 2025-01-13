@@ -1,4 +1,4 @@
-type DockerServiceQuery = {
+export type DockerServiceQuery = {
   filters?: {
     id?: string[];
     labels?: string[];
@@ -8,9 +8,9 @@ type DockerServiceQuery = {
   status?: boolean;
 }
 
-type DockerServiceResponse = DockerService[]
+export type DockerServiceResponse = DockerService[]
 
-type DockerService = {
+export type DockerService = {
   ID: string
   Version: {
     Index: number

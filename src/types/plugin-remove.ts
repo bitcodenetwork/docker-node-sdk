@@ -1,8 +1,8 @@
-type DockerPluginRemoveQuery = {
+export type DockerPluginRemoveQuery = {
   force: boolean;
 }
 
-type DockerPluginRemoveResponse = {
+export type DockerPluginRemoveResponse = {
   Id: string
   Name: string
   Enabled: boolean

@@ -2,7 +2,7 @@
  * Docker Container Remove Query
  */
 
-type DockerContainerRemoveQuery = {
+export type DockerContainerRemoveQuery = {
   v?: boolean;
   force?: boolean;
   link?: boolean;

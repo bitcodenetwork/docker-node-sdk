@@ -2,7 +2,7 @@
  * Docker Volume Create Body
  */
 
-type DockerVolumeCreateBody = {
+export type DockerVolumeCreateBody = {
   Name: string;
   Driver: string;
   DriverOpts: {
@@ -42,7 +42,7 @@ type DockerVolumeCreateBody = {
  * Docker Volume Create Response
  */
 
-type DockerVolumeCreateResponse = {
+export type DockerVolumeCreateResponse = {
   Name: string
   Driver: string
   Mountpoint: string

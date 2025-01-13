@@ -2,7 +2,7 @@
  * Docker Image Tag Query
  */
 
-type DockerImageTagQuery = {
+export type DockerImageTagQuery = {
   repo?: string;
   tag?: string;
 }

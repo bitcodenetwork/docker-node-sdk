@@ -2,7 +2,7 @@
  * Docker Volume List Query
  */
 
-type DockerVolumeListQuery = {
+export type DockerVolumeListQuery = {
   filters?: {
     dangling?: boolean;
     driver?: string;
@@ -15,7 +15,7 @@ type DockerVolumeListQuery = {
  * Docker Volume List Response
  */
 
-type DockerVolumeListResponse = {
+export type DockerVolumeListResponse = {
   Volumes: {
     Name: string;
     Driver: string;

@@ -1,4 +1,4 @@
-type DockerSwarmResponse = {
+export type DockerSwarmResponse = {
   ID: string
   Version: {
     Index: number

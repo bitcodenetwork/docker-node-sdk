@@ -2,6 +2,6 @@
  * Docker Image Get Several Query
  */
 
-type DockerImageGetSeveralQuery = {
+export type DockerImageGetSeveralQuery = {
   names?: string[];
 }

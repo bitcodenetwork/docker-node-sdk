@@ -2,7 +2,7 @@
  * Docker Network Connect Body
  */
 
-type DockerNetworkConnectBody = {
+export type DockerNetworkConnectBody = {
   Container?: string
   EndpointConfig?: {
     IPAMConfig: {

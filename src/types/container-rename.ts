@@ -2,6 +2,6 @@
  * Docker Container Rename Query
  */
 
-type DockerContainerRenameQuery = {
+export type DockerContainerRenameQuery = {
   name: string;
 }

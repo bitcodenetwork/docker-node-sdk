@@ -1,4 +1,4 @@
-type DockerDistributionResponse = {
+export type DockerDistributionResponse = {
   Descriptor: {
     mediaType: string
     digest: string

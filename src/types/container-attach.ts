@@ -2,7 +2,7 @@
  * Docker Container Attach Query
  */
 
-type DockerContainerAttachQuery = {
+export type DockerContainerAttachQuery = {
   detachKeys?: string;
   logs?: boolean;
   stream?: boolean;

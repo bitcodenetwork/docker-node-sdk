@@ -2,7 +2,7 @@
  * Docker container change prop
  */
 
-type DockerContainerChangeProp = {
+export type DockerContainerChangeProp = {
   id: string;
 }
 
@@ -10,9 +10,9 @@ type DockerContainerChangeProp = {
  * Docker container change response
  */
 
-type DockerContainerChangeResponse = DockerContainerChange[];
+export type DockerContainerChangeResponse = DockerContainerChange[];
 
-type DockerContainerChange = {
+export type DockerContainerChange = {
   Path: string
   Kind: number
 }

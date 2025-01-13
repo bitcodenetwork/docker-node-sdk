@@ -1,8 +1,8 @@
-type DockerServiceInspectQuery = {
+export type DockerServiceInspectQuery = {
   insertDefaults?: boolean;
 }
 
-type DockerServiceInspectResponse = {
+export type DockerServiceInspectResponse = {
   ID: string
   Version: {
     Index: number

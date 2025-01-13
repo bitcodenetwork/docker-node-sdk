@@ -1,12 +1,12 @@
-type DockerPluginUpgradeHeader = {
+export type DockerPluginUpgradeHeader = {
   "X-Registry-Auth": string;
 }
 
-type DockerPluginUpgradeQuery = {
+export type DockerPluginUpgradeQuery = {
   remote: string;
 }
 
-type DockerPluginUpgradeBody = {
+export type DockerPluginUpgradeBody = {
   Name: string
   Description: string
   Value: string[]

@@ -2,7 +2,7 @@
  * Docker Network Disconnect Body
  */
 
-type DockerNetworkDisconnectBody = {
+export type DockerNetworkDisconnectBody = {
   Container?: string;
   Force?: boolean;
 }

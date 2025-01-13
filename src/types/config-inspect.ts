@@ -1,4 +1,4 @@
-type DockerConfigInspectResponse = {
+export type DockerConfigInspectResponse = {
   ID: string
   Version: {
     Index: number
