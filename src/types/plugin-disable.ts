@@ -1,0 +1,3 @@
+type DockerPluginDisableQuery = {
+  force?: boolean;
+}

@@ -1,0 +1,3 @@
+type DockerPluginCreateQuery = {
+  name: string;
+}

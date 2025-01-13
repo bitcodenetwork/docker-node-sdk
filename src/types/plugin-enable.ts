@@ -1,0 +1,3 @@
+type DockerPluginEnableQuery = {
+  timeout?: number;
+}

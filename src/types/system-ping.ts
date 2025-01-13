@@ -1,4 +1,4 @@
-export interface PingResponse {
+type DockerSystemPingResponse = {
   "API-Version": string;
   "Builder-Version": string;
   "Docker-Experimental": boolean;

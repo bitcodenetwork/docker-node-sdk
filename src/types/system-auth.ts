@@ -1,16 +1,8 @@
 /**
- * Auth config prop
- */
-
-type AuthConfigProp = {
-  body: AuthConfigBody
-}
-
-/**
  * Auth config body
  */
 
-type AuthConfigBody = {
+type DockerSystemAuthBody = {
   username: string;
   password: string;
   email: string;
@@ -21,7 +13,7 @@ type AuthConfigBody = {
  * Auth config response
  */
 
-type AuthConfigResponse = {
+type DockerSystemAuthResponse = {
   Status: string
   IdentityToken: string
 }

@@ -950,7 +950,7 @@ export class Docker {
   // Plugin Section
   // ==============
 
-  public async plugin(params?: { query?: PluginQuery }): Promise<PluginResponse> {
+  public async plugin(params?: { query?: DockerPluginQuery }): Promise<DockerPluginResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'plugins',
@@ -960,7 +960,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async pluginPrivilege(params?: { query?: PluginPrivilegeQuery }): Promise<PluginPrivilegeResponse> {
+  public async pluginPrivilege(params?: { query?: DockerPluginPrivilegeQuery }): Promise<DockerPluginPrivilegeResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'plugins/privileges',
@@ -970,7 +970,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async pluginPull(params: { query: PluginPullQuery, headers?: PluginPullHeader, body?: PluginPullBody[] }): Promise<void> {
+  public async pluginPull(params: { query: DockerPluginPullQuery, headers?: DockerPluginPullHeader, body?: DockerPluginPullBody[] }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'plugins/pull',
@@ -982,7 +982,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async pluginInspect(params: { name: string }): Promise<PluginInspectResponse> {
+  public async pluginInspect(params: { name: string }): Promise<DockerPluginInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'plugins/' + params.name + '/json',
@@ -991,7 +991,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async pluginRemove(params: { name: string, query?: PluginRemoveQuery }): Promise<PluginRemoveResponse> {
+  public async pluginRemove(params: { name: string, query?: DockerPluginRemoveQuery }): Promise<DockerPluginRemoveResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'DELETE',
       path: 'plugins/' + params.name,
@@ -1001,7 +1001,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async pluginEnable(params: { name: string, query?: PluginEnableQuery }): Promise<void> {
+  public async pluginEnable(params: { name: string, query?: DockerPluginEnableQuery }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'plugins/' + params.name + '/enable',
@@ -1011,7 +1011,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async pluginDisable(params: { name: string, query?: PluginDisableQuery }): Promise<void> {
+  public async pluginDisable(params: { name: string, query?: DockerPluginDisableQuery }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'plugins/' + params.name + '/disable',
@@ -1021,7 +1021,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async pluginUpgrade(params: { name: string, query: PluginUpgradeQuery, headers?: PluginUpgradeHeader, body?: PluginUpgradeBody[] }): Promise<void> {
+  public async pluginUpgrade(params: { name: string, query: DockerPluginUpgradeQuery, headers?: DockerPluginUpgradeHeader, body?: DockerPluginUpgradeBody[] }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'plugins/' + params.name + '/upgrade',
@@ -1033,7 +1033,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async pluginCreate(params: { query: PluginCreateQuery, body?: string }): Promise<void> {
+  public async pluginCreate(params: { query: DockerPluginCreateQuery, body?: string }): Promise<void> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'POST',
       path: 'plugins/create',
@@ -1067,7 +1067,7 @@ export class Docker {
   // System Section
   // ==============
 
-  public async authConfig(params?: AuthConfigProp): Promise<AuthConfigResponse> {
+  public async systemAuth(params?: { body: DockerSystemAuthBody }): Promise<DockerSystemAuthResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'auth/config',
@@ -1077,7 +1077,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async info(): Promise<InfoResponse> {
+  public async info(): Promise<DockerSystemInfoResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'info'
@@ -1086,7 +1086,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async version(): Promise<VersionResponse> {
+  public async version(): Promise<DockerSystemVersionResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'version'
@@ -1095,7 +1095,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async ping(): Promise<PingResponse> {
+  public async ping(): Promise<DockerSystemPingResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'ping'
@@ -1104,7 +1104,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async pingHead(): Promise<PingResponse> {
+  public async pingHead(): Promise<DockerSystemPingResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'HEAD',
       path: 'ping'
@@ -1113,7 +1113,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async event(params?: { query?: EventQuery }): Promise<EventResponse> {
+  public async event(params?: { query?: DockerSystemEventQuery }): Promise<DockerSystemEventResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'events',
@@ -1123,7 +1123,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async systemDf(params?: { query?: SystemDfQuery }): Promise<SystemDfResponse> {
+  public async systemDf(params?: { query?: DockerSystemDfQuery }): Promise<DockerSystemDfResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'system/df',
@@ -1137,7 +1137,7 @@ export class Docker {
   // Distribution Section
   // ====================
 
-  public async distribution(params: { id: string }): Promise<DistributionResponse> {
+  public async distribution(params: { id: string }): Promise<DockerDistributionResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'distribution/' + params.id + '/json',
