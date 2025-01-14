@@ -16,13 +16,13 @@ Docker SDK adalah alat untuk terhubung dengan Docker engine melalui Node.js. You
 Installation using NPM
 
 ``` bash
-npm i node-docker-sdk
+npm i @bitcodenetwork/dockersdk
 ```
 
 Installation using Yarn
 
 ``` bash
-npm add node-docker-sdk
+npm add @bitcodenetwork/dockersdk
 ```
 
 **Create Object**
