@@ -19,7 +19,7 @@ export type DockerContainerInspectQuery = {
  * Docker container inspect response
  */
 
-export type ContainerInspectResponse = {
+export type DockerContainerInspectResponse = {
   Id: string;
   Created: string;
   Path: string;

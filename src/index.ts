@@ -9,7 +9,7 @@ import { DockerContainerAttachQuery } from './types/container-attach';
 import { DockerContainerChangeProp, DockerContainerChangeResponse } from './types/container-change';
 import { DockerContainerCreateProp, DockerContainerCreateResponse } from './types/container-create';
 import { DockerContainerExtractQuery } from './types/container-extract';
-import { ContainerInspectResponse, DockerContainerInspectProp } from './types/container-inspect';
+import { DockerContainerInspectProp, DockerContainerInspectResponse } from './types/container-inspect';
 import { DockerContainerKillQuery } from './types/container-kill';
 import { DockerContainerLogProp } from './types/container-log';
 import { DockerContainerPruneQuery, DockerContainerPruneResponse } from './types/container-prune';
@@ -94,7 +94,7 @@ import { DockerVolumeRemoveQuery } from './types/volume-remove';
 import { DockerVolumeUpdateBody, DockerVolumeUpdateQuery } from './types/volume-update';
 import { ConnectOptions, Utils } from './utils';
 
-export class Docker {
+class Docker {
   constructor() {
     // Get the socket path from the environment
     if (process.env.DOCKER_HOST) {
@@ -154,7 +154,7 @@ export class Docker {
     return await Utils.connect(options);
   }
 
-  public async containerInspect(params: DockerContainerInspectProp): Promise<ContainerInspectResponse> {
+  public async containerInspect(params: DockerContainerInspectProp): Promise<DockerContainerInspectResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'containers/' + params.id + '/json',
@@ -1239,3 +1239,5 @@ export class Docker {
     return await Utils.connect(options);
   }
 }
+
+export default Docker;
