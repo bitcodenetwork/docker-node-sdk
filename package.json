@@ -23,7 +23,7 @@
     "container"
   ],
   "author": "Bit Code Network",
-  "license": "MIT",
+  "license": "Apache-2.0 license",
   "bugs": {
     "url": "https://github.com/bitcodenetwork/dockersdk/issues"
   },
