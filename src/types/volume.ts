@@ -81,7 +81,7 @@ export type DockerVolumeResponse = {
     Options: {
       [key: string]: string;
     }
-    UsageData: {
+    UsageData?: {
       Size: number;
       RefCount: number;
     }

@@ -107,7 +107,7 @@ export type DockerVolumeCreateResponse = {
   Options: {
     [key: string]: string;
   }
-  UsageData: {
+  UsageData?: {
     Size: number;
     RefCount: number;
   }
