@@ -86,7 +86,7 @@ import { DockerSystemVersionResponse } from './types/system-version';
 import { DockerTaskQuery, DockerTaskResponse } from './types/task';
 import { DockerTaskInspectResponse } from './types/task-inspect';
 import { DockerTaskLogQuery } from './types/task-log';
-import { DockerVolumeListQuery, DockerVolumeListResponse } from './types/volume';
+import { DockerVolumeQuery, DockerVolumeResponse } from './types/volume';
 import { DockerVolumeCreateBody, DockerVolumeCreateResponse } from './types/volume-create';
 import { DockerVolumeInspectResponse } from './types/volume-inspect';
 import { DockerVolumePruneQuery, DockerVolumePruneResponse } from './types/volume-prune';
@@ -615,7 +615,7 @@ class Docker {
   // Docker Volume Section
   // =====================
 
-  public async volume(params?: { query?: DockerVolumeListQuery }): Promise<DockerVolumeListResponse> {
+  public async volume(params?: { query?: DockerVolumeQuery }): Promise<DockerVolumeResponse> {
     const options: ConnectOptions = this.createRequestOption({
       method: 'GET',
       path: 'volumes',
