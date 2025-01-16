@@ -32,33 +32,46 @@ export class Utils {
         options.path = `${options.path}?${urlParams}`;
       }
 
-      const clientRequest: ClientRequest = request({
+      const config: RequestOptions = {
         method: options.method,
         path: options.path,
         socketPath: options.socketPath,
         headers: headers,
         timeout: 60000
-      } as RequestOptions, (res) => {
-        let rawData = '';
-        res.setEncoding('utf8');
-        res.on('data', (chunk) => {
-          rawData += chunk;
-        });
-        res.on('end', () => {
-          if (res.statusCode !== 200) {
-            reject(new Error(rawData));
-            return;
-          }
-          resolve(JSON.parse(rawData));
-        });
-      });
+      }
 
-      clientRequest.on('error', (e) => {
-        reject(e);
+      const clientRequest: ClientRequest = request(config, (res) => {
+        // reject on bad status
+        if (!res.statusCode || res.statusCode < 200 || res.statusCode >= 400) {
+          return reject(new Error("Bad response status: " + res.statusCode));
+        }
+
+        // cumulate data
+        let body: string = "";
+
+        res.setEncoding('utf8');
+
+        res.on('data', (chunk) => body += chunk);
+
+        res.on('end', () => {
+          let responseBody;
+
+          try {
+            responseBody = body ? JSON.parse(body) : undefined;
+          } catch (error) {
+            return reject(error);
+          }
+
+          resolve(responseBody);
+        });
       });
 
       // Send the POST data
       clientRequest.write(options.body);
+
+      clientRequest.on('error', (e) => {
+        reject(e);
+      });
 
       clientRequest.end();
     });
