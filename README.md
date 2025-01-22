@@ -2,8 +2,8 @@
 
 Node.js Docker SDK **BETA**
 
-> 📣 **Important, we are under development!**\
-> This package is still under development, and is not ready and not recommended for use in production mode!
+> 📣 **BETA Version**\
+> This package is still in BETA, there may still be bugs. Please report any bugs to [GitHub](https://github.com/bitcodenetwork/node-docker/issues)
 
 ---
 
