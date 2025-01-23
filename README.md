@@ -3,7 +3,7 @@
 Node.js Docker SDK **BETA**
 
 > 📣 **BETA Version**\
-> This package is still in BETA, there may still be bugs. Please report any bugs to [GitHub](https://github.com/bitcodenetwork/node-docker/issues)
+> This package is still in BETA, there may still be bugs. Please report any bugs to [GitHub](https://github.com/repoxcode/node-docker/issues)
 
 ---
 
@@ -16,13 +16,13 @@ Docker SDK adalah alat untuk terhubung dengan Docker engine melalui Node.js. You
 Installation using NPM
 
 ``` bash
-npm i @bitcodenetwork/dockersdk
+npm i @repoxcode/docker
 ```
 
 Installation using Yarn
 
 ``` bash
-npm add @bitcodenetwork/dockersdk
+npm add @repoxcode/docker
 ```
 
 **Create Object**
